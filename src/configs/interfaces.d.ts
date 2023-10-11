@@ -3,7 +3,7 @@ interface HttpResponse {
   message: string
 }
 
-interface HttpResponseData extends HttpResponse {
+interface HttpResponseWithData extends HttpResponse {
   data: any
 }
 

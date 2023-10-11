@@ -1,19 +1,40 @@
-import { Outlet, createBrowserRouter, Navigate } from "react-router-dom"
-import { publicRoutes } from "@configs/routes"
+import { createBrowserRouter, Navigate } from "react-router-dom"
+import { privateRoutes, publicRoutes } from "@configs/routes"
+import { lazy } from "react"
+
+// views
+
+// layouts
+const PublicLayout = lazy(() => import("@layouts/PublicLayout"))
+const PrivateLayout = lazy(() => import("@layouts/PrivateLayout"))
 
 export const Router = createBrowserRouter([
   {
     path: "/",
-    element: <Outlet />,
+    element: <PrivateLayout />,
     children: [
       {
         index: true,
-        element: <Navigate to={publicRoutes.login} />,
+        element: <Navigate to={privateRoutes.home} />,
       },
       {
-        path: publicRoutes.login,
-        element: "Login",
+        path: privateRoutes.home,
+        element: "HOME VIEW",
       },
     ],
+  },
+  {
+    path: "/",
+    element: <PublicLayout />,
+    children: [
+      {
+        path: publicRoutes.login,
+        element: "LOGIN VIEW",
+      },
+    ],
+  },
+  {
+    path: publicRoutes.renew,
+    element: "RENEW VIEW",
   },
 ])

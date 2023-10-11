@@ -7,6 +7,7 @@ export function useForm<T extends object>(props: UseFormProps<T>) {
     return {
       ...innerRegister(name, options),
       errorMessage: reactHookForm.formState.errors[name]?.message ?? "",
+      // TODO: esta control de mensajes de error es para next-ui, cambiar dependiente de la implamentacion
     }
   }
 

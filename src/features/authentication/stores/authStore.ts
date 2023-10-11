@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { apiErrorMessage } from "@configs/api"
-import { sleep } from "@utils/funcitons.util"
+import { sleep } from "@utils/functions.util"
 import { removeAuthToken } from "@utils/localStorage.util"
 
 interface Login {
