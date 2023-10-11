@@ -4,6 +4,10 @@ export const {
   VITE_LAST_VISITED_URL: LAST_VISITED_URL = "",
 } = import.meta.env
 
-export const CONSTANT = {
+export const CONSTANTS = {
   TOKEN_REQUIRED: "TokenRequired",
+}
+
+export const MESSAGES = {
+  UNEXPECTED_ERROR: "Error inesperado",
 }

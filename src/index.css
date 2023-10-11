@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.Toastify__toast-icon {
+  height: 30px;
+  width: 30px;
+}
+
+.Toastify__progress-bar--info {
+  @apply bg-blue-600;
+}
+.Toastify__progress-bar--success {
+  @apply bg-green-500;
+}
+.Toastify__progress-bar--warning {
+  @apply bg-orange-500;
+}
+.Toastify__progress-bar--error {
+  @apply bg-red-600;
+}

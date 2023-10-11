@@ -1,7 +1,7 @@
 import { Outlet, createBrowserRouter, Navigate } from "react-router-dom"
-import { publicRoutes } from "@configs/index"
+import { publicRoutes } from "@configs/routes"
 
-export const router = createBrowserRouter([
+export const Router = createBrowserRouter([
   {
     path: "/",
     element: <Outlet />,
