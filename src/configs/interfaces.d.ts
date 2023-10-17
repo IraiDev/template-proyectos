@@ -12,3 +12,9 @@ interface Column {
   content: string
   align: Align
 }
+
+interface AsyncStoreController {
+  successFn?(props: HttpResponse): void
+  errorFn?(message: string): void
+  finallyFn?(): void
+}
