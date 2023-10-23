@@ -1,7 +1,11 @@
 import { useForm as useReactHookForm, UseFormProps, RegisterOptions, Path } from "react-hook-form"
 
 export function useForm<T extends object>(props: UseFormProps<T>) {
-  const { register: innerRegister, ...reactHookForm } = useReactHookForm(props)
+  const {
+    register: innerRegister,
+    control: innerControl,
+    ...reactHookForm
+  } = useReactHookForm(props)
 
   function register(name: Path<T>, options: RegisterOptions | undefined = {}) {
     return {
@@ -11,8 +15,17 @@ export function useForm<T extends object>(props: UseFormProps<T>) {
     }
   }
 
+  function control(name: Path<T>) {
+    return {
+      name,
+      control: innerControl,
+      errorMessage: innerControl._formState.errors[name]?.message,
+    }
+  }
+
   return {
     ...reactHookForm,
     register,
+    control,
   }
 }

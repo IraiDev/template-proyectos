@@ -1,23 +1,17 @@
 import { create } from "zustand"
 import { apiErrorMessage } from "@configs/api"
 import { sleep } from "@utils/functions.util"
-import { removeAuthToken } from "@utils/localStorage.util"
+import { removeAuthTokenFromLocalStorage } from "@utils/localStorage.util"
 
-interface Login {
-  successFn?(props: HttpResponse): void
-  errorFn?(message: string): void
-  finallyFn?(): void
-}
-
-type Renew = Pick<Login, "successFn" | "errorFn">
-type Logout = Pick<Login, "successFn">
+type Renew = Pick<AsyncStoreController, "successFn" | "errorFn">
+type Logout = Pick<AsyncStoreController, "successFn">
 
 interface State {
   authentication: AuthStates
 }
 
 interface Actions {
-  login(props: Login): void
+  login(props: AsyncStoreController): void
   renew(props: Renew): void
   logout(props: Logout): void
 }
@@ -56,7 +50,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
   },
   logout: ({ successFn }: Logout) => {
     set(initialState)
-    removeAuthToken()
+    removeAuthTokenFromLocalStorage()
     successFn?.({ message: "Sesión cerrada", ok: true })
   },
 }))

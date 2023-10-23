@@ -2,7 +2,7 @@ import { useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "@features/authentication/stores"
 import { privateRoutes } from "@configs/routes"
-import { hasToken } from "@utils/localStorage.util"
+import { hasAuthToken } from "@utils/localStorage.util"
 import { useToast } from "@utils/hooks"
 
 export function useRenewSession() {
@@ -12,9 +12,7 @@ export function useRenewSession() {
   const { warningToast, errorToast, successToast } = useToast()
 
   useLayoutEffect(() => {
-    const hasAuthToken = hasToken()
-
-    if (hasAuthToken && authentication === "NOT-AUTHENTICATED") {
+    if (hasAuthToken() && authentication === "NOT-AUTHENTICATED") {
       renew({
         successFn: ({ ok, message }) => {
           if (!ok) {

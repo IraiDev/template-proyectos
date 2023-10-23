@@ -1,6 +1,6 @@
+import { lazy } from "react"
 import { createBrowserRouter, Navigate } from "react-router-dom"
 import { privateRoutes, publicRoutes } from "@configs/routes"
-import { lazy } from "react"
 
 // views
 

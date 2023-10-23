@@ -1,15 +1,15 @@
 import { TOKEN_KEY } from "./constants.util"
 
-export function setTokenInLocalStorage(token: string) {
+export function saveAuthTokenInLocalStorage(token: string) {
   if (!token) return
   window.localStorage.setItem(TOKEN_KEY, token)
 }
 
-export function removeAuthToken() {
+export function removeAuthTokenFromLocalStorage() {
   window.localStorage.removeItem(TOKEN_KEY)
 }
 
-export function hasToken(): boolean {
+export function hasAuthToken(): boolean {
   const token = window.localStorage.getItem(TOKEN_KEY)
 
   return !!token
