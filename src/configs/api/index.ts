@@ -1,3 +1,3 @@
 export * from "./api"
-export * from "./apiErrorHandler.api"
-export * from "./apiErrorMessage.api"
+export * from "./apiErrorHandler"
+export * from "./apiErrorMessage"
