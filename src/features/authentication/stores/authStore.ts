@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { apiErrorMessage } from "@configs/api"
-import { sleep } from "@utils/functions.util"
-import { removeAuthTokenFromLocalStorage } from "@utils/localStorage.util"
+import { sleep } from "@utils/utilitiesFunctions"
+import { removeAuthTokenFromLocalStorage } from "@utils/localStorageUtilities"
 
 type Renew = Pick<AsyncStoreController, "successFn" | "errorFn">
 type Logout = Pick<AsyncStoreController, "successFn">

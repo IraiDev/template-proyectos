@@ -1,5 +1,5 @@
 import axios from "axios"
-import { MESSAGES } from "./constants.util"
+import { MESSAGES } from "./constants"
 
 const { UNEXPECTED_ERROR } = MESSAGES
 

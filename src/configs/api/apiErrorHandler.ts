@@ -1,4 +1,4 @@
-import { MESSAGES } from "@utils/constants.util"
+import { MESSAGES } from "@utils/constants"
 
 const { UNEXPECTED_ERROR } = MESSAGES
 

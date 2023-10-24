@@ -20,6 +20,7 @@ export function useForm<T extends object>(props: UseFormProps<T>) {
       name,
       control: innerControl,
       errorMessage: innerControl._formState.errors[name]?.message,
+      // TODO: este control de mensajes de error es para next-ui, cambiar dependiendo de la implamentacion
     }
   }
 

@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from "./constants.util"
+import { TOKEN_KEY } from "./constants"
 
 export function saveAuthTokenInLocalStorage(token: string) {
   if (!token) return

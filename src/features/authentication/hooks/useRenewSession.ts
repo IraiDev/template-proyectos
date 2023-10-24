@@ -2,7 +2,7 @@ import { useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "@features/authentication/stores"
 import { privateRoutes } from "@configs/routes"
-import { hasAuthToken } from "@utils/localStorage.util"
+import { hasAuthToken } from "@utils/localStorageUtilities"
 import { useToast } from "@utils/hooks"
 
 export function useRenewSession() {
