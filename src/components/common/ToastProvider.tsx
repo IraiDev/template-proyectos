@@ -1,3 +1,4 @@
+import { cn } from "@nextui-org/react"
 import {
   IconAlertTriangle,
   IconBellRinging,
@@ -6,7 +7,6 @@ import {
   IconInfoCircle,
   IconX,
 } from "@tabler/icons-react"
-import { twJoin } from "tailwind-merge"
 import { ToastContainer, TypeOptions } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
@@ -21,7 +21,7 @@ const Icons: Record<TypeOptions, React.ReactNode> = {
 export function ToastProvider() {
   return (
     <ToastContainer
-      toastClassName={twJoin(
+      toastClassName={cn(
         "relative flex p-1 min-h-10 rounded-large justify-between overflow-hidden cursor-pointer my-2",
         "bg-default-100 text-default-900",
       )}
@@ -29,7 +29,7 @@ export function ToastProvider() {
       icon={({ type }) => Icons[type]}
       closeButton={
         <button
-          className={twJoin(
+          className={cn(
             "text-inherit h-6 w-6 rounded-small grid place-content-center",
             "transition-colors hover:text-default-500",
           )}>

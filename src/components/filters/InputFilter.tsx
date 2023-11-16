@@ -1,17 +1,19 @@
 import { FocusEvent, FormEvent } from "react"
+import { IconFilterSearch } from "@tabler/icons-react"
+import { Input } from "@components/form"
 import { useSearchParams } from "@utils/hooks"
 import sp from "@configs/searchParams"
 
 const { page } = sp
 
 interface Props {
+  label: string
   name: string
-  label?: string
-  className?: string
   isLoading?: boolean
+  className?: string
 }
 
-export function InputFilter({ name, className = "max-w-xs w-full" }: Props) {
+export function InputFilter({ label, name, className = "max-w-xs w-full", isLoading }: Props) {
   const { searchParams, setSearchParams, getSearchParam } = useSearchParams()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -44,11 +46,16 @@ export function InputFilter({ name, className = "max-w-xs w-full" }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className={className}>
-      <input
+      <Input
         name={name}
+        label={label}
+        isDisabled={isLoading}
+        size="sm"
         className="w-full"
         autoCapitalize="off"
+        labelPlacement="inside"
         placeholder="filtrar..."
+        endContent={<IconFilterSearch size={15} />}
         defaultValue={getSearchParam(name, "").toString()}
         onBlur={handleFilterOnBlur}
       />

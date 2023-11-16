@@ -1,21 +1,23 @@
 import { ChangeEvent, useState } from "react"
 import { Path } from "react-hook-form"
 import { useSearchParams } from "@utils/hooks"
+import { Select } from "@components/form"
 import sp from "@configs/searchParams"
 
 const { page } = sp
 
 interface Props<T extends object> {
-  name: Path<T>
-  label?: string
   options: Option[]
   isLoading: boolean
-  className?: string
+  name: Path<T>
+  label: string
   defaultValue?: string
+  className?: string
 }
 
 export function SelectFilter<T extends object>({
   name,
+  label,
   options,
   isLoading,
   className = "w-full max-w-[130px]",
@@ -35,18 +37,16 @@ export function SelectFilter<T extends object>({
   }
   return (
     <div className={className}>
-      <select
+      <Select
+        size="sm"
         value={key}
         name={name}
+        label={label}
+        options={options}
         disabled={isLoading}
         onChange={handleChange}
-        className="w-full">
-        {options.map(({ key, label }) => (
-          <option key={key} value={key}>
-            {label}
-          </option>
-        ))}
-      </select>
+        className="w-full"
+      />
     </div>
   )
 }

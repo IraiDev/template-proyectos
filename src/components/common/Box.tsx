@@ -1,5 +1,5 @@
 import { createElement } from "react"
-import { twMerge } from "tailwind-merge"
+import { cn } from "@nextui-org/react"
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   as: keyof JSX.IntrinsicElements
@@ -11,7 +11,7 @@ export function Box({ as = "div", children, className, ...props }: Partial<Props
   return createElement(
     as,
     {
-      className: twMerge(
+      className: cn(
         "bg-background-50 p-4 rounded-large shadow-lg shadow-background-700/10",
         className,
       ),

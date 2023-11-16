@@ -1,5 +1,5 @@
+import { cn } from "@nextui-org/react"
 import { IconSearch } from "@tabler/icons-react"
-import { twJoin } from "tailwind-merge"
 
 interface Props {
   label: string
@@ -10,7 +10,7 @@ interface Props {
 export function FilterFieldAccessory({ iconSize = 17, icon, label }: Props) {
   return (
     <div
-      className={twJoin(
+      className={cn(
         "flex items-center h-[70%] rounded-small px-2 pr-2.5 gap-1.5",
         "bg-foreground-200 text-foreground-600 transition-colors",
         "group-hover:bg-slate-600 group-hover:text-slate-200",
