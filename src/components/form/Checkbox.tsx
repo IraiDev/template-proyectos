@@ -1,4 +1,5 @@
-import { Checkbox as NextCheckbox, CheckboxProps, extendVariants } from "@nextui-org/react"
+import React from "react"
+import { CheckboxProps, Checkbox as NextCheckbox } from "@nextui-org/react"
 import { Control, Controller, Path } from "react-hook-form"
 
 interface Props<T extends object> extends CheckboxProps {
@@ -8,25 +9,28 @@ interface Props<T extends object> extends CheckboxProps {
   control: Control<T>
 }
 
-export function Checkbox<T extends object>({ control, ...props }: Partial<Props<T>>) {
+export const Checkbox = React.forwardRef(function <T extends object>(
+  { control, ...props }: Partial<Props<T>>,
+  ref: React.ForwardedRef<HTMLLabelElement>,
+) {
   if (control && props.name) {
     return (
       <Controller
         name={props.name}
         control={control}
         render={({ field: { value, ...field } }) => (
-          <MyCheckbox {...props} {...field} isSelected={value} />
+          <CustomCheckbox {...props} {...field} isSelected={value} />
         )}
       />
     )
   }
 
-  return <MyCheckbox {...props} isSelected={props.checked} />
-}
+  return <CustomCheckbox ref={ref} {...props} isSelected={props.checked} />
+})
 
-const MyCheckbox = extendVariants(NextCheckbox, {
-  defaultVariants: {
-    size: "md",
-    color: "primary",
-  },
+const CustomCheckbox = React.forwardRef(function (
+  props: CheckboxProps,
+  ref: React.ForwardedRef<HTMLLabelElement>,
+) {
+  return <NextCheckbox ref={ref} {...props} />
 })

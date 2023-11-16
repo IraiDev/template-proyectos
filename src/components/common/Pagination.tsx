@@ -1,15 +1,19 @@
-import { Pagination as NextPagination, PaginationProps, extendVariants } from "@nextui-org/react"
+import React from "react"
+import { Pagination as NextPagination, PaginationProps } from "@nextui-org/react"
 
-export function Pagination(props: PaginationProps) {
-  return <MyPagination {...props} />
-}
-
-const MyPagination = extendVariants(NextPagination, {
-  defaultVariants: {
-    size: "md",
-    isCompact: "true",
-    showControls: "true",
-    initialPage: 1,
-    showShadow: "true",
-  },
+export const Pagination = React.forwardRef(function (
+  props: PaginationProps,
+  ref: React.ForwardedRef<HTMLDivElement>,
+) {
+  return (
+    <NextPagination
+      ref={ref}
+      size="md"
+      isCompact
+      showShadow
+      showControls
+      initialPage={1}
+      {...props}
+    />
+  )
 })

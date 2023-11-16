@@ -1,8 +1,9 @@
-import { Chip as NextChip, extendVariants } from "@nextui-org/react"
+import React from "react"
+import { Chip as NextChip, ChipProps } from "@nextui-org/react"
 
-export const Chip = extendVariants(NextChip, {
-  defaultVariants: {
-    variant: "flat",
-    size: "sm",
-  },
+export const Chip = React.forwardRef(function (
+  props: ChipProps,
+  ref: React.ForwardedRef<HTMLDivElement>,
+) {
+  return <NextChip ref={ref} variant="flat" size="sm" {...props} />
 })

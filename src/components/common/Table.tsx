@@ -14,7 +14,7 @@ interface Props extends TableProps {
   children: any
 }
 
-export function Table({ columns = [], children, bodyProps, ...props }: Props) {
+export function Table({ columns = [], children, bodyProps, classNames, ...props }: Props) {
   return (
     <NextTable
       isStriped
@@ -23,13 +23,13 @@ export function Table({ columns = [], children, bodyProps, ...props }: Props) {
       topContentPlacement="outside"
       shadow="none"
       layout="fixed"
-      {...props}
       classNames={{
         base: "max-h-[calc(100vh-17px-17px-17px-17px-17px-17px-172px)]",
         thead: "-top-4",
         th: "!bg-default-200",
-        ...props.classNames,
-      }}>
+        ...classNames,
+      }}
+      {...props}>
       <TableHeader>
         {columns.map(({ content, key, ...rest }, idx) => (
           <TableColumn
