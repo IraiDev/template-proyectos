@@ -10,6 +10,12 @@ export function sleep(seconds: number | undefined = 1) {
   })
 }
 
-export function createGoogleMapUrl(latitude: string, longitude: string) {
-  return `https://www.google.com/maps?q=${latitude},${longitude}`
+type SplitStringByType = number | undefined
+
+export function splitStringBy(str: string, char: string, returnPosition: SplitStringByType = 0) {
+  return str.split(char)[returnPosition] ?? ""
+}
+
+export function isEmptyObject<T extends object>(object: T) {
+  return Object.keys(object).length === 0
 }

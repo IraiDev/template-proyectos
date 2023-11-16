@@ -1,2 +1,3 @@
 type AuthStates = "AUTHENTICATED" | "NOT-AUTHENTICATED" | "VALIDATING"
-type Align = "text-center" | "text-right" | "text-left"
+type Align = "center" | "start" | "end"
+type Size = "lg" | "md" | "sm"

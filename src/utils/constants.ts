@@ -11,3 +11,5 @@ export const CONSTANTS = {
 export const MESSAGES = {
   UNEXPECTED_ERROR: "Error inesperado",
 }
+
+export const DEFAULT_ICON_SIZE = 20

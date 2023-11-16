@@ -17,6 +17,7 @@ export default defineConfig({
       "@router": path.resolve(__dirname, "src/router"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@views": path.resolve(__dirname, "src/views"),
+      "@mocks": path.resolve(__dirname, "src/mocks"),
     },
   },
 })

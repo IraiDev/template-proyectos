@@ -1,32 +1,32 @@
-import { ChangeEvent } from "react"
-import { Path, SubmitHandler } from "react-hook-form"
-import { useForm, useSearchParams } from "@utils/hooks"
+import { FocusEvent, FormEvent } from "react"
+import { useSearchParams } from "@utils/hooks"
 import sp from "@configs/searchParams"
 
 const { page } = sp
 
-interface Props<T extends object> {
-  label: string
-  name: Path<T>
-  isLoading: boolean
+interface Props {
+  name: string
+  label?: string
+  className?: string
+  isLoading?: boolean
 }
 
-export function InputFilter<T extends object>({ name, isLoading }: Props<T>) {
+export function InputFilter({ name, className = "max-w-xs w-full" }: Props) {
   const { searchParams, setSearchParams, getSearchParam } = useSearchParams()
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      [name]: getSearchParam(name),
-    },
-  })
 
-  const onSubmit: SubmitHandler<Record<string, any>> = (values) => {
-    const isEmpty = values[name].length === 0
-    isEmpty ? searchParams.delete(name) : searchParams.set(name, values[name])
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const { [name]: input } = e.target as HTMLFormElement
+    const isEmpty = input.value.length === 0
+
+    isEmpty ? searchParams.delete(input.name) : searchParams.set(input.name, input.value)
     searchParams.set(page.query, page.default)
+
     setSearchParams(searchParams)
   }
 
-  const handleFilterOnBlur = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFilterOnBlur = (e: FocusEvent<any>) => {
     const value = e.target.value
     const name = e.target.name
 
@@ -43,12 +43,14 @@ export function InputFilter<T extends object>({ name, isLoading }: Props<T>) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center w-full">
+    <form onSubmit={handleSubmit} className={className}>
       <input
-        disabled={isLoading}
+        name={name}
+        className="w-full"
         autoCapitalize="off"
-        placeholder="Filtrar:"
-        {...register(name, { onBlur: handleFilterOnBlur })}
+        placeholder="filtrar..."
+        defaultValue={getSearchParam(name, "").toString()}
+        onBlur={handleFilterOnBlur}
       />
       <input hidden type="submit" />
     </form>

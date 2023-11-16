@@ -11,6 +11,9 @@ interface Column {
   key: string
   content: string
   align: Align
+  width?: number
+  hidden?: boolean
+  sticky?: boolean
 }
 
 interface Option {

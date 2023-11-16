@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { RouterProvider } from "react-router-dom"
-import { ToastProvider } from "@components/shared"
+import { ToastProvider } from "@components/common"
 import { Router } from "@router/Router"
 
 export default function App() {
