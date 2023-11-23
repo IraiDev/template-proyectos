@@ -3,6 +3,18 @@ import { toast } from "react-toastify"
 
 const DEFAULT_SECONDS = 6
 
+interface Config {
+  pending?: string
+  success?: string
+  error?: string
+}
+
+const defaultConfig: Config = {
+  pending: "Cargando...",
+  success: "Descargado con exito",
+  error: "Error en la descarga",
+}
+
 export function useToast() {
   const successToast = useCallback((message: string) => {
     toast.success(message)
@@ -26,19 +38,18 @@ export function useToast() {
     [],
   )
 
-  const apiResponseToast = useCallback(({ message, ok }: HttpResponse) => {
-    if (ok) {
-      toast.success(message)
-      return
-    }
-    toast.warning(message, { autoClose: DEFAULT_SECONDS * 1000 })
-  }, [])
+  const loadingToast = useCallback(
+    <T>(promise: Promise<T>, config: Config | undefined = defaultConfig): Promise<T> => {
+      return toast.promise(promise, config)
+    },
+    [],
+  )
 
   return {
     infoToast,
     errorToast,
     successToast,
     warningToast,
-    apiResponseToast,
+    loadingToast,
   }
 }
