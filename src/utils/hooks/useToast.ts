@@ -1,7 +1,25 @@
 import { useCallback } from "react"
-import { toast } from "react-toastify"
+import { TypeOptions, toast } from "react-toastify"
 
 const DEFAULT_SECONDS = 6
+
+interface Config {
+  pending?: string
+  success?: string
+  error?: string
+}
+
+interface LoadingToastProps<T extends object> {
+  resolve: Promise<T & { type: TypeOptions }>
+  config?: Config
+  render?(props: T, dismis: () => void): React.ReactNode | undefined
+}
+
+const defaultConfig: Config = {
+  pending: "Cargando...",
+  success: "Descargado con exito",
+  error: "Error en la descarga",
+}
 
 export function useToast() {
   const successToast = useCallback((message: string) => {
@@ -26,19 +44,30 @@ export function useToast() {
     [],
   )
 
-  const apiResponseToast = useCallback(({ message, ok }: HttpResponse) => {
-    if (ok) {
-      toast.success(message)
-      return
-    }
-    toast.warning(message, { autoClose: DEFAULT_SECONDS * 1000 })
-  }, [])
+  const loadingToast = useCallback(
+    async <T extends object>({
+      resolve,
+      config = defaultConfig,
+      render,
+    }: LoadingToastProps<T>): Promise<T> => {
+      const toasId = toast.loading(config.pending)
+      const result = await resolve
+      toast.update(toasId, {
+        render:
+          render?.(result, () => toast.dismiss(toasId)) ?? config.success ?? defaultConfig.success,
+        type: result.type,
+      })
+
+      return result
+    },
+    [],
+  )
 
   return {
     infoToast,
     errorToast,
     successToast,
     warningToast,
-    apiResponseToast,
+    loadingToast,
   }
 }
