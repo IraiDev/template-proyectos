@@ -18,7 +18,7 @@ const Icons: Record<TypeOptions, React.ReactNode> = {
 }
 
 const toastStyles: Record<TypeOptions, string> = {
-  default: "bg-default-100 text-default-600",
+  default: "bg-default-200 border-2 border-default-300 text-default-600",
   error: "bg-danger-100 text-danger-600",
   info: "bg-blue-100 text-blue-600",
   success: "bg-green-100 text-green-600",
@@ -43,7 +43,7 @@ export function ToastProvider() {
           toastStyles[props?.type ?? "default"],
         )
       }
-      bodyClassName="text-sm font-inherit p-3 flex gap-3"
+      bodyClassName="text-sm font-inherit p-3 flex gap-3 cursor-text"
       icon={({ type }) => Icons[type]}
       closeButton={({ type }) => (
         <button

@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { toast } from "react-toastify"
+import { TypeOptions, toast } from "react-toastify"
 
 const DEFAULT_SECONDS = 6
 
@@ -7,6 +7,12 @@ interface Config {
   pending?: string
   success?: string
   error?: string
+}
+
+interface LoadingToastProps<T extends object> {
+  resolve: Promise<T & { type: TypeOptions }>
+  config?: Config
+  render?(props: T, dismis: () => void): React.ReactNode | undefined
 }
 
 const defaultConfig: Config = {
@@ -39,8 +45,20 @@ export function useToast() {
   )
 
   const loadingToast = useCallback(
-    <T>(promise: Promise<T>, config: Config | undefined = defaultConfig): Promise<T> => {
-      return toast.promise(promise, config)
+    async <T extends object>({
+      resolve,
+      config = defaultConfig,
+      render,
+    }: LoadingToastProps<T>): Promise<T> => {
+      const toasId = toast.loading(config.pending)
+      const result = await resolve
+      toast.update(toasId, {
+        render:
+          render?.(result, () => toast.dismiss(toasId)) ?? config.success ?? defaultConfig.success,
+        type: result.type,
+      })
+
+      return result
     },
     [],
   )
