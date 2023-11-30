@@ -1,24 +1,27 @@
 import { cn } from "@nextui-org/react"
 
+type InnerSize = Size | "xs"
+
 interface Props {
-  tooltip?: string
   label: string
-  content?: string | number
+  tooltip?: string
+  size?: InnerSize
   defaultContent?: string
-  size?: Size
+  content?: string | number
 }
 
 export function TextItem({
   label,
   content,
-  defaultContent = "sin dato...",
-  size = "sm",
   tooltip,
+  size = "sm",
+  defaultContent = "sin dato...",
 }: Props) {
-  const sizes: Record<Size, string> = {
+  const sizes: Record<InnerSize, string> = {
     lg: "text-lg",
     md: "text-base",
     sm: "text-sm",
+    xs: "text-xs",
   }
 
   return (

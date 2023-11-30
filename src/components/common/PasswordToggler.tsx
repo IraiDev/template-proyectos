@@ -15,7 +15,7 @@ export function PasswordToggler({ children }: Props) {
       {children({
         type: show ? "text" : "password",
         Toggler: (
-          <button type="button" onClick={handleToggle} className="text-foreground-500">
+          <button type="button" onClick={handleToggle} className="text-default-500">
             {show ? <IconEyeOff size={DEFAULT_ICON_SIZE} /> : <IconEye size={DEFAULT_ICON_SIZE} />}
           </button>
         ),

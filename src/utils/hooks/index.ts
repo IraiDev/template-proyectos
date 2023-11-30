@@ -1,4 +1,5 @@
 export * from "./index"
+export * from "./useClipboard"
 export * from "./useForm"
 export * from "./usePagination"
 export * from "./useSearchParams"

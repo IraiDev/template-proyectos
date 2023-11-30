@@ -3,15 +3,15 @@ import { apiErrorMessage } from "@configs/api"
 import { sleep } from "@utils/utilitiesFunctions"
 import { removeAuthTokenFromLocalStorage } from "@utils/localStorageUtilities"
 
-type Renew = Pick<AsyncStoreController, "successFn" | "errorFn">
-type Logout = Pick<AsyncStoreController, "successFn">
+type Renew = Pick<StatusCallbacks, "successFn" | "errorFn">
+type Logout = Pick<StatusCallbacks, "successFn">
 
 interface State {
   authentication: AuthStates
 }
 
 interface Actions {
-  login(props: AsyncStoreController): void
+  login(props: StatusCallbacks): void
   renew(props: Renew): void
   logout(props: Logout): void
 }

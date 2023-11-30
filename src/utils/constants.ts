@@ -10,6 +10,7 @@ export const CONSTANTS = {
 
 export const MESSAGES = {
   UNEXPECTED_ERROR: "Error inesperado",
+  REQUEST_CANCELLED: "Solicitud cancelada",
 }
 
 export const DEFAULT_ICON_SIZE = 20

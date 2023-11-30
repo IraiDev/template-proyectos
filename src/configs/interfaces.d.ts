@@ -21,7 +21,7 @@ interface Option {
   key: string
 }
 
-interface AsyncStoreController {
+interface StatusCallbacks {
   successFn?(props: HttpResponse): void
   errorFn?(message: string): void
   finallyFn?(): void

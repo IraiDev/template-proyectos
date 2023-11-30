@@ -9,26 +9,24 @@ interface Props {
   isLoading?: boolean
 }
 
-export function usePagination({ total, isLoading }: Props) {
+export function usePagination({ total }: Props) {
   const [page, setPage] = useState(+pageQuery.default)
-  const { searchParams, setSearchParams, getSearchParam } = useSearchParams<"pagina">()
+  const { searchParams, setSearchParams, getSearchParam } = useSearchParams<"pagina" | "limite">()
 
   useEffect(() => {
-    setPage(+getSearchParam("pagina", "1"))
+    setPage(+getSearchParam("pagina", pageQuery.default))
   }, [getSearchParam])
 
-  const totalPages = Math.ceil((total || 1) / +getSearchParam("pagina", limit.default))
+  const totalPages = Math.ceil((total || 1) / +getSearchParam("limite", limit.default))
 
   const onChangePage = (value: number) => {
-    if (isLoading) return
-
     setPage(value)
     searchParams.set(pageQuery.query, value.toString())
     setSearchParams(searchParams)
   }
 
   const onPrevious = () => {
-    if (page === 1 || isLoading) return
+    if (page === 1) return
 
     const newPage = page - 1
     setPage(newPage)
@@ -37,7 +35,7 @@ export function usePagination({ total, isLoading }: Props) {
   }
 
   const onNext = () => {
-    if (page === totalPages || isLoading) return
+    if (page === totalPages) return
 
     const newPage = page + 1
     setPage(newPage)
