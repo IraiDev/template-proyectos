@@ -9,20 +9,20 @@ interface HttpResponseWithData extends HttpResponse {
 
 interface Column {
   key: string
-  content: string
   align: Align
   width?: number
+  content: string
   hidden?: boolean
   sticky?: boolean
 }
 
 interface Option {
-  label: string
   key: string
+  label: string
 }
 
 interface StatusCallbacks {
-  successFn?(props: HttpResponse): void
-  errorFn?(message: string): void
   finallyFn?(): void
+  errorFn?(message: string): void
+  successFn?(props: HttpResponse): void
 }

@@ -1,9 +1,9 @@
+import { API_BASE_URL, CONSTANTS, TOKEN_KEY } from "@utils/constants"
 import axios, { AxiosHeaders } from "axios"
-import { API_BASE_URL, TOKEN_KEY, CONSTANTS } from "@utils/constants"
 
 const HEADER_TOKEN_KEY = "x-token"
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: API_BASE_URL,
 })
 

@@ -1,15 +1,16 @@
+import { privateRoutes } from "@configs/routes"
+import { useAuthStore } from "@features/authentication/stores"
+import { useToast } from "@utils/hooks"
+import { hasAuthToken } from "@utils/localStorageUtilities"
 import { useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAuthStore } from "@features/authentication/stores"
-import { privateRoutes } from "@configs/routes"
-import { hasAuthToken } from "@utils/localStorageUtilities"
-import { useToast } from "@utils/hooks"
 
 export function useRenewSession() {
   const authentication = useAuthStore((state) => state.authentication)
   const renew = useAuthStore((state) => state.renew)
-  const navigate = useNavigate()
+
   const { warningToast, errorToast, successToast } = useToast()
+  const navigate = useNavigate()
 
   useLayoutEffect(() => {
     if (hasAuthToken() && authentication === "NOT-AUTHENTICATED") {
@@ -21,7 +22,7 @@ export function useRenewSession() {
           }
 
           successToast(message)
-          navigate("/" + privateRoutes.home, { replace: true })
+          navigate(`/${privateRoutes.home}`, { replace: true })
         },
         errorFn: (message) => {
           errorToast(message)

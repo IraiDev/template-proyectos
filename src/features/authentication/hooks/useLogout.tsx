@@ -9,7 +9,7 @@ export function useLogout() {
   const handleLogout = () => {
     logout({
       successFn: () => {
-        navigate("/" + publicRoutes.login, { replace: true })
+        navigate(`/${publicRoutes.login}`, { replace: true })
       },
     })
   }

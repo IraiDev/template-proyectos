@@ -1,7 +1,7 @@
-import { create } from "zustand"
 import { apiErrorMessage } from "@configs/api"
-import { sleep } from "@utils/utilitiesFunctions"
 import { removeAuthTokenFromLocalStorage } from "@utils/localStorageUtilities"
+import { sleep } from "@utils/utilitiesFunctions"
+import { create } from "zustand"
 
 type Renew = Pick<StatusCallbacks, "successFn" | "errorFn">
 type Logout = Pick<StatusCallbacks, "successFn">
