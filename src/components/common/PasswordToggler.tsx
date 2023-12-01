@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { useTogglePassword } from "@utils/hooks"
+import { useToggle } from "@utils/hooks"
 import { IconEye, IconEyeOff } from "@tabler/icons-react"
 import { DEFAULT_ICON_SIZE } from "@utils/constants"
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function PasswordToggler({ children }: Props) {
-  const [show, handleToggle] = useTogglePassword()
+  const [show, handleToggle] = useToggle()
 
   return (
     <>

@@ -30,14 +30,6 @@ export function isEmptyObject<T extends object>(object: T) {
   return Object.keys(object).length === 0
 }
 
-export function getArrayFromSearchParam<T extends string>(key: T) {
-  const currentURL = window.location.href
-  const url = new URL(currentURL)
-  const parametros = url.searchParams
-
-  return parametros.get(key)?.split(",") ?? []
-}
-
 export function resetAllStores() {
   // useLandStore.getState().reset()
   // useOptionsStore.getState().reset()

@@ -1,7 +1,7 @@
 import { MyInput } from "@components/form"
 import sp from "@configs/searchParams"
 import { IconFilterSearch } from "@tabler/icons-react"
-import { useSearchParams } from "@utils/hooks"
+import { useQueryParams } from "@utils/hooks"
 import { FocusEvent, FormEvent } from "react"
 
 const { page } = sp
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function InputFilter({ label, name, className = "max-w-xs w-full", isLoading }: Props) {
-  const { searchParams, setSearchParams, getSearchParam } = useSearchParams()
+  const { params, setParams, getParam } = useQueryParams()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -23,10 +23,10 @@ export function InputFilter({ label, name, className = "max-w-xs w-full", isLoad
     const { [name]: input } = e.target as HTMLFormElement
     const isEmpty = !input.value
 
-    isEmpty ? searchParams.delete(input.name) : searchParams.set(input.name, input.value)
-    searchParams.set(page.query, page.default)
+    isEmpty ? params.delete(input.name) : params.set(input.name, input.value)
+    params.set(page.query, page.default)
 
-    setSearchParams(searchParams)
+    setParams(params)
   }
 
   const handleFilterOnBlur = (e: FocusEvent<any>) => {
@@ -34,15 +34,15 @@ export function InputFilter({ label, name, className = "max-w-xs w-full", isLoad
     const name = e.target.name
 
     if (!value) {
-      searchParams.delete(name)
+      params.delete(name)
     } else {
-      searchParams.set(name, value)
+      params.set(name, value)
     }
 
-    if (searchParams.get(page.query) && value !== "") {
-      searchParams.set(page.query, page.default)
+    if (params.get(page.query) && value !== "") {
+      params.set(page.query, page.default)
     }
-    setSearchParams(searchParams)
+    setParams(params)
   }
 
   return (
@@ -58,7 +58,7 @@ export function InputFilter({ label, name, className = "max-w-xs w-full", isLoad
         placeholder="filtrar..."
         onBlur={handleFilterOnBlur}
         endContent={<IconFilterSearch size={15} />}
-        defaultValue={getSearchParam(name, "").toString()}
+        defaultValue={getParam(name, "").toString()}
       />
       <input hidden type="submit" />
     </form>

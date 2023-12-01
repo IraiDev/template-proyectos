@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { useSearchParams } from "."
-import searchParams from "@configs/searchParams"
+import { useQueryParams } from "."
+import params from "@configs/searchParams"
 
-const { limit, page: pageQuery } = searchParams
+const { limit, page: pageQuery } = params
 
 interface Props {
   total: number
@@ -11,18 +11,18 @@ interface Props {
 
 export function usePagination({ total }: Props) {
   const [page, setPage] = useState(+pageQuery.default)
-  const { searchParams, setSearchParams, getSearchParam } = useSearchParams<"pagina" | "limite">()
+  const { params, setParams, getParam } = useQueryParams<"pagina" | "limite">()
 
   useEffect(() => {
-    setPage(+getSearchParam("pagina", pageQuery.default))
-  }, [getSearchParam])
+    setPage(+getParam("pagina", pageQuery.default))
+  }, [getParam])
 
-  const totalPages = Math.ceil((total || 1) / +getSearchParam("limite", limit.default))
+  const totalPages = Math.ceil((total || 1) / +getParam("limite", limit.default))
 
   const onChangePage = (value: number) => {
     setPage(value)
-    searchParams.set(pageQuery.query, value.toString())
-    setSearchParams(searchParams)
+    params.set(pageQuery.query, value.toString())
+    setParams(params)
   }
 
   const onPrevious = () => {
@@ -30,8 +30,8 @@ export function usePagination({ total }: Props) {
 
     const newPage = page - 1
     setPage(newPage)
-    searchParams.set(pageQuery.query, newPage.toString())
-    setSearchParams(searchParams)
+    params.set(pageQuery.query, newPage.toString())
+    setParams(params)
   }
 
   const onNext = () => {
@@ -39,8 +39,8 @@ export function usePagination({ total }: Props) {
 
     const newPage = page + 1
     setPage(newPage)
-    searchParams.set(pageQuery.query, newPage.toString())
-    setSearchParams(searchParams)
+    params.set(pageQuery.query, newPage.toString())
+    setParams(params)
   }
 
   return {

@@ -1,6 +1,6 @@
 import { MySelect } from "@components/form"
 import sp from "@configs/searchParams"
-import { useSearchParams } from "@utils/hooks"
+import { useQueryParams } from "@utils/hooks"
 import { ChangeEvent } from "react"
 import { Path } from "react-hook-form"
 
@@ -23,15 +23,15 @@ export function SelectFilter<T extends object>({
   defaultValue = "",
   className = "w-full max-w-[130px]",
 }: Props<T>) {
-  const { searchParams, setSearchParams, getSearchParam } = useSearchParams()
+  const { params, setParams, getParam } = useQueryParams()
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
     const isEmpty = !value
 
-    isEmpty ? searchParams.delete(name) : searchParams.set(name, value)
-    searchParams.set(page.query, page.default)
-    setSearchParams(searchParams)
+    isEmpty ? params.delete(name) : params.set(name, value)
+    params.set(page.query, page.default)
+    setParams(params)
   }
 
   return (
@@ -44,8 +44,8 @@ export function SelectFilter<T extends object>({
         className="w-full"
         disabled={isLoading}
         onChange={handleChange}
-        value={getSearchParam(name, defaultValue)}
-        defaultSelectedKeys={[getSearchParam(name, defaultValue)]}
+        value={getParam(name, defaultValue)}
+        defaultSelectedKeys={[getParam(name, defaultValue)]}
       />
     </div>
   )
