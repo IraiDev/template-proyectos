@@ -10,8 +10,8 @@ export function TableLoader({ currentRows = 3, type = "spinner" }: Props) {
     return (
       <section
         className={cn(
-          "bg-background-50 p-2 rounded-full flex gap-2 items-center",
           "border border-default-300 ",
+          "bg-background-50 p-2 rounded-full flex gap-2 items-center",
           "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50",
         )}>
         <Spinner color="current" />

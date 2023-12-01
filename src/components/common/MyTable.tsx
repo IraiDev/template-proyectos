@@ -15,10 +15,10 @@ interface BodyProps extends Partial<TableBodyProps<Column>> {
 }
 
 interface Props extends TableProps {
-  columns: Column[]
-  bodyProps?: BodyProps
   children: any
+  columns: Column[]
   hasItems?: boolean
+  bodyProps?: BodyProps
 }
 
 export function MyTable({
@@ -64,10 +64,10 @@ export function MyTable({
         aria-label="Tabla"
         topContentPlacement="outside"
         classNames={{
-          base: "max-h-[calc(100vh-17px-17px-17px-17px-17px-17px-172px)]",
           thead: "-top-4",
           th: "!bg-default-200",
           emptyWrapper: "h-20 italic",
+          base: "max-h-[calc(100vh-17px-17px-17px-17px-17px-17px-172px)]",
           ...classNames,
         }}
         {...props}>

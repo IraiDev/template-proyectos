@@ -1,7 +1,7 @@
 import { Button, ButtonProps, cn } from "@nextui-org/react"
 import React from "react"
 
-interface Props extends ButtonProps {
+interface Props extends Omit<ButtonProps, "ref"> {
   ref?: React.RefObject<HTMLButtonElement>
 }
 

@@ -1,7 +1,7 @@
 import React from "react"
 import { Modal, ModalProps, ModalContent, ModalHeader } from "@nextui-org/react"
 
-interface Props extends Omit<ModalProps, "title" | "as"> {
+interface Props extends Omit<ModalProps, "title" | "as" | "ref"> {
   ref?: React.RefObject<HTMLDivElement>
   onSubmit?(e: React.FormEvent): void
   as?: keyof JSX.IntrinsicElements

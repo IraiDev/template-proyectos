@@ -1,16 +1,16 @@
-import { FocusEvent, FormEvent } from "react"
-import { IconFilterSearch } from "@tabler/icons-react"
-import { Input } from "@components/form"
-import { useSearchParams } from "@utils/hooks"
+import { MyInput } from "@components/form"
 import sp from "@configs/searchParams"
+import { IconFilterSearch } from "@tabler/icons-react"
+import { useSearchParams } from "@utils/hooks"
+import { FocusEvent, FormEvent } from "react"
 
 const { page } = sp
 
 interface Props {
-  label: string
   name: string
-  isLoading?: boolean
+  label: string
   className?: string
+  isLoading?: boolean
 }
 
 export function InputFilter({ label, name, className = "max-w-xs w-full", isLoading }: Props) {
@@ -18,9 +18,10 @@ export function InputFilter({ label, name, className = "max-w-xs w-full", isLoad
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    e.stopPropagation()
 
     const { [name]: input } = e.target as HTMLFormElement
-    const isEmpty = input.value.length === 0
+    const isEmpty = !input.value
 
     isEmpty ? searchParams.delete(input.name) : searchParams.set(input.name, input.value)
     searchParams.set(page.query, page.default)
@@ -46,18 +47,18 @@ export function InputFilter({ label, name, className = "max-w-xs w-full", isLoad
 
   return (
     <form onSubmit={handleSubmit} className={className}>
-      <Input
+      <MyInput
+        size="sm"
         name={name}
         label={label}
-        isDisabled={isLoading}
-        size="sm"
         className="w-full"
         autoCapitalize="off"
+        isDisabled={isLoading}
         labelPlacement="inside"
         placeholder="filtrar..."
+        onBlur={handleFilterOnBlur}
         endContent={<IconFilterSearch size={15} />}
         defaultValue={getSearchParam(name, "").toString()}
-        onBlur={handleFilterOnBlur}
       />
       <input hidden type="submit" />
     </form>

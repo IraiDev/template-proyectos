@@ -1,7 +1,7 @@
 import { Popover, PopoverProps } from "@nextui-org/react"
 import React from "react"
 
-interface Props extends PopoverProps {
+interface Props extends Omit<PopoverProps, "ref"> {
   ref?: React.RefObject<HTMLDivElement>
 }
 

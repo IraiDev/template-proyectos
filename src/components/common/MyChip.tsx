@@ -1,7 +1,7 @@
 import { Chip, ChipProps } from "@nextui-org/react"
 import React from "react"
 
-interface Props extends ChipProps {
+interface Props extends Omit<ChipProps, "ref"> {
   ref?: React.RefObject<HTMLDivElement>
 }
 
