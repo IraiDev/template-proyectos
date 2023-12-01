@@ -4,7 +4,7 @@ interface Props extends Omit<CheckboxProps, "ref" | "checked" | "name"> {
   name: string
   label: string
   checked: boolean
-  ref?: React.RefObject<HTMLLabelElement>
+  ref: React.RefObject<HTMLLabelElement>
 }
 
 export function MyCheckbox({ ref, checked, ...props }: Partial<Props>) {

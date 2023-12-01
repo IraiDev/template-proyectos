@@ -10,11 +10,18 @@ interface Props extends OmitedSelectProps {
   name: string
   value: string
   options: Option[]
-  ref?: React.RefObject<HTMLSelectElement>
-  itemClassNames?: SlotsToClasses<SelectSlots>
+  ref: React.RefObject<HTMLSelectElement>
+  itemClassNames: SlotsToClasses<SelectSlots>
 }
 
-export function MySelect({ ref, value, options, classNames, itemClassNames, ...props }: Props) {
+export function MySelect({
+  ref,
+  classNames,
+  value = "",
+  options = [],
+  itemClassNames = {},
+  ...props
+}: Partial<Props>) {
   return (
     <Select
       ref={ref}
