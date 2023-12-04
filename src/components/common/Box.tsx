@@ -1,5 +1,5 @@
+import { CreateJsxElement } from "@components/utils"
 import { cn } from "@nextui-org/react"
-import { createElement } from "react"
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   ref: React.RefObject<HTMLElement>
@@ -8,16 +8,17 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
   className: string
 }
 
-export function Box({ as = "div", children, className, ...props }: Partial<Props>) {
-  return createElement(
-    as,
-    {
-      className: cn(
+export function Box({ as, children, className, ref, ...props }: Partial<Props>) {
+  return (
+    <CreateJsxElement
+      {...props}
+      as={as}
+      ref={ref}
+      className={cn(
         "bg-background-50 p-4 rounded-large shadow-lg shadow-background-700/10",
         className,
-      ),
-      ...props,
-    },
-    children,
+      )}>
+      {children}
+    </CreateJsxElement>
   )
 }
