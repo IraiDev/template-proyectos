@@ -1,2 +1,2 @@
-export { default as PrivateGuard } from "./PrivateGuard"
+export { default as PrivateGuard } from "./private_guard"
 export * from "./index"

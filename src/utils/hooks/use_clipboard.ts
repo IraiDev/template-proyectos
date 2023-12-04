@@ -1,4 +1,4 @@
-import { clipboard } from "@utils/utilitiesFunctions"
+import { clipboard } from "@utils/functions_utils"
 import { useToast } from "."
 
 export function useClipboard() {

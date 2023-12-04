@@ -1,12 +1,12 @@
+import { privateRoutes, publicRoutes } from "@configs/routes"
 import { lazy } from "react"
 import { createBrowserRouter, Navigate } from "react-router-dom"
-import { privateRoutes, publicRoutes } from "@configs/routes"
 
 // views
 
 // layouts
-const PublicLayout = lazy(() => import("@layouts/PublicLayout"))
-const PrivateLayout = lazy(() => import("@layouts/PrivateLayout"))
+const PublicLayout = lazy(() => import("@layouts/public_payout"))
+const PrivateLayout = lazy(() => import("@layouts/private_layout"))
 
 export const Router = createBrowserRouter([
   {

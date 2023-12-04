@@ -1,5 +1,5 @@
 import { MySelect } from "@components/form"
-import sp from "@configs/searchParams"
+import sp from "@configs/search_params"
 import { useQueryParams } from "@utils/hooks"
 import { ChangeEvent } from "react"
 import { Path } from "react-hook-form"

@@ -1,4 +1,4 @@
-export * from "./actions"
+export * from "./action_routes"
 export * from "./index"
-export * from "./privateRoutes"
-export * from "./publicRoutes"
+export * from "./private_routes"
+export * from "./public_routes"

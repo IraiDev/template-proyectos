@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useQueryParams } from "."
-import params from "@configs/searchParams"
+import params from "@configs/search_params"
 
 const { limit, page: pageQuery } = params
 

@@ -1,3 +1,3 @@
 export * from "./index"
-export * from "./useLogout"
-export * from "./useRenewSession"
+export * from "./use_logout"
+export * from "./use_renew_session"

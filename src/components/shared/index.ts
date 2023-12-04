@@ -1,1 +1,1 @@
-export * from "./TableLoader"
+export * from "./table_loader"

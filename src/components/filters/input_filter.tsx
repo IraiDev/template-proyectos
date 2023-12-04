@@ -1,5 +1,5 @@
 import { MyInput } from "@components/form"
-import sp from "@configs/searchParams"
+import sp from "@configs/search_params"
 import { IconFilterSearch } from "@tabler/icons-react"
 import { useQueryParams } from "@utils/hooks"
 import { FocusEvent, FormEvent } from "react"

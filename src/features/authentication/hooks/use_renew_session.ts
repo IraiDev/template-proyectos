@@ -1,7 +1,7 @@
 import { privateRoutes } from "@configs/routes"
 import { useAuthStore } from "@features/authentication/stores"
 import { useToast } from "@utils/hooks"
-import { hasAuthToken } from "@utils/localStorageUtilities"
+import { hasAuthToken } from "@utils/local_storage_utils"
 import { useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
 

@@ -1,1 +1,1 @@
-export * from "./IsEmptyObject"
+export * from "./is_empty_object"
