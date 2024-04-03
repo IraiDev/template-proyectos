@@ -1,33 +1,33 @@
 import { useCallback } from "react"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 
-type Primitives = string | number | boolean
+type Value = string | number | boolean
 
 export function useQueryParams<T extends string>() {
-  const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
 
   const getParam = useCallback(
-    <R extends Primitives = string>(name: T, defaultValue: R): R => {
+    <V extends Value = string>(name: T, defaultValue?: V): V => {
       if (typeof defaultValue === "boolean") {
-        return (params.get(name) === "true" ?? defaultValue) as R
+        return (params.get(name) === "true" ?? defaultValue) as V
       }
-      return (params.get(name) || defaultValue) as R
+      if (typeof defaultValue === "number") {
+        return +(params.get(name) || defaultValue) as V
+      }
+      return (params.get(name) || defaultValue) as V
     },
     [params],
   )
 
-  const handleNavigateWithQueryParams = <T extends object>(to: string, entry: T) => {
-    for (const [key, value] of Object.entries(entry)) {
-      params.set(key, value)
-    }
-    navigate(`${to}?${params.toString()}`)
+  const resetFilters = () => {
+    const newSearchParams = new URLSearchParams()
+    setParams(newSearchParams)
   }
 
   return {
     params,
     getParam,
     setParams,
-    handleNavigateWithQueryParams,
+    resetFilters,
   }
 }

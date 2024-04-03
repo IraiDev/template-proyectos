@@ -1,4 +1,4 @@
-import { API_BASE_URL, CONSTANTS, TOKEN_KEY } from "@utils/constants"
+import { API_BASE_URL, CONSTANTS, TOKEN_KEY } from "@configs/constants"
 import axios, { AxiosHeaders } from "axios"
 
 const HEADER_TOKEN_KEY = "x-token"

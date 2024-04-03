@@ -1,51 +1,56 @@
-import { MySelect } from "@components/form"
-import sp from "@configs/search_params"
+import { SEARCH_PARAMS } from "@configs/constants"
+import { twclx } from "@utils/functions"
 import { useQueryParams } from "@utils/hooks"
 import { ChangeEvent } from "react"
-import { Path } from "react-hook-form"
+import { MySelect } from ".."
+import { Option } from "@configs/interfaces"
 
-const { page } = sp
-
-interface Props<T extends object> {
-  name: Path<T>
+interface Props<T extends string> {
+  name: T
   label: string
-  options: Option[]
-  isLoading: boolean
+  options?: Option[]
   className?: string
+  isDisabled: boolean
   defaultValue?: string
 }
 
-export function SelectFilter<T extends object>({
+export function SelectFilter<T extends string>({
   name,
   label,
-  options,
-  isLoading,
+  className,
+  isDisabled,
+  options = [],
   defaultValue = "",
-  className = "w-full max-w-[130px]",
 }: Props<T>) {
   const { params, setParams, getParam } = useQueryParams()
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
-    const isEmpty = !value
+    const key = SEARCH_PARAMS.PAGE.KEY
+    const defaultValue = SEARCH_PARAMS.PAGE.DEFAULT_VALUE
 
-    isEmpty ? params.delete(name) : params.set(name, value)
-    params.set(page.query, page.default)
+    value ? params.set(name, value) : params.delete(name)
+
+    if (params.get(key) && value !== "") {
+      params.set(key, defaultValue)
+    }
+
     setParams(params)
   }
 
   return (
-    <div className={className}>
+    <div className={twclx("w-full max-w-[130px]", className)}>
       <MySelect
         size="sm"
+        fullWidth
         name={name}
+        radius="sm"
         label={label}
         options={options}
-        className="w-full"
-        disabled={isLoading}
+        isDisabled={isDisabled}
         onChange={handleChange}
         value={getParam(name, defaultValue)}
-        defaultSelectedKeys={[getParam(name, defaultValue)]}
+        defaultValue={getParam(name, defaultValue)}
       />
     </div>
   )

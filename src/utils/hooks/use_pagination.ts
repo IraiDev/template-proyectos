@@ -1,53 +1,37 @@
-import { useEffect, useState } from "react"
+import { SEARCH_PARAMS } from "@configs/constants"
 import { useQueryParams } from "."
-import params from "@configs/search_params"
+import { useCallback } from "react"
 
-const { limit, page: pageQuery } = params
+const { LIMIT, PAGE } = SEARCH_PARAMS
 
 interface Props {
   total: number
-  isLoading?: boolean
+  defaultLimit?: number
 }
 
-export function usePagination({ total }: Props) {
-  const [page, setPage] = useState(+pageQuery.default)
-  const { params, setParams, getParam } = useQueryParams<"pagina" | "limite">()
+export function usePagination({
+  total,
+  defaultLimit = +LIMIT.DEFAULT_VALUE,
+}: Props) {
+  const { setParams, getParam } = useQueryParams<"pagina" | "limite">()
 
-  useEffect(() => {
-    setPage(+getParam("pagina", pageQuery.default))
-  }, [getParam])
+  const page = +getParam("pagina", PAGE.DEFAULT_VALUE)
+  const totalPages = Math.ceil((total || 1) / +getParam("limite", defaultLimit))
 
-  const totalPages = Math.ceil((total || 1) / +getParam("limite", limit.default))
-
-  const onChangePage = (value: number) => {
-    setPage(value)
-    params.set(pageQuery.query, value.toString())
-    setParams(params)
-  }
-
-  const onPrevious = () => {
-    if (page === 1) return
-
-    const newPage = page - 1
-    setPage(newPage)
-    params.set(pageQuery.query, newPage.toString())
-    setParams(params)
-  }
-
-  const onNext = () => {
-    if (page === totalPages) return
-
-    const newPage = page + 1
-    setPage(newPage)
-    params.set(pageQuery.query, newPage.toString())
-    setParams(params)
-  }
+  const onChangePage = useCallback(
+    (value: number) => {
+      setParams(() => {
+        const url = new URL(window.location.href)
+        url.searchParams.set("pagina", value.toString())
+        return url.searchParams
+      })
+    },
+    [setParams],
+  )
 
   return {
-    totalPages,
     page,
-    onNext,
-    onPrevious,
+    totalPages,
     onChangePage,
   }
 }
