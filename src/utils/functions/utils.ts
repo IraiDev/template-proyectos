@@ -1,4 +1,4 @@
-import { InputOnlyNumberEntryType } from "@configs/types"
+import { InputOnlyNumberEntryType, TableDataset } from "@configs/types"
 
 export function inputOnlyNumber(
   event: any,
@@ -70,4 +70,11 @@ export function sanitizeEntries<T extends object>(entry: T) {
   }
 
   return output as T
+}
+
+export function tableDatasetAdapter<T extends object>(
+  array: T[],
+  key: Extract<keyof T, string | number>,
+): TableDataset<T>[] {
+  return array.map((el) => ({ ...el, key: el[key]?.toString() ?? "" })) ?? []
 }
