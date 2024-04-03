@@ -1,6 +1,0 @@
-export * from "./my_checkbox"
-export * from "./form"
-export * from "./my_input"
-export * from "./my_select"
-export * from "./my_text_area"
-export * from "./index"

@@ -1,21 +1,21 @@
-import { clipboard } from "@utils/functions_utils"
 import { useToast } from "."
 
 export function useClipboard() {
   const { infoToast, warningToast } = useToast()
 
-  const onSave = (value: string) => {
-    clipboard(value, {
-      successFn: ({ message }) => {
-        infoToast(message)
-      },
-      errorFn: (message) => {
-        warningToast(message)
-      },
-    })
+  const handleSaveInClipboard = (value: string) => {
+    navigator.clipboard
+      .writeText(value)
+      .then(function () {
+        infoToast("Copiado al portapapeles")
+      })
+      .catch(function (error) {
+        console.log(error)
+        warningToast("Error al copiar en portapapeles")
+      })
   }
 
   return {
-    onSave,
+    handleSaveInClipboard,
   }
 }

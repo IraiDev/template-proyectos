@@ -54,7 +54,9 @@ export function useToast() {
       const result = await resolve
       toast.update(toasId, {
         render:
-          render?.(result, () => toast.dismiss(toasId)) ?? config.success ?? defaultConfig.success,
+          render?.(result, () => toast.dismiss(toasId)) ??
+          config.success ??
+          defaultConfig.success,
         type: result.type,
       })
 
