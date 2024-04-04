@@ -1,3 +1,4 @@
+import { FieldProps } from "@configs/interfaces"
 import { InputOnlyNumberEntryType } from "@configs/types"
 import { Input, InputProps, SlotsToClasses } from "@nextui-org/react"
 import { inputOnlyNumber } from "@utils/functions"
@@ -33,14 +34,15 @@ const defaultInputProps = (classNames?: ClassNames): InputProps => ({
   },
 })
 
-interface Props<T extends object> extends InputProps {
+type Props<T extends object> = {
   control: Control<T>
   onlyNumber: boolean
   name: Path<T> | string
   isEnterPreventDefault: boolean
   entryType: InputOnlyNumberEntryType
   ref: React.RefObject<HTMLInputElement>
-}
+} & InputProps &
+  FieldProps
 
 export function MyInput<T extends object>({
   ref,
@@ -49,6 +51,8 @@ export function MyInput<T extends object>({
   entryType,
   classNames,
   onlyNumber,
+  setValueAs,
+  onSideEffect,
   isEnterPreventDefault,
   ...props
 }: Partial<Props<T>>) {
@@ -69,13 +73,18 @@ export function MyInput<T extends object>({
       <Controller
         control={control}
         name={name as Path<T>}
-        render={({ field, fieldState }) => (
+        render={({ field: { onChange, value, ...field }, fieldState }) => (
           <>
             <Input
               autoComplete="off"
               {...defaultInputProps(classNames)}
               {...props}
               {...field}
+              value={setValueAs ? setValueAs(value) : value}
+              onChange={(e) => {
+                onChange(e)
+                onSideEffect?.(e.target.value)
+              }}
               errorMessage={fieldState.error?.message}
               onKeyDown={handleKeyDown}
             />
@@ -90,6 +99,10 @@ export function MyInput<T extends object>({
       autoComplete="off"
       {...defaultInputProps(classNames)}
       {...props}
+      onChange={(e) => {
+        props.onChange?.(e)
+        onSideEffect?.(e.target.value)
+      }}
       name={name}
       onKeyDown={handleKeyDown}
     />

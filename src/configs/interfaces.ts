@@ -21,3 +21,8 @@ export interface Option {
   key: string
   label: string
 }
+
+export interface FieldProps {
+  onSideEffect?(value: string): void
+  setValueAs?(vlaue: string): string
+}

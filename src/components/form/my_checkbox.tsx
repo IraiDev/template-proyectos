@@ -1,11 +1,13 @@
+import { FieldProps } from "@configs/interfaces"
 import { Checkbox, CheckboxProps } from "@nextui-org/react"
 import { Control, Controller, Path } from "react-hook-form"
 
-interface Props<T extends object> extends Omit<CheckboxProps, "ref" | "name"> {
+type Props<T extends object> = {
   control: Control<T>
   name: string | Path<T>
   ref: React.RefObject<HTMLLabelElement>
-}
+} & Omit<CheckboxProps, "ref" | "name"> &
+  FieldProps
 
 export function MyCheckbox<T extends object>({
   ref,

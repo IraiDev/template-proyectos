@@ -1,4 +1,4 @@
-import { Option } from "@configs/interfaces"
+import { FieldProps, Option } from "@configs/interfaces"
 import { Select, SelectItem, SelectProps, SlotsToClasses } from "@nextui-org/react"
 import { Control, Controller, Path } from "react-hook-form"
 
@@ -47,7 +47,7 @@ const defaultSelectProps = (
   },
 })
 
-interface Props<T extends object> extends Omit<SelectProps, OmitedProps> {
+type Props<T extends object> = {
   value: string
   options: Option[]
   control: Control<T>
@@ -55,7 +55,8 @@ interface Props<T extends object> extends Omit<SelectProps, OmitedProps> {
   name: string | Path<T>
   itemClassNames: ItemClassNames
   ref: React.RefObject<HTMLSelectElement>
-}
+} & Omit<SelectProps, OmitedProps> &
+  FieldProps
 
 export function MySelect<T extends object>({
   ref,
@@ -64,6 +65,7 @@ export function MySelect<T extends object>({
   value = "",
   classNames,
   options = [],
+  onSideEffect,
   scrollRef = null,
   defaultValue = "",
   itemClassNames = {},
@@ -74,7 +76,10 @@ export function MySelect<T extends object>({
       <Controller
         control={control}
         name={name as Path<T>}
-        render={({ field: { value: fieldValue, ...restField }, fieldState }) => (
+        render={({
+          field: { value: fieldValue, onChange, ...restField },
+          fieldState,
+        }) => (
           <Select
             scrollRef={scrollRef}
             disabledKeys={[fieldValue]}
@@ -83,6 +88,10 @@ export function MySelect<T extends object>({
             {...defaultSelectProps(classNames)}
             {...props}
             {...restField}
+            onChange={(e) => {
+              onChange(e)
+              onSideEffect?.(e.target.value)
+            }}
             errorMessage={fieldState.error?.message}>
             {options.map(({ key, label }) => (
               <SelectItem
@@ -107,6 +116,10 @@ export function MySelect<T extends object>({
       selectedKeys={[value]}
       {...defaultSelectProps(classNames)}
       {...props}
+      onChange={(e) => {
+        props.onChange?.(e)
+        onSideEffect?.(e.target.value)
+      }}
       name={name}>
       {options.map(({ key, label }) => (
         <SelectItem
