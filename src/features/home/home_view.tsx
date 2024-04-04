@@ -1,5 +1,6 @@
 import { MyButton, MyCheckbox, MyInput, MySelect } from "@components/index"
 import { ZodRecordSchema } from "@configs/types"
+import { useLogout } from "@features/auth/hooks"
 import { useAuthStore } from "@features/auth/stores"
 import { useFields } from "@utils/hooks"
 import { SubmitHandler } from "react-hook-form"
@@ -19,6 +20,7 @@ const schema = z.object<ZodRecordSchema<FormValues>>({
 
 export const HomeView = () => {
   const user = useAuthStore((state) => state.user)
+  const { handleLogout } = useLogout()
 
   const { field, handleSubmit } = useFields<FormValues>({
     validation: schema,
@@ -35,8 +37,9 @@ export const HomeView = () => {
 
   return (
     <div className="flex flex-col gap-10 h-screen">
-      <header>
+      <header className="flex justify-between gap-2 p-4">
         <h1 className="text-2xl font-bold">Bienvenido {user}</h1>
+        <MyButton onClick={handleLogout}>Logout</MyButton>
       </header>
       <form
         onSubmit={handleSubmit(onRegister)}
