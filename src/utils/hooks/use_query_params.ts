@@ -1,33 +1,38 @@
 import { useCallback } from "react"
 import { useSearchParams } from "react-router-dom"
 
-type Value = string | number | boolean
-
 export function useQueryParams<T extends string>() {
-  const [params, setParams] = useSearchParams()
+  const [queryParams, setQueryParams] = useSearchParams()
 
-  const getParam = useCallback(
-    <V extends Value = string>(name: T, defaultValue?: V): V => {
-      if (typeof defaultValue === "boolean") {
-        return (params.get(name) === "true" ?? defaultValue) as V
+  const watchSearchParam: WatchSeaarchParamHandler<T, DefaultValue> = useCallback(
+    (name, defaultValue) => {
+      const result = queryParams.get(name)
+
+      try {
+        return JSON.parse(result ?? (defaultValue as string))
+      } catch (e) {
+        return result ?? defaultValue
       }
-      if (typeof defaultValue === "number") {
-        return +(params.get(name) || defaultValue) as V
-      }
-      return (params.get(name) || defaultValue) as V
     },
-    [params],
+    [queryParams],
   )
 
-  const resetFilters = () => {
+  const resetSearchParams = useCallback(() => {
     const newSearchParams = new URLSearchParams()
-    setParams(newSearchParams)
-  }
+    setQueryParams(newSearchParams)
+  }, [setQueryParams])
 
   return {
-    params,
-    getParam,
-    setParams,
-    resetFilters,
+    queryParams,
+    setQueryParams,
+    watchSearchParam,
+    resetSearchParams,
   }
 }
+
+type DefaultValue = string | number | boolean
+
+type WatchSeaarchParamHandler<T extends string, V extends DefaultValue> = (
+  name: T,
+  defaultValue: V,
+) => DefaultValue
