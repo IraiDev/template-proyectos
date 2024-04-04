@@ -14,8 +14,8 @@ export function useFields<T extends object>(props?: Props<T>) {
     resolver: props?.validation ? zodResolver(props?.validation) : undefined,
   })
 
-  const field = useCallback(
-    (name: Path<T>, options?: UseFieldOptions<T>): UseFieldReturn<T> => {
+  const field: UseField<T> = useCallback(
+    (name, options) => {
       return {
         name,
         ...options,
@@ -42,3 +42,8 @@ type UseFieldReturn<T extends object> = { name?: Path<T> } & Omit<
   UseFieldOptions<T>,
   ""
 >
+
+export type UseField<T extends object> = (
+  name: Path<T>,
+  options?: UseFieldOptions<T>,
+) => UseFieldReturn<T>
