@@ -11,9 +11,9 @@ export interface HttpResponseWithData extends HttpResponse {
 
 export interface TableColumn {
   key: string
-  align: Align
-  title: string
-  valign: Valign
+  align?: Align
+  title?: string
+  valign?: Valign
   content: React.ReactNode
 }
 

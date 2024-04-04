@@ -1,8 +1,17 @@
-import { MyButton, MyCheckbox, MyInput, MySelect } from "@components/index"
+import {
+  MyButton,
+  MyCheckbox,
+  MyInput,
+  MySelect,
+  MyTable,
+  MyTableCell,
+} from "@components/index"
 import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
 import { useAuthStore } from "@features/auth/stores"
+import { tableDatasetAdapter } from "@utils/functions"
 import { useFields } from "@utils/hooks"
+import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
 import { z } from "zod"
 
@@ -21,8 +30,9 @@ const schema = z.object<ZodRecordSchema<FormValues>>({
 export const HomeView = () => {
   const user = useAuthStore((state) => state.user)
   const { handleLogout } = useLogout()
+  const [users, setUsers] = useState<(FormValues & { id: number })[]>([])
 
-  const { field, handleSubmit } = useFields<FormValues>({
+  const { field, reset, handleSubmit } = useFields<FormValues>({
     validation: schema,
     defaultValues: {
       es_mayor: false,
@@ -32,7 +42,8 @@ export const HomeView = () => {
   })
 
   const onRegister: SubmitHandler<FormValues> = (values) => {
-    alert(JSON.stringify(values))
+    setUsers((prev) => [...prev, { ...values, id: prev.length + 1 }])
+    reset()
   }
 
   return (
@@ -56,6 +67,24 @@ export const HomeView = () => {
         <MyCheckbox {...field("es_mayor")}>Es mayor</MyCheckbox>
         <MyButton type="submit">Registrar</MyButton>
       </form>
+      <section>
+        <MyTable
+          wrapperClassName="max-w-3xl mx-auto"
+          columns={[
+            { key: "1", content: "nombre", align: "center" },
+            { key: "2", content: "cargo", align: "center" },
+            { key: "3", content: "es mayor", align: "center" },
+          ]}
+          dataset={tableDatasetAdapter(users, "id")}
+          renderCells={(item) => (
+            <>
+              <MyTableCell>{item.nombre}</MyTableCell>
+              <MyTableCell>{item.cargo}</MyTableCell>
+              <MyTableCell>{item.es_mayor ? "si" : "No"}</MyTableCell>
+            </>
+          )}
+        />
+      </section>
     </div>
   )
 }

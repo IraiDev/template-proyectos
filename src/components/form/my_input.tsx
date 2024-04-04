@@ -29,7 +29,7 @@ const defaultInputProps = (classNames?: ClassNames): InputProps => ({
     input: "!text-opacity-70 placeholder:!text-opacity-50",
     label: "first-letter:uppercase font-semibold !text-default-950",
     inputWrapper:
-      "!ring-transparent border border-default focus-within:border-secondary bg-default-100 hover:bg-default-200 !shadow-none transition-colors",
+      "!ring-transparent border border-default focus-within:border-primary bg-default-100 hover:bg-default-200 !shadow-none transition-colors",
     ...classNames,
   },
 })

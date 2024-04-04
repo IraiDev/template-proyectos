@@ -11,9 +11,9 @@ interface Props<T extends object> {
   alignEmptyContent?: Align
   wrapperClassName?: string
   dataset: TableDataset<T>[]
-  renderFooter?(): JSX.Element[]
-  renderFilter?(cols: TableColumn[]): JSX.Element[]
-  renderCells?(item: T, index: number): JSX.Element[]
+  renderFooter?(): JSX.Element
+  renderFilter?(cols: TableColumn[]): JSX.Element
+  renderCells?(item: T, index: number): JSX.Element
 }
 
 export function MyTable<T extends object>({

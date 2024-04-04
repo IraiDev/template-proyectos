@@ -42,7 +42,7 @@ const defaultSelectProps = (
     innerWrapper: "mb-0 pb-0",
     label: "first-letter:uppercase font-semibold !text-default-950",
     trigger:
-      "focus-visible:!outline-transparent border border-default bg-default-200/50 hover:bg-default-200 focus-within:border-secondary transition-colors",
+      "focus-visible:!outline-transparent border border-default bg-default-200/50 hover:bg-default-200 focus-within:border-primary transition-colors",
     ...classNames,
   },
 })
