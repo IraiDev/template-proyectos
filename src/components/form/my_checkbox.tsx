@@ -20,10 +20,10 @@ export function MyCheckbox<T extends object>({
         name={name as Path<T>}
         render={({ field: { value, ...restField } }) => (
           <Checkbox
-            {...restField}
             size="sm"
             radius="sm"
             isSelected={value}
+            {...restField}
             {...props}
           />
         )}
@@ -31,7 +31,5 @@ export function MyCheckbox<T extends object>({
     )
   }
 
-  return (
-    <Checkbox ref={ref} size="sm" radius="sm" name={name as string} {...props} />
-  )
+  return <Checkbox ref={ref} size="sm" radius="sm" {...props} name={name} />
 }

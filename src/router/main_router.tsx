@@ -1,39 +1,33 @@
 import { privateRoutes, publicRoutes } from "@configs/routes"
-import { lazy } from "react"
-import { createBrowserRouter, Navigate } from "react-router-dom"
-
-// views
-
-// layouts
-const PublicLayout = lazy(() => import("@layouts/public_payout"))
+import { HomeView } from "@features/home/home_view"
+import { createBrowserRouter } from "react-router-dom"
+import { AuthGuard, NotAuthGuard } from "./guards"
+import { LoginPage, RenewPage } from "@features/auth/pages"
 
 export const MainRouter = createBrowserRouter([
   {
     path: "/",
-    // element: <PrivateLayout />,
     children: [
       {
         index: true,
-        element: <Navigate to={privateRoutes.home} />,
+        element: <RenewPage />,
       },
       {
         path: privateRoutes.home,
-        element: "HOME VIEW",
+        element: (
+          <AuthGuard>
+            <HomeView />
+          </AuthGuard>
+        ),
       },
-    ],
-  },
-  {
-    path: "/",
-    element: <PublicLayout />,
-    children: [
       {
         path: publicRoutes.login,
-        element: "LOGIN VIEW",
+        element: (
+          <NotAuthGuard>
+            <LoginPage />
+          </NotAuthGuard>
+        ),
       },
     ],
-  },
-  {
-    path: publicRoutes.renew,
-    element: "RENEW VIEW",
   },
 ])

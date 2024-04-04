@@ -106,7 +106,8 @@ export function MySelect<T extends object>({
       disabledKeys={[value]}
       selectedKeys={[value]}
       {...defaultSelectProps(classNames)}
-      {...props}>
+      {...props}
+      name={name}>
       {options.map(({ key, label }) => (
         <SelectItem
           key={key}

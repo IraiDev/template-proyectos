@@ -90,7 +90,7 @@ export function MyInput<T extends object>({
       autoComplete="off"
       {...defaultInputProps(classNames)}
       {...props}
-      name={name as string}
+      name={name}
       onKeyDown={handleKeyDown}
     />
   )

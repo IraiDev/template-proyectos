@@ -43,7 +43,7 @@ export function inputOnlyNumber(
   }
 }
 
-export function sleep(seconds?: number) {
+export function sleep(seconds?: number): Promise<boolean> {
   return new Promise((resolve) => {
     setTimeout(
       () => {
