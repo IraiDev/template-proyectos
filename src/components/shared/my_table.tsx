@@ -3,6 +3,8 @@ import { Align, TableDataset, Valign } from "@configs/types"
 import { Spinner } from "@nextui-org/react"
 import { twclx } from "@utils/functions"
 
+type ExtractColumn = Pick<TableColumn, "align" | "key">
+
 interface Props<T extends object> {
   className?: string
   isLoading?: boolean
@@ -12,7 +14,7 @@ interface Props<T extends object> {
   wrapperClassName?: string
   dataset: TableDataset<T>[]
   renderFooter?(): JSX.Element
-  renderFilter?(cols: TableColumn[]): JSX.Element
+  renderFilter?(cols: ExtractColumn[]): JSX.Element
   renderCells?(item: T, index: number): JSX.Element
 }
 
@@ -29,12 +31,16 @@ export function MyTable<T extends object>({
   emptyContent = "No hay datos...",
 }: Props<T>) {
   return (
-    <div className={twclx("relative w-full overflow-auto", wrapperClassName)}>
+    <div
+      className={twclx(
+        "relative w-full overflow-auto h-auto min-h-unit-20",
+        wrapperClassName,
+      )}>
       {isLoading && <Loader />}
 
       <table className={twclx("min-w-full w-full", className)}>
         <thead className="[&>trs]:last:rounded-lg sticky top-0 z-20 [&>trs]:last:shadow-small">
-          {renderFilter && (
+          {renderFilter !== undefined && (
             <tr className="bg-transparent">{renderFilter(columns)}</tr>
           )}
 
@@ -52,7 +58,7 @@ export function MyTable<T extends object>({
           </tr>
         </thead>
 
-        <tbody className={dataset.length === 0 ? "h-12" : ""}>
+        <tbody className={dataset.length === 0 ? "h-24" : ""}>
           {dataset.map(({ key, ...item }: TableDataset<T>, idx) => (
             <MyTableRow key={key}>{renderCells?.(item as T, idx)}</MyTableRow>
           ))}
@@ -78,12 +84,12 @@ interface MyTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   onSelectRow?(): void
 }
 
-export function MyTableRow({ children, ...props }: MyTableRowProps) {
+function MyTableRow({ children, ...props }: MyTableRowProps) {
   return (
     <tr
       {...props}
       className={twclx(
-        "outline-none even:bg-background-200/50 odd:bg-transparent hover:bg-default-300 transition-colors",
+        "outline-none even:bg-background-100 odd:bg-transparent hover:bg-default-200/70 transition-colors",
       )}>
       {children}
     </tr>
@@ -106,7 +112,7 @@ export function MyTableCell({
 }: Partial<MyTableCellProps>) {
   return (
     <td
-      valign="top"
+      valign="middle"
       {...props}
       className={twclx(
         "bg-transparent even:bg-default-200/30",
@@ -137,7 +143,12 @@ function EmptyContent({ content, ...props }: EmptyContentProps) {
 
 function Loader() {
   return (
-    <div className="bg-white border border-default-300 rounded-full p-2 shadow-lg">
+    <div
+      className={twclx(
+        "w-12 h-12 grid place-content-center p-2 rounded-full",
+        "absolute top-1/2 left-1/2 -translate-x-1/2 z-50",
+        "bg-white border border-default-300 shadow-lg",
+      )}>
       <Spinner />
     </div>
   )

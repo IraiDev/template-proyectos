@@ -6,5 +6,15 @@ interface Props extends Omit<ChipProps, "ref"> {
 }
 
 export function MyChip({ ref, ...props }: Props) {
-  return <Chip ref={ref} variant="flat" size="sm" {...props} />
+  return (
+    <Chip
+      ref={ref}
+      size="sm"
+      radius="sm"
+      variant="flat"
+      color="primary"
+      classNames={{ content: "font-semibold" }}
+      {...props}
+    />
+  )
 }
