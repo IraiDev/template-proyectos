@@ -9,8 +9,8 @@ import {
 import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
 import { useAuthStore } from "@features/auth/stores"
-import { tableDatasetAdapter } from "@utils/functions"
-import { useFields } from "@utils/hooks"
+import { tableDatasetAdapter, toString } from "@utils/functions"
+import { useFields, useQueryParams } from "@utils/hooks"
 import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
 import { z } from "zod"
@@ -31,6 +31,8 @@ export const HomeView = () => {
   const user = useAuthStore((state) => state.user)
   const { handleLogout } = useLogout()
   const [users, setUsers] = useState<(FormValues & { id: number })[]>([])
+  const { queryParams, setQueryParams, watchSearchParam } =
+    useQueryParams<keyof FormValues>()
 
   const { field, reset, handleSubmit } = useFields<FormValues>({
     validation: schema,
@@ -43,6 +45,12 @@ export const HomeView = () => {
 
   const onRegister: SubmitHandler<FormValues> = (values) => {
     setUsers((prev) => [...prev, { ...values, id: prev.length + 1 }])
+
+    for (const [key, value] of Object.entries(values)) {
+      queryParams.set(key, toString(value))
+    }
+
+    setQueryParams(queryParams)
     reset()
   }
 
@@ -52,6 +60,14 @@ export const HomeView = () => {
         <h1 className="text-2xl font-bold">Bienvenido {user}</h1>
         <MyButton onClick={handleLogout}>Logout</MyButton>
       </header>
+
+      <section className="flex gap-1">
+        <strong>Filtros</strong>
+        <span>{watchSearchParam("nombre", "sin nombre")}</span>
+        <span>{watchSearchParam("cargo", "--")}</span>
+        <span>{watchSearchParam("es_mayor", false) ? "SI" : "NO"}</span>
+      </section>
+
       <form
         onSubmit={handleSubmit(onRegister)}
         className="w-96 mx-auto flex flex-col gap-2">

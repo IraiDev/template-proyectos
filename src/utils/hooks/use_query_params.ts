@@ -4,14 +4,14 @@ import { useSearchParams } from "react-router-dom"
 export function useQueryParams<T extends string>() {
   const [queryParams, setQueryParams] = useSearchParams()
 
-  const watchSearchParam: WatchSeaarchParamHandler<T, DefaultValue> = useCallback(
-    (name, defaultValue) => {
-      const result = queryParams.get(name)
+  const watchSearchParam = useCallback(
+    <V extends DefaultValue>(name: T, defaultValue: V): V => {
+      const result = queryParams.get(name) ?? (defaultValue as string)
 
       try {
-        return JSON.parse(result ?? (defaultValue as string))
+        return JSON.parse(result) as V
       } catch (e) {
-        return result ?? defaultValue
+        return result as V
       }
     },
     [queryParams],
@@ -31,8 +31,3 @@ export function useQueryParams<T extends string>() {
 }
 
 type DefaultValue = string | number | boolean
-
-type WatchSeaarchParamHandler<T extends string, V extends DefaultValue> = (
-  name: T,
-  defaultValue: V,
-) => DefaultValue

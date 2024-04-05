@@ -78,3 +78,8 @@ export function tableDatasetAdapter<T extends object>(
 ): TableDataset<T>[] {
   return array.map((el) => ({ ...el, key: el[key]?.toString() ?? "" })) ?? []
 }
+
+export function toString(input: any): string {
+  const output = typeof input === "string" ? input : JSON.stringify(input)
+  return output
+}
