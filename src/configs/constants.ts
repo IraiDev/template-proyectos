@@ -1,5 +1,11 @@
-export const { VITE_API_BASE_URL: API_BASE_URL = "", VITE_TOKEN_KEY: TOKEN_KEY = "" } = import.meta
-  .env
+export const {
+  VITE_API_BASE_URL: API_BASE_URL = "",
+  VITE_TOKEN_KEY: TOKEN_KEY = "",
+} = import.meta.env
+
+export const LOCAL_STORAGE_KEYS = {
+  TOKEN_KEY,
+}
 
 export const SEARCH_PARAMS = {
   PAGE: { KEY: "pagina", DEFAULT_VALUE: "1" },

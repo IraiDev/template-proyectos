@@ -1,16 +1,24 @@
-import { TOKEN_KEY } from "@configs/constants"
+import { LocalStorageKeys } from "@configs/types"
+import { toString } from "./utils"
 
-export function saveAuthTokenInLocalStorage(token: string) {
-  if (!token) return
-  window.localStorage.setItem(TOKEN_KEY, token)
+export function saveInLocalStorage(key: LocalStorageKeys, value: any) {
+  if (value) {
+    window.localStorage.setItem(key, toString(value))
+  }
 }
 
-export function removeAuthTokenFromLocalStorage() {
-  window.localStorage.removeItem(TOKEN_KEY)
+export function removeFromLocalStorage(key: LocalStorageKeys) {
+  window.localStorage.removeItem(key)
 }
 
-export function hasAuthToken(): boolean {
-  const token = window.localStorage.getItem(TOKEN_KEY)
+export function getFromLocalStorage(key: LocalStorageKeys) {
+  const result = window.localStorage.getItem(key) ?? ""
 
-  return !!token
+  return JSON.parse(result)
+}
+
+export function isInLocalStorage(key: LocalStorageKeys): boolean {
+  const token = window.localStorage.getItem(key)
+
+  return Boolean(token)
 }

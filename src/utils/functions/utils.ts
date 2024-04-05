@@ -58,8 +58,8 @@ export function isEmptyObject<T extends object>(object: T) {
   return Object.keys(object).length === 0
 }
 
-export function sanitizeEntries<T extends object>(entry: T) {
-  const output: Record<string, string | number | boolean> = {}
+export function trimEntries<T extends object>(entry: T) {
+  const output: Record<string, any> = {}
 
   for (const [key, value] of Object.entries(entry)) {
     if (typeof value === "string") {
