@@ -6,7 +6,7 @@ import { ToastProvider } from "./components"
 
 export default function App() {
   return (
-    <NextUIProvider className="w-full min-h-screen bg-background text-foreground">
+    <NextUIProvider className="w-full min-h-screen overflow-auto bg-background text-foreground">
       <ToastProvider />
       <Suspense fallback={"Cargando..."}>
         <RouterProvider router={MainRouter} />

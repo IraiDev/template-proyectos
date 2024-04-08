@@ -7,11 +7,11 @@ export const LoginPage = () => {
     <form
       onSubmit={handleLogin}
       className="h-screen grid place-content-center gap-2">
-      <MyInput label="Nombre" name="user" />
+      <MyInput required label="Nombre" name="user" />
       <MyButton type="submit" isLoading={isLoading}>
         Login
       </MyButton>
-      {isLoading && <span>Iniciando sesion...</span>}
+      <span>{isLoading && "Iniciando sesion..."}</span>
     </form>
   )
 }

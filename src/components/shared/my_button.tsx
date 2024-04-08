@@ -12,7 +12,8 @@ export function MyButton({ ref, className, ...props }: Props) {
       size="sm"
       type="button"
       variant="solid"
-      className={cn("font-semibold focus-visible:!outline-primary", className)}
+      color="primary"
+      className={cn("font-semibold !outline-primary", className)}
       {...props}
     />
   )

@@ -5,6 +5,7 @@ export const {
 
 export const LOCAL_STORAGE_KEYS = {
   TOKEN_KEY,
+  TEST: "TEST",
 }
 
 export const SEARCH_PARAMS = {

@@ -1,11 +1,12 @@
 import { FieldProps } from "@configs/interfaces"
 import { Checkbox, CheckboxProps } from "@nextui-org/react"
+import { RefCallback } from "react"
 import { Control, Controller, Path } from "react-hook-form"
 
 type Props<T extends object> = {
   control: Control<T>
   name: string | Path<T>
-  ref: React.RefObject<HTMLLabelElement>
+  ref: React.RefObject<HTMLLabelElement> | RefCallback<HTMLLabelElement>
 } & Omit<CheckboxProps, "ref" | "name"> &
   FieldProps
 
@@ -21,17 +22,15 @@ export function MyCheckbox<T extends object>({
         control={control}
         name={name as Path<T>}
         render={({ field: { value, ...restField } }) => (
-          <Checkbox
-            size="sm"
-            radius="sm"
-            isSelected={value}
-            {...restField}
-            {...props}
-          />
+          <DefaultCheckbox {...props} {...restField} isSelected={value} />
         )}
       />
     )
   }
 
-  return <Checkbox ref={ref} size="sm" radius="sm" {...props} name={name} />
+  return <DefaultCheckbox ref={ref} name={name} />
+}
+
+function DefaultCheckbox<T extends object>(props: Partial<Props<T>>) {
+  return <Checkbox ref={props.ref} size="sm" radius="sm" {...props} />
 }

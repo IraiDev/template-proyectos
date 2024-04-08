@@ -135,7 +135,7 @@ function EmptyContent({ content, ...props }: EmptyContentProps) {
   return (
     <tr>
       <td {...props} className="px-6">
-        <span className="text-default-400 italic">{content}</span>
+        <span className="text-default-400 italic text-small">{content}</span>
       </td>
     </tr>
   )

@@ -6,5 +6,15 @@ interface Props extends Omit<PaginationProps, "ref"> {
 }
 
 export function MyPagination({ ref, ...props }: Props) {
-  return <Pagination ref={ref} size="sm" isCompact showShadow showControls {...props} />
+  return (
+    <Pagination
+      ref={ref}
+      size="sm"
+      isCompact
+      showShadow
+      showControls
+      color="primary"
+      {...props}
+    />
+  )
 }

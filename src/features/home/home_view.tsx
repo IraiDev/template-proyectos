@@ -9,7 +9,7 @@ import {
 } from "@components/index"
 import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
-import { useAuthStore } from "@features/auth/stores"
+import { AuthStore } from "@features/auth/stores"
 import { sleep, tableDatasetAdapter, toString } from "@utils/functions"
 import { useFields, useQueryParams } from "@utils/hooks"
 import { useState } from "react"
@@ -35,7 +35,7 @@ const OPTIONS = [
 ]
 
 export const HomeView = () => {
-  const user = useAuthStore((state) => state.user)
+  const user = AuthStore((state) => state.user)
   const { handleLogout } = useLogout()
   const [isLoading, setIsLoading] = useState(false)
   const [users, setUsers] = useState<(FormValues & { id: number })[]>([])
@@ -75,8 +75,8 @@ export const HomeView = () => {
 
       <section className="flex gap-1 w-96 mx-auto">
         <strong>Filtros:</strong>
-        <span>{watchSearchParam("nombre", "sin nombre")}</span>
-        <span>{watchSearchParam("cargo", "--")}</span>
+        <span>{watchSearchParam("nombre", "sin nombre")},</span>
+        <span>{watchSearchParam("cargo", "--")},</span>
         <span>{watchSearchParam("es_mayor", false) ? "SI" : "NO"}</span>
       </section>
 

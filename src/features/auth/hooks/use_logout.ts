@@ -1,13 +1,14 @@
-import { useAuthStore } from "../stores"
+import { removeFromLocalStorage } from "@utils/functions"
+import { AuthStore } from "../stores"
 
 export function useLogout() {
-  const setUser = useAuthStore((s) => s.setUser)
-  const setSignIn = useAuthStore((s) => s.setSignIn)
+  const setUser = AuthStore((s) => s.setUser)
+  const setSignIn = AuthStore((s) => s.setSignIn)
 
   const handleLogout = () => {
     setSignIn(false)
     setUser(null)
-    localStorage.removeItem("user")
+    removeFromLocalStorage("TEST")
   }
 
   return {

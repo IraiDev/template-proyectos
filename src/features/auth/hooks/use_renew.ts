@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom"
-import { useAuthStore } from "../stores"
-import { sleep } from "@utils/functions"
+import { AuthStore } from "../stores"
+import { getFromLocalStorage, isInLocalStorage, sleep } from "@utils/functions"
 import { privateRoutes, publicRoutes } from "@configs/routes"
 import { useEffect } from "react"
 
 export function useRenew() {
-  const setUser = useAuthStore((state) => state.setUser)
-  const setSignIn = useAuthStore((state) => state.setSignIn)
-  const isSignIn = useAuthStore((state) => state.isSignIn)
+  const setUser = AuthStore((state) => state.setUser)
+  const setSignIn = AuthStore((state) => state.setSignIn)
+  const isSignIn = AuthStore((state) => state.isSignIn)
   const navigate = useNavigate()
-  const hasSession = localStorage.getItem("user") !== null
+  const hasSession = isInLocalStorage("TEST")
 
   useEffect(() => {
     if (!hasSession) return
@@ -20,7 +20,7 @@ export function useRenew() {
           replace: true,
         })
         if (value) {
-          const user = localStorage.getItem("user") ?? ""
+          const user = getFromLocalStorage("TEST")
           setUser(user)
         }
       })
