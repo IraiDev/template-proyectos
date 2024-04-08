@@ -13,7 +13,7 @@ export function MyButton({ ref, className, ...props }: Props) {
       type="button"
       variant="solid"
       color="primary"
-      className={cn("font-semibold !outline-primary", className)}
+      className={cn("font-semibold focus-visible:!outline-primary", className)}
       {...props}
     />
   )
