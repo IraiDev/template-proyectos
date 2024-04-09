@@ -6,14 +6,15 @@ import {
   Select,
   Table,
   TableCell,
+  TableRow,
 } from "@components/index"
 import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
 import { AuthStore } from "@features/auth/stores"
-import { sleep, tableDatasetAdapter, toString } from "@utils/functions"
+import { useFields, useQueryParams } from "@hooks/index"
+import { sleep, toString } from "@utils/functions"
 import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
-import { useFields, useQueryParams } from "@hooks/index"
 import { z } from "zod"
 
 type FormValues = {
@@ -99,9 +100,9 @@ export const HomeView = () => {
             { key: "2", content: "cargo", align: "center" },
             { key: "3", content: "es mayor", align: "center" },
           ]}
-          dataset={tableDatasetAdapter(users, "id")}
+          dataset={users}
           renderCells={(item) => (
-            <>
+            <TableRow key={item.id}>
               <TableCell align="left" className="min-w-max">
                 {item.nombre}
               </TableCell>
@@ -113,7 +114,7 @@ export const HomeView = () => {
               <TableCell align="center" className="w-10">
                 {item.es_mayor ? "si" : "No"}
               </TableCell>
-            </>
+            </TableRow>
           )}
         />
       </section>
