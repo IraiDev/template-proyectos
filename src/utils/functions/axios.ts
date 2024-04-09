@@ -5,13 +5,13 @@ const { UNEXPECTED_ERROR, REQUEST_CANCELLED } = ERROR_MESSAGE
 
 export type AxiosCancelToken = undefined | CancelTokenSource
 
-export function showErrorInLogs(error: unknown, where: string) {
+export function showApiErrorInLogs(error: unknown, where: string) {
   if (axios.isCancel(error)) return
 
   console.log(`ERROR EN ${where.toLocaleUpperCase()} (CATCH): `, { error })
 }
 
-export function axiosErrorHandler(error: unknown) {
+export function apiErrorHandler(error: unknown) {
   if (axios.isCancel(error)) {
     return REQUEST_CANCELLED
   }

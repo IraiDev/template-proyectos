@@ -1,4 +1,4 @@
-import { MyButton, MyInput } from "@components/index"
+import { Button, Input } from "@components/index"
 import { useLogin } from "../hooks"
 
 export const LoginPage = () => {
@@ -7,10 +7,10 @@ export const LoginPage = () => {
     <form
       onSubmit={handleLogin}
       className="h-screen grid place-content-center gap-2">
-      <MyInput required label="Nombre" name="user" />
-      <MyButton type="submit" isLoading={isLoading}>
+      <Input required label="Nombre" name="user" />
+      <Button type="submit" isLoading={isLoading}>
         Login
-      </MyButton>
+      </Button>
       <span>{isLoading && "Iniciando sesion..."}</span>
     </form>
   )

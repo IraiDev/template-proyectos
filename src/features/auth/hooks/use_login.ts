@@ -1,8 +1,8 @@
+import { routes } from "@router/routes"
 import { saveInLocalStorage, sleep } from "@utils/functions"
-import { AuthStore } from "../stores"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { privateRoutes } from "@configs/routes"
+import { AuthStore } from "../stores"
 
 export function useLogin() {
   const setUser = AuthStore((state) => state.setUser)
@@ -23,7 +23,7 @@ export function useLogin() {
         if (value) {
           setUser(user.value)
           saveInLocalStorage("TEST", user.value)
-          navigate(`/${privateRoutes.home}`, { replace: true })
+          navigate(`/${routes.private.home}`, { replace: true })
         }
       })
       .catch(() => {

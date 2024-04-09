@@ -1,5 +1,6 @@
 import { ZodTypeAny } from "zod"
 import { LOCAL_STORAGE_KEYS } from "./constants"
+import { ChangeEvent as CE } from "react"
 
 export type Size = "lg" | "md" | "sm" | "xs"
 export type Align = "center" | "left" | "right"
@@ -12,3 +13,4 @@ export type InputOnlyNumberEntryType = "positive" | "negative" | "both"
 export type InputType = "date" | "checkbox" | "time" | "text" | "password"
 export type ZodRecordSchema<T extends object> = Record<keyof T, ZodTypeAny>
 export type ModalSize = "full" | "5xl" | "4xl" | "3xl" | "2xl" | "xl" | Size
+export type FieldEventHandler<T> = (fn?: (e: CE<T>) => void) => (e: CE<T>) => void

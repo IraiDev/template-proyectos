@@ -1,13 +1,13 @@
-import { Chip, ChipProps } from "@nextui-org/react"
+import { Chip as NextChip, ChipProps } from "@nextui-org/react"
 import React from "react"
 
 interface Props extends Omit<ChipProps, "ref"> {
   ref?: React.RefObject<HTMLDivElement>
 }
 
-export function MyChip({ ref, ...props }: Props) {
+export function Chip({ ref, ...props }: Props) {
   return (
-    <Chip
+    <NextChip
       ref={ref}
       size="sm"
       radius="sm"

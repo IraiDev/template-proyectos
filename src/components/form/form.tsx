@@ -8,13 +8,7 @@ interface Props {
   onSubmit(e: React.FormEvent<HTMLFormElement>): void
 }
 
-export function MyForm({
-  ref,
-  title,
-  children,
-  className,
-  onSubmit,
-}: Partial<Props>) {
+export function Form({ ref, title, children, onSubmit, className }: Partial<Props>) {
   return (
     <form
       ref={ref}

@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { useToggle } from "@utils/hooks"
+import { useToggle } from "src/hooks"
 import { IconEye, IconEyeOff } from "@tabler/icons-react"
 import { ICON_SIZE } from "@configs/constants"
 

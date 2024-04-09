@@ -1,5 +1,10 @@
 import React from "react"
-import { Modal, ModalProps, ModalContent, ModalHeader } from "@nextui-org/react"
+import {
+  Modal as NextModal,
+  ModalProps,
+  ModalContent,
+  ModalHeader,
+} from "@nextui-org/react"
 
 interface Props extends Omit<ModalProps, "title" | "as" | "ref"> {
   ref?: React.RefObject<HTMLDivElement>
@@ -7,32 +12,32 @@ interface Props extends Omit<ModalProps, "title" | "as" | "ref"> {
   title: React.ReactNode
 }
 
-export function MyModal({
+export function Modal({
   ref,
   title,
   children,
-  size = "xl",
   hideHeader = false,
-  isDismissable = false,
   hideCloseButton = false,
   ...props
 }: Props) {
   return (
-    <Modal
+    <NextModal
       ref={ref}
-      size={size}
+      size="xl"
       backdrop="opaque"
       shouldBlockScroll
+      isDismissable={false}
       placement="top-center"
       scrollBehavior="inside"
       isKeyboardDismissDisabled
-      isDismissable={isDismissable}
       hideCloseButton={hideCloseButton || hideHeader}
       {...props}>
       <ModalContent>
-        {hideHeader && <ModalHeader className="text-2xl font-semibold">{title}</ModalHeader>}
+        {hideHeader && (
+          <ModalHeader className="text-2xl font-semibold">{title}</ModalHeader>
+        )}
         {children}
       </ModalContent>
-    </Modal>
+    </NextModal>
   )
 }

@@ -1,8 +1,8 @@
-import { MyInput } from ".."
+import { Input } from ".."
 import { SEARCH_PARAMS } from "@configs/constants"
 import { InputType } from "@configs/types"
 import { twclx } from "@utils/functions"
-import { useQueryParams } from "@utils/hooks"
+import { useQueryParams } from "src/hooks"
 import { useRef } from "react"
 
 interface Props<T extends string> {
@@ -13,7 +13,8 @@ interface Props<T extends string> {
   autoFocus?: boolean
   placeholder?: string
   isDisabled?: boolean
-  isOnBlurDisabled?: boolean
+  filterOnBlur?: boolean
+  sideFilters?: Partial<Record<T, string>>
 }
 
 export function InputFilter<T extends string>({
@@ -22,16 +23,15 @@ export function InputFilter<T extends string>({
   autoFocus,
   className,
   isDisabled,
+  sideFilters,
+  filterOnBlur,
   type = "text",
-  isOnBlurDisabled,
   placeholder = "Filtrar...",
 }: Props<T>) {
-  const { params, setParams, getParam } = useQueryParams()
+  const { queryParams, setQueryParams, watchQueryParam } = useQueryParams()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleFilter = (
-    e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent,
-  ) => {
+  const onFilter = (e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault()
       setFilters()
@@ -39,48 +39,52 @@ export function InputFilter<T extends string>({
   }
 
   const handleBlur = () => {
-    if (isOnBlurDisabled) return
+    if (!filterOnBlur) return
     setFilters()
   }
 
-  const handleDateChange = () => {
+  const handleChange = () => {
     if (type !== "date") return
     setFilters()
   }
 
   function setFilters() {
+    const pageKey = SEARCH_PARAMS.PAGE.KEY
     const value = inputRef.current?.value ?? ""
-    const key = SEARCH_PARAMS.PAGE.KEY
-    const defaultValue = SEARCH_PARAMS.PAGE.DEFAULT_VALUE
+    const pageDefaultValue = SEARCH_PARAMS.PAGE.DEFAULT_VALUE
 
-    value ? params.set(name, value) : params.delete(name)
+    value ? queryParams.set(name, value) : queryParams.delete(name)
 
-    if (params.get(key) && value !== "") {
-      params.set(key, defaultValue)
+    if (queryParams.get(pageKey) && value !== "") {
+      queryParams.set(pageKey, pageDefaultValue)
     }
 
-    setParams(params)
+    if (sideFilters) {
+      for (const [key, value] of Object.entries(sideFilters)) {
+        queryParams.get(key) === null && queryParams.set(key, value as string)
+      }
+    }
+
+    setQueryParams(queryParams)
   }
 
   return (
-    <div className={twclx("pl-1.5 pb-1.5", className)}>
-      <MyInput
-        size="sm"
+    <div className={twclx("", className)}>
+      <Input
         fullWidth
-        radius="sm"
         name={name}
         type={type}
         label={label}
         ref={inputRef}
+        autoComplete="off"
         onBlur={handleBlur}
-        autoCapitalize="off"
+        onKeyDown={onFilter}
         autoFocus={autoFocus}
         isDisabled={isDisabled}
-        onKeyDown={handleFilter}
-        key={getParam(name, "")}
+        onChange={handleChange}
         placeholder={placeholder}
-        onChange={handleDateChange}
-        defaultValue={getParam(name, "")}
+        key={watchQueryParam(name, "")}
+        defaultValue={watchQueryParam(name, "")}
       />
     </div>
   )

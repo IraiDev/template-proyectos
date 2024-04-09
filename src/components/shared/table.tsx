@@ -3,9 +3,7 @@ import { Align, TableDataset, Valign } from "@configs/types"
 import { Spinner } from "@nextui-org/react"
 import { twclx } from "@utils/functions"
 
-type ExtractColumn = Pick<TableColumn, "align" | "key">
-
-interface Props<T extends object> {
+type Props<T extends object> = {
   className?: string
   isLoading?: boolean
   emptyContent?: string
@@ -18,7 +16,7 @@ interface Props<T extends object> {
   renderCells?(item: T, index: number): JSX.Element
 }
 
-export function MyTable<T extends object>({
+export function Table<T extends object>({
   isLoading,
   className,
   dataset = [],
@@ -60,7 +58,7 @@ export function MyTable<T extends object>({
 
         <tbody className={dataset.length === 0 ? "h-24" : ""}>
           {dataset.map(({ key, ...item }: TableDataset<T>, idx) => (
-            <MyTableRow key={key}>{renderCells?.(item as T, idx)}</MyTableRow>
+            <TableRow key={key}>{renderCells?.(item as T, idx)}</TableRow>
           ))}
 
           {dataset.length === 0 && (
@@ -78,33 +76,7 @@ export function MyTable<T extends object>({
   )
 }
 
-interface MyTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  children: React.ReactNode
-  selectedRow?: boolean
-  onSelectRow?(): void
-}
-
-function MyTableRow({ children, ...props }: MyTableRowProps) {
-  return (
-    <tr
-      {...props}
-      className={twclx(
-        "outline-none even:bg-background-100 odd:bg-transparent hover:bg-default-200/70 transition-colors",
-      )}>
-      {children}
-    </tr>
-  )
-}
-
-interface MyTableCellProps extends React.TableHTMLAttributes<HTMLTableCellElement> {
-  valign: Valign
-  colSpan: number
-  className: string
-  clickeable: boolean
-  children: React.ReactNode
-}
-
-export function MyTableCell({
+export function TableCell({
   children,
   className,
   clickeable,
@@ -125,10 +97,16 @@ export function MyTableCell({
   )
 }
 
-interface EmptyContentProps {
-  colSpan: number
-  align: Align
-  content: string
+function TableRow({ children, ...props }: MyTableRowProps) {
+  return (
+    <tr
+      {...props}
+      className={twclx(
+        "outline-none even:bg-background-100 odd:bg-transparent hover:bg-default-200/70 transition-colors",
+      )}>
+      {children}
+    </tr>
+  )
 }
 
 function EmptyContent({ content, ...props }: EmptyContentProps) {
@@ -152,4 +130,25 @@ function Loader() {
       <Spinner />
     </div>
   )
+}
+type ExtractColumn = Pick<TableColumn, "align" | "key">
+
+type MyTableRowProps = {
+  onSelectRow?(): void
+  selectedRow?: boolean
+  children: React.ReactNode
+} & React.HTMLAttributes<HTMLTableRowElement>
+
+type MyTableCellProps = {
+  valign: Valign
+  colSpan: number
+  className: string
+  clickeable: boolean
+  children: React.ReactNode
+} & React.TableHTMLAttributes<HTMLTableCellElement>
+
+type EmptyContentProps = {
+  align: Align
+  colSpan: number
+  content: string
 }

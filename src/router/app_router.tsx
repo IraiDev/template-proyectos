@@ -1,10 +1,10 @@
-import { privateRoutes, publicRoutes } from "@configs/routes"
+import { LoginPage, RenewPage } from "@features/auth/pages"
 import { HomeView } from "@features/home/home_view"
 import { createBrowserRouter } from "react-router-dom"
 import { AuthGuard, NotAuthGuard } from "./guards"
-import { LoginPage, RenewPage } from "@features/auth/pages"
+import { routes } from "./routes"
 
-export const MainRouter = createBrowserRouter([
+export const AppRouter = createBrowserRouter([
   {
     path: "/",
     children: [
@@ -13,7 +13,7 @@ export const MainRouter = createBrowserRouter([
         element: <RenewPage />,
       },
       {
-        path: privateRoutes.home,
+        path: routes.private.home,
         element: (
           <AuthGuard>
             <HomeView />
@@ -21,7 +21,7 @@ export const MainRouter = createBrowserRouter([
         ),
       },
       {
-        path: publicRoutes.login,
+        path: routes.public.login,
         element: (
           <NotAuthGuard>
             <LoginPage />

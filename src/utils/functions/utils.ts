@@ -1,47 +1,4 @@
-import { InputOnlyNumberEntryType, TableDataset } from "@configs/types"
-
-export function inputOnlyNumber(
-  event: any,
-  tipoEntrada: InputOnlyNumberEntryType | undefined = "positive",
-) {
-  const char = event.key
-
-  const value = event.target.value
-  const cursorPosition = event.target.selectionStart
-
-  if (tipoEntrada === "positive" && char === "-") {
-    event.preventDefault()
-  }
-
-  if (tipoEntrada === "negative" && char !== "-" && cursorPosition === 0) {
-    event.preventDefault()
-  }
-
-  if (
-    !/[0-9.-]/.test(char) &&
-    char !== "Backspace" &&
-    char !== "Delete" &&
-    char !== "ArrowLeft" &&
-    char !== "ArrowRight" &&
-    char !== "Escape" &&
-    char !== "Enter" &&
-    char !== "Tab"
-  ) {
-    event.preventDefault()
-  }
-
-  if (char === "-" && cursorPosition !== 0) {
-    event.preventDefault()
-  }
-
-  if (char === "." && cursorPosition === 0) {
-    event.preventDefault()
-  }
-
-  if (char === "." && value.includes(".")) {
-    event.preventDefault()
-  }
-}
+import { TableDataset } from "@configs/types"
 
 export function sleep(seconds?: number): Promise<boolean> {
   return new Promise((resolve) => {

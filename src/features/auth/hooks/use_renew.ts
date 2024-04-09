@@ -1,8 +1,8 @@
+import { routes } from "@router/routes"
+import { getFromLocalStorage, isInLocalStorage, sleep } from "@utils/functions"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { AuthStore } from "../stores"
-import { getFromLocalStorage, isInLocalStorage, sleep } from "@utils/functions"
-import { privateRoutes, publicRoutes } from "@configs/routes"
-import { useEffect } from "react"
 
 export function useRenew() {
   const setUser = AuthStore((state) => state.setUser)
@@ -16,7 +16,7 @@ export function useRenew() {
     sleep(3)
       .then((value) => {
         setSignIn(value)
-        navigate(value ? `/${privateRoutes.home}` : `/${publicRoutes.login}`, {
+        navigate(value ? `/${routes.private.home}` : `/${routes.public.login}`, {
           replace: true,
         })
         if (value) {

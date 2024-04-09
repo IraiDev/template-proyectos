@@ -1,10 +1,10 @@
 import { Size } from "@configs/types"
 import { twclx } from "@utils/functions"
 
-interface Props {
+type Props = {
+  size?: Size
   label: string
   tooltip?: string
-  size?: Size
   defaultContent?: string
   value?: string | number
 }
@@ -17,9 +17,11 @@ export function TextItem({
   defaultContent = "sin dato...",
 }: Props) {
   return (
-    <p title={tooltip} className={sizes[size]}>
+    <p className={sizes[size]}>
       <strong className="font-semibold mr-1.5">{label}:</strong>
-      <span className={twclx(!value && "text-foreground-500")}>{value || defaultContent}</span>
+      <span title={tooltip} className={twclx(!value && "text-foreground-500")}>
+        {value || defaultContent}
+      </span>
     </p>
   )
 }

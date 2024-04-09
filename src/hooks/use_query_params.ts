@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom"
 export function useQueryParams<T extends string>() {
   const [queryParams, setQueryParams] = useSearchParams()
 
-  const watchSearchParam = useCallback(
+  const watchQueryParam = useCallback(
     <V extends DefaultValue>(name: T, defaultValue: V): V => {
       const result = queryParams.get(name) ?? (defaultValue as string)
 
@@ -17,7 +17,7 @@ export function useQueryParams<T extends string>() {
     [queryParams],
   )
 
-  const resetSearchParams = useCallback(() => {
+  const resetQueryParams = useCallback(() => {
     const newSearchParams = new URLSearchParams()
     setQueryParams(newSearchParams)
   }, [setQueryParams])
@@ -25,8 +25,8 @@ export function useQueryParams<T extends string>() {
   return {
     queryParams,
     setQueryParams,
-    watchSearchParam,
-    resetSearchParams,
+    watchQueryParam,
+    resetQueryParams,
   }
 }
 
