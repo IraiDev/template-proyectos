@@ -1,9 +1,9 @@
 import { SEARCH_PARAMS } from "@configs/constants"
 import { twclx } from "@utils/functions"
-import { useQueryParams } from "src/hooks"
 import { ChangeEvent } from "react"
 import { Select } from ".."
 import { Option } from "@configs/interfaces"
+import { useQueryParams } from "@hooks/index"
 
 interface Props<T extends string> {
   name: T

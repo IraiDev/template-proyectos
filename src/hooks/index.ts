@@ -1,4 +1,3 @@
-export * from "./index"
 export * from "./use_clipboard"
 export * from "./use_fields"
 export * from "./use_pagination"

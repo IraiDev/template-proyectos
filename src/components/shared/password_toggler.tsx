@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
-import { useToggle } from "src/hooks"
 import { IconEye, IconEyeOff } from "@tabler/icons-react"
 import { ICON_SIZE } from "@configs/constants"
+import { useToggle } from "@hooks/index"
 
 interface Props {
   children(props: { type: "password" | "text"; Toggler: ReactNode }): ReactNode

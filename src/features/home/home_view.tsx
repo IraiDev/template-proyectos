@@ -11,9 +11,9 @@ import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
 import { AuthStore } from "@features/auth/stores"
 import { sleep, tableDatasetAdapter, toString } from "@utils/functions"
-import { useFields, useQueryParams } from "src/hooks"
 import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
+import { useFields, useQueryParams } from "@hooks/index"
 import { z } from "zod"
 
 type FormValues = {

@@ -66,6 +66,9 @@ export function Select<T extends object>({
           fieldState,
         }) => (
           <NextSelect
+            size="sm"
+            radius="sm"
+            variant="flat"
             {...defaultProps(fieldValue)}
             {...props}
             {...field}
@@ -85,6 +88,9 @@ export function Select<T extends object>({
   return (
     <NextSelect
       ref={ref}
+      size="sm"
+      radius="sm"
+      variant="flat"
       {...defaultProps(value)}
       {...props}
       name={name}

@@ -13,20 +13,21 @@ export function usePagination({
   total,
   defaultLimit = +LIMIT.DEFAULT_VALUE,
 }: Props) {
-  const { setParams, getParam } = useQueryParams<"pagina" | "limite">()
+  const { setQueryParams, watchQueryParam } = useQueryParams<"pagina" | "limite">()
 
-  const page = +getParam("pagina", PAGE.DEFAULT_VALUE)
-  const totalPages = Math.ceil((total || 1) / +getParam("limite", defaultLimit))
+  const page = +watchQueryParam("pagina", PAGE.DEFAULT_VALUE)
+  const totalPages = Math.ceil(
+    (total || 1) / +watchQueryParam("limite", defaultLimit),
+  )
 
   const onChangePage = useCallback(
     (value: number) => {
-      setParams(() => {
-        const url = new URL(window.location.href)
-        url.searchParams.set("pagina", value.toString())
-        return url.searchParams
-      })
+      const url = new URL(window.location.href)
+      url.searchParams.set("pagina", value.toString())
+
+      setQueryParams(url.searchParams)
     },
-    [setParams],
+    [setQueryParams],
   )
 
   return {

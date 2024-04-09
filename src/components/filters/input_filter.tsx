@@ -2,8 +2,8 @@ import { Input } from ".."
 import { SEARCH_PARAMS } from "@configs/constants"
 import { InputType } from "@configs/types"
 import { twclx } from "@utils/functions"
-import { useQueryParams } from "src/hooks"
 import { useRef } from "react"
+import { useQueryParams } from "@hooks/index"
 
 interface Props<T extends string> {
   name: T

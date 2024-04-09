@@ -21,6 +21,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@router/*": ["src/router/*"],
       "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@views/*": ["src/views/*"],
       "@mocks/*": ["src/mocks/*"]
     },

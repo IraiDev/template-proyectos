@@ -50,6 +50,9 @@ export function Input<T extends object>({
         render={({ field: { onChange, value, ...field }, fieldState }) => (
           <>
             <NextInput
+              size="sm"
+              radius="sm"
+              variant="flat"
               autoComplete="off"
               {...props}
               {...field}
@@ -66,7 +69,10 @@ export function Input<T extends object>({
   return (
     <NextInput
       ref={ref}
+      size="sm"
+      radius="sm"
       name={name}
+      variant="flat"
       autoComplete="off"
       onChange={handleChange()}
       onKeyDown={handleKeyDown}

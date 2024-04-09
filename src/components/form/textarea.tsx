@@ -32,6 +32,9 @@ export function Textarea<T extends object>({
         name={name as Path<T>}
         render={({ field: { onChange, ...field }, fieldState }) => (
           <NextTextarea
+            size="sm"
+            radius="sm"
+            variant="flat"
             {...props}
             {...field}
             onChange={handleChange(onChange)}
@@ -42,7 +45,17 @@ export function Textarea<T extends object>({
     )
   }
 
-  return <NextTextarea ref={ref} {...props} name={name} onChange={handleChange()} />
+  return (
+    <NextTextarea
+      ref={ref}
+      size="sm"
+      radius="sm"
+      variant="flat"
+      {...props}
+      name={name}
+      onChange={handleChange()}
+    />
+  )
 }
 
 type ExtendsProps = Omit<TextAreaProps, "onChange"> & FieldProps
