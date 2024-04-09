@@ -1,5 +1,5 @@
 import { Size } from "@configs/types"
-import { twclx } from "@utils/functions"
+import { twclx } from "@utils/index"
 
 type Props = {
   size?: Size

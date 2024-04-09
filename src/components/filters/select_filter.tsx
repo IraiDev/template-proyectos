@@ -1,5 +1,5 @@
 import { SEARCH_PARAMS } from "@configs/constants"
-import { twclx } from "@utils/functions"
+import { twclx } from "@utils/index"
 import { ChangeEvent } from "react"
 import { Select } from ".."
 import { Option } from "@configs/interfaces"

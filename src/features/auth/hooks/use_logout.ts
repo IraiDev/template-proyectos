@@ -1,4 +1,4 @@
-import { removeFromLocalStorage } from "@utils/functions"
+import { removeFromLocalStorage } from "@utils/index"
 import { AuthStore } from "../stores"
 
 export function useLogout() {

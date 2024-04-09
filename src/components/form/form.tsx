@@ -1,4 +1,4 @@
-import { twclx } from "@utils/functions"
+import { twclx } from "@utils/index"
 
 interface Props {
   className: string

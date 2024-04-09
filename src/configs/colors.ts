@@ -1,4 +1,4 @@
-export const primaryColors = {
+export const PRIMARY_COLORS = {
   50: "#edfff2",
   100: "#d6ffe3",
   200: "#afffc7",
@@ -12,7 +12,7 @@ export const primaryColors = {
   950: "#003612",
 }
 
-export const secondaryColors = {
+export const SECONDARY_COLORS = {
   "50": "#fffbeb",
   "100": "#fff3c6",
   "200": "#ffe588",

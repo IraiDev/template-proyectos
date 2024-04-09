@@ -1,6 +1,6 @@
 import { CreateJsxElement } from ".."
 import { HtmlElements } from "@configs/types"
-import { twclx } from "@utils/functions"
+import { twclx } from "@utils/index"
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   as: HtmlElements

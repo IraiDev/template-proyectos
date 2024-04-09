@@ -38,10 +38,7 @@ type UseFieldOptions<T extends object> = {
   label?: string
 } & FieldProps
 
-type UseFieldReturn<T extends object> = { name?: Path<T> } & Omit<
-  UseFieldOptions<T>,
-  ""
->
+type UseFieldReturn<T extends object> = { name?: Path<T> } & UseFieldOptions<T>
 
 export type UseField<T extends object> = (
   name: Path<T>,

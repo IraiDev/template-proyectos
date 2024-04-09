@@ -1,4 +1,4 @@
-import { isInLocalStorage } from "@utils/functions"
+import { isInLocalStorage } from "@utils/index"
 import { Navigate } from "react-router-dom"
 
 export const NotAuthGuard = ({ children }: { children: React.ReactNode }) => {

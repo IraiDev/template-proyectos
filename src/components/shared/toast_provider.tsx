@@ -6,7 +6,7 @@ import {
   IconInfoCircle,
   IconX,
 } from "@tabler/icons-react"
-import { twclx } from "@utils/functions"
+import { twclx } from "@utils/index"
 import { ToastContainer, TypeOptions } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 

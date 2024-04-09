@@ -30,6 +30,7 @@ export function Checkbox<T extends object>({
         name={name as Path<T>}
         render={({ field: { value, onChange, ...field } }) => (
           <NextCheckbox
+            radius="sm"
             {...props}
             {...field}
             isSelected={value}
@@ -40,7 +41,15 @@ export function Checkbox<T extends object>({
     )
   }
 
-  return <NextCheckbox ref={ref} name={name} onChange={handleChange()} />
+  return (
+    <NextCheckbox
+      ref={ref}
+      radius="sm"
+      {...props}
+      name={name}
+      onChange={handleChange()}
+    />
+  )
 }
 
 type ExtendsProps = Omit<CheckboxProps, "ref" | "name"> & FieldProps

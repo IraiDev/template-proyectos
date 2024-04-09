@@ -1,4 +1,5 @@
-import { Button as NextButton, ButtonProps, cn } from "@nextui-org/react"
+import { ButtonProps, Button as NextButton } from "@nextui-org/react"
+import { twclx } from "@utils/tailwind"
 import React from "react"
 
 interface Props extends Omit<ButtonProps, "ref"> {
@@ -13,7 +14,7 @@ export function Button({ ref, className, ...props }: Props) {
       type="button"
       variant="solid"
       color="primary"
-      className={cn("font-semibold focus-visible:!outline-primary", className)}
+      className={twclx("font-semibold", className)}
       {...props}
     />
   )

@@ -6,10 +6,10 @@ export function useClipboard() {
   const handleSaveInClipboard = (value: string) => {
     navigator.clipboard
       .writeText(value)
-      .then(function () {
-        infoToast("Copiado al portapapeles")
+      .then(() => {
+        infoToast("Copiado en portapapeles")
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
         warningToast("Error al copiar en portapapeles")
       })

@@ -1,4 +1,4 @@
-import { isEmptyObject } from "@utils/functions"
+import { isEmptyObject } from "@utils/index"
 
 interface Props<T extends object> {
   evaluate: T

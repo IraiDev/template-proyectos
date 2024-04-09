@@ -1,5 +1,5 @@
 import { routes } from "@router/routes"
-import { getFromLocalStorage, isInLocalStorage, sleep } from "@utils/functions"
+import { getFromLocalStorage, isInLocalStorage, sleep } from "@utils/index"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { AuthStore } from "../stores"

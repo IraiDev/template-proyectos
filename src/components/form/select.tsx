@@ -66,6 +66,7 @@ export function Select<T extends object>({
           fieldState,
         }) => (
           <NextSelect
+            as="div"
             size="sm"
             radius="sm"
             variant="flat"
@@ -87,6 +88,7 @@ export function Select<T extends object>({
 
   return (
     <NextSelect
+      as="div"
       ref={ref}
       size="sm"
       radius="sm"
