@@ -14,7 +14,11 @@ export function removeFromLocalStorage(key: LocalStorageKeys) {
 export function getFromLocalStorage(key: LocalStorageKeys) {
   const result = window.localStorage.getItem(key) ?? ""
 
-  return JSON.parse(result)
+  try {
+    return JSON.parse(result)
+  } catch (e) {
+    return result
+  }
 }
 
 export function isInLocalStorage(key: LocalStorageKeys): boolean {
