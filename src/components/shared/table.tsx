@@ -1,16 +1,16 @@
 import { TableColumn } from "@configs/interfaces"
-import { Align, TableDataset, Valign } from "@configs/types"
+import { Align, Valign } from "@configs/types"
 import { Spinner } from "@nextui-org/react"
 import { twclx } from "@utils/functions"
 
 type Props<T extends object> = {
+  dataset: T[]
   className?: string
   isLoading?: boolean
   emptyContent?: string
   columns: TableColumn[]
   alignEmptyContent?: Align
   wrapperClassName?: string
-  dataset: TableDataset<T>[]
   renderFooter?(): JSX.Element
   renderFilter?(cols: ExtractColumn[]): JSX.Element
   renderCells?(item: T, index: number): JSX.Element
@@ -57,9 +57,7 @@ export function Table<T extends object>({
         </thead>
 
         <tbody className={dataset.length === 0 ? "h-24" : ""}>
-          {dataset.map(({ key, ...item }: TableDataset<T>, idx) => (
-            <TableRow key={key}>{renderCells?.(item as T, idx)}</TableRow>
-          ))}
+          {dataset.map((item, idx) => renderCells?.(item, idx))}
 
           {dataset.length === 0 && (
             <EmptyContent
@@ -97,7 +95,7 @@ export function TableCell({
   )
 }
 
-function TableRow({ children, ...props }: MyTableRowProps) {
+export function TableRow({ children, ...props }: MyTableRowProps) {
   return (
     <tr
       {...props}
