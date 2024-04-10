@@ -13,6 +13,7 @@ export interface TableColumn {
   key: string
   align?: Align
   title?: string
+  width?: number
   valign?: Valign
   content: React.ReactNode
 }

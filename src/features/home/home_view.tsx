@@ -4,11 +4,10 @@ import {
   Chip,
   Input,
   Select,
-  Table,
   TableCell,
-  TableRow,
   TextItem,
 } from "@components/index"
+import { TableV2 } from "@components/shared/table_v2"
 import { useAuth } from "@features/auth/hooks"
 import { useFields, useQueryParams } from "@hooks/index"
 import { sleep, toString } from "@utils/index"
@@ -33,7 +32,7 @@ const OPTIONS = [
 
 export const HomeView = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [users, setUsers] = useState<(FormValues & { id: number })[]>([])
+  const [, setUsers] = useState<(FormValues & { id: number })[]>([])
 
   const { user, handleLogout } = useAuth()
   const { queryParams, setQueryParams, watchQueryParam } =
@@ -102,36 +101,106 @@ export const HomeView = () => {
       </form>
 
       <section>
-        <Table
-          isLoading={isLoading}
-          wrapperClassName="max-w-3xl mx-auto"
-          columns={[
-            { key: "1", content: "nombre", align: "left" },
-            { key: "2", content: "cargo", align: "center" },
-            { key: "3", content: "es mayor", align: "center" },
-          ]}
-          dataset={users}
-          renderCells={(item) => (
-            <TableRow key={item.id}>
-              <TableCell align="left" className="min-w-max">
-                {item.nombre}
-              </TableCell>
-              <TableCell align="center" className="w-64">
-                <Chip>
-                  {OPTIONS.find((el) => el.key === item.cargo)?.label ?? "--"}
-                </Chip>
-              </TableCell>
-              <TableCell align="center" className="w-10">
-                {item.es_mayor ? "si" : "No"}
-              </TableCell>
-            </TableRow>
-          )}
-        />
+        <UserTable />
       </section>
 
       <Helmet>
         <title>Inicio</title>
       </Helmet>
     </div>
+  )
+}
+
+type UserType = FormValues & { id: number; checked: boolean }
+
+function UserTable() {
+  const dataset: UserType[] = Array.from({ length: 100_000 }).map((_, idx) => ({
+    checked: false,
+    id: idx + 1,
+    cargo: (idx + 1).toString(),
+    es_mayor: true,
+    nombre: `User ${idx + 1}`,
+  }))
+  const [users, setUser] = useState(dataset)
+  const [filter, setFilter] = useState("")
+
+  const handleChangeCheckState = (user: UserType) => {
+    setUser((prev) => {
+      return prev.map((el) => {
+        if (el.id === user.id) {
+          return {
+            ...el,
+            checked: !el.checked,
+          }
+        }
+        return el
+      })
+    })
+  }
+
+  const handleDeleteAllUser = () => {
+    setUser([])
+  }
+
+  const handleAddAllUser = () => {
+    setUser((prev) => [...prev, ...dataset])
+  }
+
+  return (
+    <>
+      <div className="flex justify-center gap-2 mb-2">
+        <Button onClick={handleDeleteAllUser}>Eliminar todos</Button>
+        <Button onClick={handleAddAllUser}>Agregar todos</Button>
+      </div>
+
+      <TableV2
+        tableHeight={400}
+        renderFilter={() => (
+          <>
+            <th colSpan={4}>
+              <Input
+                labelPlacement="outside"
+                placeholder="Buscar..."
+                className="mb-1"
+                onKeyDown={(e) => {
+                  const value = (e.target as HTMLInputElement).value
+                  if (e.key === "Enter") {
+                    setFilter(value)
+                  }
+                }}
+              />
+            </th>
+          </>
+        )}
+        columns={[
+          { key: "5", width: 50, content: "", align: "center" },
+          { key: "1", width: 250, content: "nombre", align: "left" },
+          { key: "2", width: 100, content: "cargo", align: "center" },
+          { key: "3", width: 70, content: "es mayor", align: "center" },
+        ]}
+        dataset={users.filter((el) =>
+          el.nombre.toLocaleLowerCase().includes(filter.toLocaleLowerCase()),
+        )}
+        renderCells={(item) => (
+          <>
+            <TableCell>
+              <Checkbox
+                isSelected={item.checked}
+                onValueChange={() => handleChangeCheckState(item)}
+              />
+            </TableCell>
+            <TableCell align="left">{item.nombre}</TableCell>
+            <TableCell align="center">
+              <Chip>
+                {OPTIONS.find((el) => el.key === item.cargo)?.label ?? "--"}
+              </Chip>
+            </TableCell>
+            <TableCell align="center">{item.es_mayor ? "si" : "No"}</TableCell>
+          </>
+        )}
+      />
+
+      <div className="text-center mt-2">Total: {users.length}</div>
+    </>
   )
 }
