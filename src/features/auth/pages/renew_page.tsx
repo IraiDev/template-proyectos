@@ -20,7 +20,7 @@ export const RenewPage = () => {
         </section>
       </div>
       <Helmet>
-        <title>Iniciando Sesión...</title>
+        <title>Validando Sesión...</title>
       </Helmet>
     </>
   )
