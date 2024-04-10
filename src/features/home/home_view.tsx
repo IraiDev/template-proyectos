@@ -12,6 +12,7 @@ import { useAuth } from "@features/auth/hooks"
 import { useFields, useQueryParams } from "@hooks/index"
 import { sleep, toString } from "@utils/index"
 import { useState } from "react"
+import { Helmet } from "react-helmet"
 import { SubmitHandler } from "react-hook-form"
 import { z } from "zod"
 
@@ -85,6 +86,7 @@ export const HomeView = () => {
           Registrar
         </Button>
       </form>
+
       <section>
         <Table
           isLoading={isLoading}
@@ -112,6 +114,10 @@ export const HomeView = () => {
           )}
         />
       </section>
+
+      <Helmet>
+        <title>Inicio</title>
+      </Helmet>
     </div>
   )
 }
