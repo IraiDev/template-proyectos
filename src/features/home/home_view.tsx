@@ -8,8 +8,11 @@ import {
   TextItem,
 } from "@components/index"
 import { TableV2 } from "@components/shared/table_v2"
+import { ICON_SIZE } from "@configs/constants"
 import { useAuth } from "@features/auth/hooks"
 import { useFields, useQueryParams } from "@hooks/index"
+import { useDisclosure } from "@nextui-org/react"
+import { IconX } from "@tabler/icons-react"
 import { sleep, toString } from "@utils/index"
 import { useState } from "react"
 import { Helmet } from "react-helmet"
@@ -66,6 +69,7 @@ export const HomeView = () => {
     <div className="flex flex-col gap-10 h-screen bg-white">
       <header className="flex justify-between gap-2 p-4">
         <h1 className="text-2xl font-bold">Bienvenido {user}</h1>
+        <ModalPDF />
         <Button onClick={handleLogout}>Logout</Button>
       </header>
 
@@ -108,6 +112,33 @@ export const HomeView = () => {
         <title>Inicio</title>
       </Helmet>
     </div>
+  )
+}
+
+function ModalPDF() {
+  const { isOpen, onOpenChange } = useDisclosure()
+  return (
+    <>
+      <Button onClick={onOpenChange}>Ver PDF</Button>
+
+      {isOpen && (
+        <div className="fixed grid inset-0 place-content-center h-screen w-full bg-black/60 z-50">
+          <div className="p-5 shadow-lg rounded-medium h-[calc(100vh-30px)] relative w-[calc(100vw-20px)] xl:w-[1200px] flex justify-center bg-white">
+            <Button
+              isIconOnly
+              size="md"
+              radius="lg"
+              color="default"
+              variant="solid"
+              className="absolute -top-3 -right-3 hover:!bg-red-500/100 hover:text-white"
+              onClick={onOpenChange}>
+              <IconX size={ICON_SIZE.LG} />
+            </Button>
+            <iframe src="pdf-2.pdf" width="100%" height="100%" />
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
