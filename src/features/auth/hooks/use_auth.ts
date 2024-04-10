@@ -1,13 +1,14 @@
 import { routes } from "@router/routes"
-import { saveInLocalStorage, sleep } from "@utils/index"
+import { removeFromLocalStorage, saveInLocalStorage, sleep } from "@utils/index"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { AuthStore } from "../stores"
+import { authStore } from "../stores"
 
-export function useLogin() {
-  const setUser = AuthStore((state) => state.setUser)
-  const setSignIn = AuthStore((state) => state.setSignIn)
-  const [isLoading, setIsLoading] = useState(false)
+export function useAuth() {
+  const user = authStore((state) => state.user)
+  const [setUser, setSignIn] = authStore((state) => [state.setUser, state.setSignIn])
+
+  const [isLoginLoading, setIsLoadingLogin] = useState(false)
   const navigate = useNavigate()
 
   const handleLogin = (e: React.FormEvent) => {
@@ -16,7 +17,7 @@ export function useLogin() {
 
     const { user } = e.target as HTMLFormElement
 
-    setIsLoading(true)
+    setIsLoadingLogin(true)
     sleep(3)
       .then((value) => {
         setSignIn(value)
@@ -30,12 +31,20 @@ export function useLogin() {
         alert("error login")
       })
       .finally(() => {
-        setIsLoading(false)
+        setIsLoadingLogin(false)
       })
   }
 
+  const handleLogout = () => {
+    setSignIn(false)
+    setUser(null)
+    removeFromLocalStorage("TEST")
+  }
+
   return {
-    isLoading,
+    user,
     handleLogin,
+    handleLogout,
+    isLoginLoading,
   }
 }

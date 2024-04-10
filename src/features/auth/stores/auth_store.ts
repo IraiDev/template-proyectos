@@ -15,7 +15,7 @@ const init: State = {
   user: null,
 }
 
-export const AuthStore = create<State & Action>((set) => ({
+export const authStore = create<State & Action>((set) => ({
   ...init,
   setSignIn: (value) => set({ isSignIn: value }),
   setUser: (user) => set({ user }),

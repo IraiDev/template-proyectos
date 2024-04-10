@@ -1,9 +1,9 @@
 import { removeFromLocalStorage } from "@utils/index"
-import { AuthStore } from "../stores"
+import { authStore } from "../stores"
 
 export function useLogout() {
-  const setUser = AuthStore((s) => s.setUser)
-  const setSignIn = AuthStore((s) => s.setSignIn)
+  const setUser = authStore((s) => s.setUser)
+  const setSignIn = authStore((s) => s.setSignIn)
 
   const handleLogout = () => {
     setSignIn(false)

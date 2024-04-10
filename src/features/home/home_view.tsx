@@ -10,7 +10,7 @@ import {
 } from "@components/index"
 import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
-import { AuthStore } from "@features/auth/stores"
+import { authStore } from "@features/auth/stores"
 import { useFields, useQueryParams } from "@hooks/index"
 import { sleep, toString } from "@utils/index"
 import { useState } from "react"
@@ -36,7 +36,7 @@ const OPTIONS = [
 ]
 
 export const HomeView = () => {
-  const user = AuthStore((state) => state.user)
+  const user = authStore((state) => state.user)
   const { handleLogout } = useLogout()
   const [isLoading, setIsLoading] = useState(false)
   const [users, setUsers] = useState<(FormValues & { id: number })[]>([])
