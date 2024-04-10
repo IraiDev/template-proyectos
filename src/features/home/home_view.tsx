@@ -7,6 +7,7 @@ import {
   Table,
   TableCell,
   TableRow,
+  TextItem,
 } from "@components/index"
 import { useAuth } from "@features/auth/hooks"
 import { useFields, useQueryParams } from "@hooks/index"
@@ -69,11 +70,24 @@ export const HomeView = () => {
         <Button onClick={handleLogout}>Logout</Button>
       </header>
 
-      <section className="flex gap-1 w-96 mx-auto">
+      <section className="flex gap-1 w-96 items-center mx-auto">
         <strong>Filtros:</strong>
-        <span>{watchQueryParam("nombre", "sin nombre")},</span>
-        <span>{watchQueryParam("cargo", "--")},</span>
-        <span>{watchQueryParam("es_mayor", false) ? "SI" : "NO"}</span>
+        <TextItem
+          label="Nombre"
+          value={watchQueryParam("nombre", "")}
+          defaultValue="sin nombre..."
+        />
+        <TextItem
+          label="Cargo"
+          value={watchQueryParam("cargo", "")}
+          defaultValue="sin cargo..."
+        />
+        <TextItem
+          label="Es mayor"
+          defaultValue="NO"
+          value={watchQueryParam("es_mayor", false) ? "SI" : ""}
+        />
+        {/* <span>{watchQueryParam("es_mayor", false) ? "SI" : "NO"}</span> */}
       </section>
 
       <form
