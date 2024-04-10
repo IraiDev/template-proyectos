@@ -8,7 +8,6 @@ import {
   TableCell,
   TableRow,
 } from "@components/index"
-import { ZodRecordSchema } from "@configs/types"
 import { useLogout } from "@features/auth/hooks"
 import { authStore } from "@features/auth/stores"
 import { useFields, useQueryParams } from "@hooks/index"
@@ -17,17 +16,13 @@ import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
 import { z } from "zod"
 
-type FormValues = {
-  es_mayor: boolean
-  nombre: string
-  cargo: string
-}
-
-const schema = z.object<ZodRecordSchema<FormValues>>({
-  cargo: z.string().min(1, { message: "Requerido" }),
+const schema = z.object({
   es_mayor: z.boolean(),
+  cargo: z.string().min(1, { message: "Requerido" }),
   nombre: z.string().min(1, { message: "Requerido" }),
 })
+
+type FormValues = z.infer<typeof schema>
 
 const OPTIONS = [
   { key: "", label: "Seleccione" },
