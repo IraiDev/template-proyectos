@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "@configs/messages"
+import { ERROR_MESSAGE } from "@config/messages"
 import axios, { CancelTokenSource } from "axios"
 
 const { UNEXPECTED_ERROR, REQUEST_CANCELLED } = ERROR_MESSAGE

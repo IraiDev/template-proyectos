@@ -1,8 +1,8 @@
-import { LoginPage, RenewPage } from "@features/auth/pages"
-import { HomeView } from "@features/home/home_view"
 import { createBrowserRouter } from "react-router-dom"
 import { AuthGuard, NotAuthGuard } from "./guards"
 import { routes } from "./routes"
+import { LoginPage, RenewPage } from "@modules/auth/pages"
+import { HomeView } from "@modules/home/home_view"
 
 export const AppRouter = createBrowserRouter([
   {

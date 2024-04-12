@@ -1,6 +1,6 @@
 import { nextui } from "@nextui-org/react"
 import { zinc, red } from "tailwindcss/colors"
-import { PRIMARY_COLORS, SECONDARY_COLORS } from "./src/configs/colors"
+import { PRIMARY_COLORS, SECONDARY_COLORS } from "./src/config/colors"
 
 /** @type {import('tailwindcss').Config} */
 export default {

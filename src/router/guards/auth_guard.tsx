@@ -1,8 +1,8 @@
-import { authStore } from "@features/auth/stores"
+import { useAuth } from "@modules/auth/hooks"
 import { Navigate } from "react-router-dom"
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
-  const isSignIn = authStore((state) => state.isSignIn)
+  const { isSignIn } = useAuth()
 
   if (!isSignIn) return <Navigate to="/" replace />
 

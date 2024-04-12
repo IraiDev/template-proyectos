@@ -1,4 +1,4 @@
-import { LocalStorageKeys } from "@configs/types"
+import { LocalStorageKeys } from "@config/types"
 import { toString } from "./utils"
 
 export function saveInLocalStorage(key: LocalStorageKeys, value: any) {

@@ -11,14 +11,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@features": path.resolve(__dirname, "src/features"),
+      "@modules": path.resolve(__dirname, "src/modules"),
       "@components": path.resolve(__dirname, "src/components"),
-      "@configs": path.resolve(__dirname, "src/configs"),
-      "@layouts": path.resolve(__dirname, "src/layouts"),
+      "@config": path.resolve(__dirname, "src/config"),
       "@router": path.resolve(__dirname, "src/router"),
       "@utils": path.resolve(__dirname, "src/utils"),
-      "@hooks": path.resolve(__dirname, "src/hooks"),
-      "@views": path.resolve(__dirname, "src/views"),
       "@mocks": path.resolve(__dirname, "src/mocks"),
     },
   },

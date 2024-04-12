@@ -15,14 +15,11 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@features/*": ["src/features/*"],
+      "@modules/*": ["src/modules/*"],
       "@components/*": ["src/components/*"],
-      "@configs/*": ["src/configs/*"],
-      "@layouts/*": ["src/layouts/*"],
+      "@config/*": ["src/config/*"],
       "@router/*": ["src/router/*"],
       "@utils/*": ["src/utils/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@views/*": ["src/views/*"],
       "@mocks/*": ["src/mocks/*"]
     },
 
