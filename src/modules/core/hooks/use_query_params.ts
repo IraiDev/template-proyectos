@@ -6,7 +6,7 @@ export function useQueryParams<T extends string>() {
 
   const watchQueryParam = useCallback(
     <V extends DefaultValue>(name: T, defaultValue: V): V => {
-      const result = queryParams.get(name) ?? (defaultValue as string)
+      const result = queryParams.get(name) ?? (defaultValue as any)
 
       try {
         return JSON.parse(result) as V
