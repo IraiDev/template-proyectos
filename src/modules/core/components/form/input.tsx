@@ -50,10 +50,7 @@ export function Input<T extends object>({
         render={({ field: { onChange, value, ...field }, fieldState }) => (
           <>
             <NextInput
-              size="sm"
-              radius="sm"
-              variant="flat"
-              autoComplete="off"
+              {...defaultProps}
               {...props}
               {...field}
               onKeyDown={handleKeyDown}
@@ -69,11 +66,8 @@ export function Input<T extends object>({
   return (
     <NextInput
       ref={ref}
-      size="sm"
-      radius="sm"
       name={name}
-      variant="flat"
-      autoComplete="off"
+      {...defaultProps}
       onChange={handleChange()}
       onKeyDown={handleKeyDown}
       {...props}
@@ -83,6 +77,14 @@ export function Input<T extends object>({
 
 type ExtendsProps = InputProps & FieldProps
 type KeyboardEvent = KeyboardEventHandler<HTMLInputElement>
+
+const defaultProps: InputProps = {
+  size: "sm",
+  radius: "sm",
+  variant: "flat",
+  placeholder: " ",
+  autoComplete: "off",
+}
 
 function inputOnlyNumber(
   e: React.KeyboardEvent<HTMLInputElement>,

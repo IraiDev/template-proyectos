@@ -1,11 +1,11 @@
 import { InputType } from "@config/types"
 import { Input } from ".."
 import { twclx } from "@utils/index"
-import { useRef } from "react"
+import { useCallback, useRef } from "react"
 import { useQueryParams } from "@modules/core/hooks"
 import { SEARCH_PARAMS } from "@config/constants"
 
-interface Props<T extends string> {
+type Props<T extends string> = {
   name: T
   label?: string
   type?: InputType
@@ -48,25 +48,28 @@ export function InputFilter<T extends string>({
     setFilters()
   }
 
-  function setFilters() {
-    const pageKey = SEARCH_PARAMS.PAGE.KEY
-    const value = inputRef.current?.value ?? ""
-    const pageDefaultValue = SEARCH_PARAMS.PAGE.DEFAULT_VALUE
+  const setFilters = useCallback(
+    function () {
+      const pageKey = SEARCH_PARAMS.PAGE.KEY
+      const value = inputRef.current?.value ?? ""
+      const pageDefaultValue = SEARCH_PARAMS.PAGE.DEFAULT_VALUE
 
-    value ? queryParams.set(name, value) : queryParams.delete(name)
+      value ? queryParams.set(name, value) : queryParams.delete(name)
 
-    if (queryParams.get(pageKey) && value !== "") {
-      queryParams.set(pageKey, pageDefaultValue)
-    }
-
-    if (sideFilters) {
-      for (const [key, value] of Object.entries(sideFilters)) {
-        queryParams.get(key) === null && queryParams.set(key, value as string)
+      if (queryParams.get(pageKey) && value !== "") {
+        queryParams.set(pageKey, pageDefaultValue)
       }
-    }
 
-    setQueryParams(queryParams)
-  }
+      if (sideFilters) {
+        for (const [key, value] of Object.entries(sideFilters)) {
+          queryParams.get(key) === null && queryParams.set(key, value as string)
+        }
+      }
+
+      setQueryParams(queryParams)
+    },
+    [queryParams, setQueryParams, name, sideFilters],
+  )
 
   return (
     <div className={twclx("", className)}>

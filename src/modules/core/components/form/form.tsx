@@ -1,14 +1,25 @@
 import { twclx } from "@utils/index"
+import { CreateJsxElement } from "../utils/create_jsx_element"
 
 interface Props {
   className: string
   title: React.ReactNode
   children: JSX.Element[]
+  classNames: { title: string }
   ref: React.RefObject<HTMLFormElement>
+  titleAs: "h1" | "h2" | "h3" | "h4" | "h5"
   onSubmit(e: React.FormEvent<HTMLFormElement>): void
 }
 
-export function Form({ ref, title, children, onSubmit, className }: Partial<Props>) {
+export function Form({
+  ref,
+  title,
+  children,
+  onSubmit,
+  className,
+  classNames,
+  titleAs = "h2",
+}: Partial<Props>) {
   return (
     <form
       ref={ref}
@@ -16,7 +27,11 @@ export function Form({ ref, title, children, onSubmit, className }: Partial<Prop
       className={twclx("flex flex-col gap-3 w-full", className)}>
       {title && (
         <header>
-          <h1 className="font-2xl font-bold">{title}</h1>
+          <CreateJsxElement
+            as={titleAs}
+            className={twclx("font-2xl font-bold", classNames?.title)}>
+            {title}
+          </CreateJsxElement>
         </header>
       )}
       {children}

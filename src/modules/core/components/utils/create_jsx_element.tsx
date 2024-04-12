@@ -1,12 +1,12 @@
 import { HtmlElements } from "@config/types"
 import { createElement } from "react"
 
-interface Props extends React.HTMLAttributes<HTMLElement> {
+type Props = {
   ref: React.RefObject<HTMLElement>
   children: React.ReactNode
   className: string
   as: HtmlElements
-}
+} & React.HTMLAttributes<HTMLElement>
 
 export function CreateJsxElement({
   as = "div",

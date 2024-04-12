@@ -5,13 +5,14 @@ import { Option } from "@config/interfaces"
 import { useQueryParams } from "@modules/core/hooks"
 import { SEARCH_PARAMS } from "@config/constants"
 
-interface Props<T extends string> {
+type Props<T extends string> = {
   name: T
   label: string
   options?: Option[]
   className?: string
   isDisabled: boolean
   defaultValue?: string
+  sideFilters?: Partial<Record<T, string>>
 }
 
 export function SelectFilter<T extends string>({
@@ -19,6 +20,7 @@ export function SelectFilter<T extends string>({
   label,
   className,
   isDisabled,
+  sideFilters,
   options = [],
   defaultValue = "",
 }: Props<T>) {
@@ -30,6 +32,12 @@ export function SelectFilter<T extends string>({
     const defaultValue = SEARCH_PARAMS.PAGE.DEFAULT_VALUE
 
     value ? queryParams.set(name, value) : queryParams.delete(name)
+
+    if (sideFilters) {
+      for (const [key, value] of Object.entries(sideFilters)) {
+        queryParams.get(key) === null && queryParams.set(key, value as string)
+      }
+    }
 
     if (queryParams.get(key) && value !== "") {
       queryParams.set(key, defaultValue)

@@ -2,12 +2,12 @@ import { CreateJsxElement } from ".."
 import { HtmlElements } from "@config/types"
 import { twclx } from "@utils/index"
 
-interface Props extends React.HTMLAttributes<HTMLElement> {
+type Props = {
   as: HtmlElements
   className: string
   children: React.ReactNode
   ref: React.RefObject<HTMLElement>
-}
+} & React.HTMLAttributes<HTMLElement>
 
 export const Box = ({ as, children, className, ref, ...props }: Partial<Props>) => {
   return (

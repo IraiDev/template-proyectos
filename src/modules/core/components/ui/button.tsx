@@ -2,9 +2,9 @@ import { ButtonProps, Button as NextButton } from "@nextui-org/react"
 import { twclx } from "@utils/tailwind"
 import React from "react"
 
-interface Props extends Omit<ButtonProps, "ref"> {
+type Props = {
   ref?: React.RefObject<HTMLButtonElement>
-}
+} & Omit<ButtonProps, "ref">
 
 export function Button({ ref, className, ...props }: Props) {
   return (

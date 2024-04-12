@@ -1,6 +1,6 @@
 import { isEmptyObject } from "@utils/index"
 
-interface Props<T extends object> {
+type Props<T extends object> = {
   evaluate: T
   children(value: T): React.ReactNode
 }

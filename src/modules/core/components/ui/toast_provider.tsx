@@ -10,22 +10,6 @@ import { twclx } from "@utils/index"
 import { ToastContainer, TypeOptions } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
-const ICONS: Record<TypeOptions, React.ReactNode> = {
-  default: <span />,
-  error: <IconExclamationCircle size={ICON_SIZE.XL} />,
-  info: <IconInfoCircle size={ICON_SIZE.XL} />,
-  success: <IconCircleCheck size={ICON_SIZE.XL} />,
-  warning: <IconAlertTriangle size={ICON_SIZE.XL} />,
-}
-
-const TOAST_STYLES: Record<TypeOptions, string> = {
-  default: "bg-neutral-200 text-neutral-700",
-  error: "bg-danger-600",
-  info: "bg-info-600",
-  success: "bg-success-600",
-  warning: "bg-warning-600",
-}
-
 export const ToastProvider = () => {
   return (
     <ToastContainer
@@ -57,4 +41,20 @@ export const ToastCloseButton = () => {
       <IconX size={17} />
     </button>
   )
+}
+
+const ICONS: Record<TypeOptions, React.ReactNode> = {
+  default: <span />,
+  error: <IconExclamationCircle size={ICON_SIZE.XL} />,
+  info: <IconInfoCircle size={ICON_SIZE.XL} />,
+  success: <IconCircleCheck size={ICON_SIZE.XL} />,
+  warning: <IconAlertTriangle size={ICON_SIZE.XL} />,
+}
+
+const TOAST_STYLES: Record<TypeOptions, string> = {
+  default: "bg-neutral-200 text-neutral-700",
+  error: "bg-danger-600",
+  info: "bg-info-600",
+  success: "bg-success-600",
+  warning: "bg-warning-600",
 }

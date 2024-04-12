@@ -6,11 +6,11 @@ import {
   ModalHeader,
 } from "@nextui-org/react"
 
-interface Props extends Omit<ModalProps, "title" | "as" | "ref"> {
+type Props = {
   ref?: React.RefObject<HTMLDivElement>
   hideHeader?: boolean
   title: React.ReactNode
-}
+} & Omit<ModalProps, "title" | "as" | "ref">
 
 export function Modal({
   ref,

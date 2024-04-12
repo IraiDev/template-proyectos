@@ -66,10 +66,7 @@ export function Select<T extends object>({
           fieldState,
         }) => (
           <NextSelect
-            as="div"
-            size="sm"
-            radius="sm"
-            variant="flat"
+            {...initDefaultProps}
             {...defaultProps(fieldValue)}
             {...props}
             {...field}
@@ -88,11 +85,8 @@ export function Select<T extends object>({
 
   return (
     <NextSelect
-      as="div"
       ref={ref}
-      size="sm"
-      radius="sm"
-      variant="flat"
+      {...initDefaultProps}
       {...defaultProps(value)}
       {...props}
       name={name}
@@ -114,3 +108,10 @@ type OmitedProps =
 type ItemClassNames = SlotsToClasses<
   "description" | "base" | "title" | "wrapper" | "selectedIcon" | "shortcut"
 >
+
+const initDefaultProps: Omit<SelectProps, "children"> = {
+  as: "div",
+  size: "sm",
+  radius: "sm",
+  variant: "flat",
+}
