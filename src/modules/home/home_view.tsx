@@ -66,7 +66,7 @@ export const HomeView = () => {
   }
 
   return (
-    <div className="flex flex-col gap-10 h-screen bg-white">
+    <div className="flex flex-col gap-10 h-full bg-white">
       <header className="flex justify-between gap-2 p-4">
         <h1 className="text-2xl font-bold">Bienvenido {user}</h1>
         <ModalPDF />
