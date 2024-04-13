@@ -9,7 +9,7 @@ import {
   TableCell,
   TextItem,
 } from "@modules/core/components"
-import { TableVirtualized } from "@modules/core/components/ui/table_virtualized"
+import { VirtualizedTable } from "@modules/core/components/ui/virtualized_table"
 import { useFields, useQueryParams } from "@modules/core/hooks"
 import { useDisclosure } from "@nextui-org/react"
 import { IconX } from "@tabler/icons-react"
@@ -146,11 +146,11 @@ type UserType = FormValues & { id: number; checked: boolean }
 
 function UserTable() {
   const dataset: UserType[] = Array.from({ length: 100_000 }).map((_, idx) => ({
-    checked: false,
     id: idx + 1,
-    cargo: (idx + 1).toString(),
     es_mayor: true,
+    checked: false,
     nombre: `User ${idx + 1}`,
+    cargo: (idx + 1).toString(),
   }))
   const [users, setUser] = useState(dataset)
   const [filter, setFilter] = useState("")
@@ -184,7 +184,7 @@ function UserTable() {
         <Button onClick={handleAddAllUser}>Agregar todos</Button>
       </div>
 
-      <TableVirtualized
+      <VirtualizedTable
         tableHeight={400}
         renderFilter={() => (
           <>
@@ -205,7 +205,7 @@ function UserTable() {
         )}
         columns={[
           { key: "5", width: 50, content: "", align: "center" },
-          { key: "1", width: 250, content: "nombre", align: "left" },
+          { key: "1", width: 350, content: "nombre", align: "left" },
           { key: "2", width: 100, content: "cargo", align: "center" },
           { key: "3", width: 70, content: "es mayor", align: "center" },
         ]}

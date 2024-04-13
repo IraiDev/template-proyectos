@@ -2,7 +2,7 @@ import { FieldProps } from "@config/interfaces"
 import { InputType } from "@config/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback } from "react"
-import { Control, FieldValue, Path, UseFormProps, useForm } from "react-hook-form"
+import { Control, Path, UseFormProps, useForm } from "react-hook-form"
 
 interface Props<T extends object> extends Omit<UseFormProps<T>, "resolver"> {
   validation?: any
@@ -14,12 +14,13 @@ export function useFields<T extends object>(props?: Props<T>) {
     resolver: props?.validation ? zodResolver(props?.validation) : undefined,
   })
 
-  const { watch, control: formControl } = form
+  const { control: formControl } = form
 
   const field: UseField<T> = useCallback(
     (name, options) => {
       return {
         name,
+        id: name,
         ...options,
         control: formControl,
         type: options?.type ?? "text",
@@ -28,23 +29,9 @@ export function useFields<T extends object>(props?: Props<T>) {
     [formControl],
   )
 
-  const formValues = useCallback(
-    (target: Path<T>[]) => {
-      const temp: Partial<Record<Path<T>, FieldValue<T>>> = {}
-
-      for (const key of target) {
-        temp[key] = watch(key)
-      }
-
-      return temp
-    },
-    [watch],
-  )
-
   return {
     ...form,
     field,
-    formValues,
   }
 }
 

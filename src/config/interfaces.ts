@@ -26,4 +26,5 @@ export interface Option {
 export interface FieldProps {
   onSideEffect?(value: string | boolean): void
   setValueAs?(vlaue: string): string
+  id?: string
 }

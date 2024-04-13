@@ -1,26 +1,26 @@
-import { TableColumn } from "@config/interfaces"
+import { TableColumn as TableColumnType } from "@config/interfaces"
 import { twclx } from "@utils/index"
 import { TableVirtuoso } from "react-virtuoso"
-import { Loader } from "./table"
+import { Loader, TableColumn } from "./table"
 
 type Props<T extends object> = {
   dataset: T[]
   tableHeight: number
   isLoading?: boolean
   emptyContent?: string
-  columns: TableColumn[]
   wrapperClassName?: string
+  columns: TableColumnType[]
   renderFooter?(): JSX.Element
   renderFilter?(): JSX.Element
   renderCells(item: T, index: number): JSX.Element
 }
 
-export function TableVirtualized<T extends object>({
+export function VirtualizedTable<T extends object>({
   isLoading,
   tableHeight,
+  renderCells,
   dataset = [],
   columns = [],
-  renderCells,
   renderFilter,
   renderFooter,
   wrapperClassName,
@@ -29,7 +29,7 @@ export function TableVirtualized<T extends object>({
   return (
     <div
       className={twclx(
-        "relative overflow-auto h-auto mx-auto w-max",
+        "relative overflow-auto h-auto mx-auto max-w-max",
         wrapperClassName,
       )}>
       {isLoading && <Loader />}
@@ -47,16 +47,8 @@ export function TableVirtualized<T extends object>({
             )}
 
             <tr className="bg-default-300">
-              {columns.map(({ content, width, ...column }) => (
-                <th
-                  {...column}
-                  style={{ width }}
-                  className={twclx(
-                    "uppercase whitespace-nowrap font-bold text-tiny",
-                    "odd:bg-default-200/40 outline-none group p-2 first:rounded-l-lg last:rounded-r-lg",
-                  )}>
-                  {content}
-                </th>
+              {columns.map(({ content, ...column }) => (
+                <TableColumn {...column}>{content}</TableColumn>
               ))}
             </tr>
           </>

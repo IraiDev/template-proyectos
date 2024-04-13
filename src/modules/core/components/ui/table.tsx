@@ -1,4 +1,4 @@
-import { TableColumn } from "@config/interfaces"
+import { TableColumn as TableColumnType } from "@config/interfaces"
 import { Align, Valign } from "@config/types"
 import { Spinner } from "@nextui-org/react"
 import { twclx } from "@utils/index"
@@ -8,9 +8,9 @@ type Props<T extends object> = {
   className?: string
   isLoading?: boolean
   emptyContent?: string
-  columns: TableColumn[]
   alignEmptyContent?: Align
   wrapperClassName?: string
+  columns: TableColumnType[]
   renderFooter?(): JSX.Element
   renderFilter?(cols: ExtractColumn[]): JSX.Element
   renderCells?(item: T, index: number): JSX.Element
@@ -44,14 +44,7 @@ export function Table<T extends object>({
 
           <tr className="bg-default-300">
             {columns.map(({ content, ...column }) => (
-              <th
-                {...column}
-                className={twclx(
-                  "uppercase whitespace-nowrap font-bold text-tiny",
-                  "odd:bg-default-200/40 outline-none group p-2 first:rounded-l-lg last:rounded-r-lg",
-                )}>
-                {content}
-              </th>
+              <TableColumn {...column}>{content}</TableColumn>
             ))}
           </tr>
         </thead>
@@ -74,19 +67,33 @@ export function Table<T extends object>({
   )
 }
 
-export function TableCell({
+export const TableColumn = ({ width, children, ...props }: TableColumnProps) => {
+  return (
+    <th
+      {...props}
+      style={{ width }}
+      className={twclx(
+        "uppercase whitespace-nowrap font-bold text-tiny",
+        "odd:bg-default-200 outline-none group p-2 first:rounded-l-lg last:rounded-r-lg",
+      )}>
+      {children}
+    </th>
+  )
+}
+
+export const TableCell = ({
   children,
   className,
   clickeable,
   ...props
-}: Partial<MyTableCellProps>) {
+}: Partial<MyTableCellProps>) => {
   return (
     <td
       valign="middle"
       {...props}
       className={twclx(
-        "bg-transparent even:bg-default-200/30",
-        "p-2 whitespace-normal text-small",
+        "bg-transparent even:bg-default-100",
+        "p-2 whitespace-normal text-small border-b border-default-300",
         clickeable && "cursor-pointer",
         className,
       )}>
@@ -95,19 +102,7 @@ export function TableCell({
   )
 }
 
-export function TableRow({ children, ...props }: MyTableRowProps) {
-  return (
-    <tr
-      {...props}
-      className={twclx(
-        "outline-none even:bg-background-100 odd:bg-transparent hover:bg-default-200/70 transition-colors",
-      )}>
-      {children}
-    </tr>
-  )
-}
-
-export function Loader() {
+export const Loader = () => {
   return (
     <div
       className={twclx(
@@ -120,7 +115,7 @@ export function Loader() {
   )
 }
 
-function EmptyContent({ content, ...props }: EmptyContentProps) {
+const EmptyContent = ({ content, ...props }: EmptyContentProps) => {
   return (
     <tr>
       <td {...props} className="px-6">
@@ -130,13 +125,11 @@ function EmptyContent({ content, ...props }: EmptyContentProps) {
   )
 }
 
-type ExtractColumn = Pick<TableColumn, "align" | "key">
+type ExtractColumn = Pick<TableColumnType, "align" | "key">
 
-type MyTableRowProps = {
-  onSelectRow?(): void
-  selectedRow?: boolean
+type TableColumnProps = {
   children: React.ReactNode
-} & React.HTMLAttributes<HTMLTableRowElement>
+} & Omit<TableColumnType, "content">
 
 type MyTableCellProps = {
   valign: Valign
