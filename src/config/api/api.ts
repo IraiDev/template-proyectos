@@ -1,32 +1,37 @@
-import { API_BASE_URL, CONSTANTS, TOKEN_KEY } from "@config/constants"
-import axios, { AxiosHeaders } from "axios"
+import { API_BASE_URL } from "@config/constants"
+import { fetcher } from "@utils/fetcher"
 
-const HEADER_TOKEN_KEY = "x-token"
+export const api = fetcher(API_BASE_URL)
 
-export const api = axios.create({
-  baseURL: API_BASE_URL,
-})
+// import { API_BASE_URL, CONSTANTS, TOKEN_KEY } from "@config/constants"
+// import axios, { AxiosHeaders } from "axios"
 
-const setAuthToken = (token: string | null) => {
-  const headers = new AxiosHeaders()
+// const HEADER_TOKEN_KEY = "x-token"
 
-  if (token) {
-    headers.set(HEADER_TOKEN_KEY, token)
-  } else {
-    headers.delete(HEADER_TOKEN_KEY)
-  }
+// export const api = axios.create({
+//   baseURL: API_BASE_URL,
+// })
 
-  return headers
-}
+// const setAuthToken = (token: string | null) => {
+//   const headers = new AxiosHeaders()
 
-api.interceptors.request.use((config) => {
-  const tokenIsRequired = config.headers[CONSTANTS.TOKEN_REQUIRED] || false
-  const token = window.localStorage.getItem(TOKEN_KEY)
+//   if (token) {
+//     headers.set(HEADER_TOKEN_KEY, token)
+//   } else {
+//     headers.delete(HEADER_TOKEN_KEY)
+//   }
 
-  if (tokenIsRequired) {
-    const headers = setAuthToken(token)
-    return { ...config, headers }
-  }
+//   return headers
+// }
 
-  return config
-})
+// api.interceptors.request.use((config) => {
+//   const tokenIsRequired = config.headers[CONSTANTS.TOKEN_REQUIRED] || false
+//   const token = window.localStorage.getItem(TOKEN_KEY)
+
+//   if (tokenIsRequired) {
+//     const headers = setAuthToken(token)
+//     return { ...config, headers }
+//   }
+
+//   return config
+// })
