@@ -1,4 +1,4 @@
-export * from "./axios"
+export * from "./errors"
 export * from "./local_storage"
 export * from "./tailwind"
 export * from "./utils"
