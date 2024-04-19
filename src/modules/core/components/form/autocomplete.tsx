@@ -20,7 +20,7 @@ type Props<T extends object> = {
   ref: React.RefObject<HTMLSelectElement>
 } & ExtendsProps
 
-export function Select<T extends object>({
+export function AutoComplete<T extends object>({
   ref,
   name,
   hidden,
@@ -41,9 +41,9 @@ export function Select<T extends object>({
   const defaultProps = useCallback(
     (currentValue: string) => ({
       scrollRef,
-      disabledKeys: [currentValue],
-      selectedKeys: [currentValue],
-      defaultSelectedKeys: [defaultValue],
+      disabledKey: currentValue,
+      selectedKey: currentValue,
+      defaultSelectedKey: defaultValue,
     }),
     [defaultValue, scrollRef],
   )
@@ -55,6 +55,8 @@ export function Select<T extends object>({
     }),
     [itemClassNames],
   )
+
+  // FIXME: solicionar problemas de compatibilidad con react hook form
 
   if (hidden) return null
 
@@ -69,10 +71,15 @@ export function Select<T extends object>({
         }) => (
           <NextAutocomplete
             {...initDefaultProps}
-            {...defaultProps(fieldValue)}
             {...props}
             {...field}
-            onSelectionChange={handleChange(onChange)}
+            selectedKey={fieldValue}
+            disabledKeys={[fieldValue]}
+            defaultSelectedKey={defaultValue}
+            onSelectionChange={(value) => {
+              onChange(value)
+              props.onSideEffect?.(value.toString())
+            }}
             errorMessage={fieldState.error?.message}>
             {options.map((option) => (
               <AutocompleteItem {...optionsDefaultProps(option)}>
@@ -106,9 +113,9 @@ type ExtendsProps = Omit<AutocompleteProps, OmitedProps> & FieldProps
 type OmitedProps =
   | "children"
   | "disabledKeys"
-  | "selectedKeys"
+  | "selectedKey"
   | "renderValue"
-  | "defaultSelectedKeys"
+  | "defaultSelectedKey"
 type ItemClassNames = SlotsToClasses<
   "description" | "base" | "title" | "wrapper" | "selectedIcon" | "shortcut"
 >

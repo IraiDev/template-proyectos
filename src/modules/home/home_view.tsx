@@ -1,11 +1,11 @@
 import { ICON_SIZE } from "@config/constants"
 import { useAuth } from "@modules/auth/hooks"
 import {
+  AutoComplete,
   Button,
   Checkbox,
   Chip,
   Input,
-  Select,
   TableCell,
   TextItem,
 } from "@modules/core/components"
@@ -97,7 +97,7 @@ export const HomeView = () => {
         onSubmit={handleSubmit(onRegister)}
         className="w-96 mx-auto flex flex-col gap-2">
         <Input {...field("nombre", { label: "Nombre" })} />
-        <Select {...field("cargo", { label: "Cargo" })} options={OPTIONS} />
+        <AutoComplete {...field("cargo", { label: "Cargo" })} options={OPTIONS} />
         <Checkbox {...field("es_mayor")}>Es mayor</Checkbox>
         <Button type="submit" isLoading={isLoading}>
           Registrar
