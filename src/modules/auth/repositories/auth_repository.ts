@@ -7,18 +7,16 @@ import {
 } from "@utils/local_storage"
 import { routes } from "@router/routes"
 
+type Response = Promise<{ user: UserModel; isSignIn: boolean; redirecUrl: string }>
+
 interface Repository {
-  login(
-    payload: AuthPayload,
-  ): Promise<{ user: UserModel; isSignIn: boolean; redirecUrl: string }>
-  renew(): Promise<{ user: UserModel; isSignIn: boolean; redirecUrl: string }>
+  login(payload: AuthPayload): Response
+  renew(): Response
   logout(): void
 }
 
 export class AuthRepository implements Repository {
-  async login(
-    payload: AuthPayload,
-  ): Promise<{ user: string; isSignIn: boolean; redirecUrl: string }> {
+  async login(payload: AuthPayload): Response {
     const result = await sleep(1)
 
     saveInLocalStorage("TOKEN_KEY", payload.usuario)
@@ -29,7 +27,7 @@ export class AuthRepository implements Repository {
       redirecUrl: result ? `/${routes.private.home}` : "",
     }
   }
-  async renew(): Promise<{ user: string; isSignIn: boolean; redirecUrl: string }> {
+  async renew(): Response {
     const result = await sleep(1)
     const user = getFromLocalStorage("TOKEN_KEY")
 
