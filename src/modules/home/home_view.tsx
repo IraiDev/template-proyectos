@@ -28,7 +28,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 const OPTIONS = [
-  { key: "", label: "Seleccione" },
+  // { key: "", label: "Seleccione" },
   { key: "1", label: "Admin" },
   { key: "2", label: "User" },
 ]

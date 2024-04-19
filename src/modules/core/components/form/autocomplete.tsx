@@ -56,8 +56,6 @@ export function AutoComplete<T extends object>({
     [itemClassNames],
   )
 
-  // FIXME: solicionar problemas de compatibilidad con react hook form
-
   if (hidden) return null
 
   if (control) {
