@@ -3,6 +3,7 @@ import { FieldEventHandler } from "@config/types"
 import { TextAreaProps, Textarea as NextTextarea } from "@nextui-org/react"
 import { ChangeEvent } from "react"
 import { Control, Controller, Path } from "react-hook-form"
+import { NEXT_UI_DEFAULT_STYLES_PROPS } from "@config/constants"
 
 type Props<T extends object> = {
   control: Control<T>
@@ -57,7 +58,5 @@ export function Textarea<T extends object>({
 type ExtendsProps = Omit<TextAreaProps, "onChange"> & FieldProps
 
 const defaultProps: TextAreaProps = {
-  size: "sm",
-  radius: "sm",
-  variant: "flat",
+  ...NEXT_UI_DEFAULT_STYLES_PROPS,
 }

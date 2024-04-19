@@ -1,14 +1,14 @@
+import { NEXT_UI_DEFAULT_STYLES_PROPS } from "@config/constants"
 import { FieldProps, Option } from "@config/interfaces"
-import { FieldEventHandler } from "@config/types"
+import { SpecialFieldEventHandler } from "@config/types"
 import {
-  Select as NextSelect,
-  SelectItem,
-  SelectProps,
+  AutocompleteItem,
+  AutocompleteProps,
+  Autocomplete as NextAutocomplete,
   SlotsToClasses,
 } from "@nextui-org/react"
 import { useCallback } from "react"
 import { Control, Controller, Path } from "react-hook-form"
-import { NEXT_UI_DEFAULT_STYLES_PROPS } from "@config/constants"
 
 type Props<T extends object> = {
   value: string
@@ -32,10 +32,11 @@ export function Select<T extends object>({
   itemClassNames = {},
   ...props
 }: Partial<Props<T>>) {
-  const handleChange: FieldEventHandler<HTMLSelectElement> = (onChange) => (e) => {
-    onChange?.(e) ?? props.onChange?.(e)
-    props.onSideEffect?.(e.target.value)
-  }
+  const handleChange: SpecialFieldEventHandler<React.Key> =
+    (onSelectionChange) => (value) => {
+      onSelectionChange?.(value) ?? props.onSelectionChange?.(value.toString())
+      props.onSideEffect?.(value.toString())
+    }
 
   const defaultProps = useCallback(
     (currentValue: string) => ({
@@ -66,40 +67,42 @@ export function Select<T extends object>({
           field: { value: fieldValue, onChange, ...field },
           fieldState,
         }) => (
-          <NextSelect
+          <NextAutocomplete
             {...initDefaultProps}
             {...defaultProps(fieldValue)}
             {...props}
             {...field}
-            onChange={handleChange(onChange)}
+            onSelectionChange={handleChange(onChange)}
             errorMessage={fieldState.error?.message}>
             {options.map((option) => (
-              <SelectItem {...optionsDefaultProps(option)}>
+              <AutocompleteItem {...optionsDefaultProps(option)}>
                 {option.label}
-              </SelectItem>
+              </AutocompleteItem>
             ))}
-          </NextSelect>
+          </NextAutocomplete>
         )}
       />
     )
   }
 
   return (
-    <NextSelect
+    <NextAutocomplete
       ref={ref}
       {...initDefaultProps}
       {...defaultProps(value)}
       {...props}
       name={name}
-      onChange={handleChange()}>
+      onSelectionChange={handleChange()}>
       {options.map((option) => (
-        <SelectItem {...optionsDefaultProps(option)}>{option.label}</SelectItem>
+        <AutocompleteItem {...optionsDefaultProps(option)}>
+          {option.label}
+        </AutocompleteItem>
       ))}
-    </NextSelect>
+    </NextAutocomplete>
   )
 }
 
-type ExtendsProps = Omit<SelectProps, OmitedProps> & FieldProps
+type ExtendsProps = Omit<AutocompleteProps, OmitedProps> & FieldProps
 type OmitedProps =
   | "children"
   | "disabledKeys"
@@ -110,7 +113,7 @@ type ItemClassNames = SlotsToClasses<
   "description" | "base" | "title" | "wrapper" | "selectedIcon" | "shortcut"
 >
 
-const initDefaultProps: Omit<SelectProps, "children"> = {
+const initDefaultProps: Omit<AutocompleteProps, "children"> = {
   as: "div",
   ...NEXT_UI_DEFAULT_STYLES_PROPS,
 }

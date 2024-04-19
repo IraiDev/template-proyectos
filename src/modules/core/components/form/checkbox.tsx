@@ -1,3 +1,4 @@
+import { NEXT_UI_DEFAULT_STYLES_PROPS } from "@config/constants"
 import { FieldProps } from "@config/interfaces"
 import { FieldEventHandler } from "@config/types"
 import { CheckboxProps, Checkbox as NextCheckbox } from "@nextui-org/react"
@@ -30,7 +31,7 @@ export function Checkbox<T extends object>({
         name={name as Path<T>}
         render={({ field: { value, onChange, ...field } }) => (
           <NextCheckbox
-            radius="sm"
+            {...NEXT_UI_DEFAULT_STYLES_PROPS}
             {...props}
             {...field}
             isSelected={value}
@@ -44,7 +45,7 @@ export function Checkbox<T extends object>({
   return (
     <NextCheckbox
       ref={ref}
-      radius="sm"
+      {...NEXT_UI_DEFAULT_STYLES_PROPS}
       {...props}
       name={name}
       onChange={handleChange()}
