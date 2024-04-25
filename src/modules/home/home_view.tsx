@@ -1,41 +1,13 @@
-import { ICON_SIZE } from "@config/constants"
-import { useAuth } from "@modules/auth/hooks"
-import {
-  AutoComplete,
-  Button,
-  Checkbox,
-  Chip,
-  Input,
-  TableCell,
-  TextItem,
-} from "@modules/core/components"
-import { VirtualizedTable } from "@modules/core/components/ui/virtualized_table"
-import { useFields, useQueryParams } from "@modules/core/hooks"
-import { useDisclosure } from "@nextui-org/react"
-import { IconX } from "@tabler/icons-react"
-import { sleep, toString } from "@utils/index"
+import { apiTest } from "@config/api"
+import { ContentType } from "@config/emuns"
+import { Button } from "@modules/core/components"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import axios from "axios"
 import { useState } from "react"
 import { Helmet } from "react-helmet"
-import { SubmitHandler } from "react-hook-form"
-import { z } from "zod"
-
-const schema = z.object({
-  es_mayor: z.boolean(),
-  cargo: z.string().min(1, { message: "Requerido" }),
-  nombre: z.string().min(1, { message: "Requerido" }),
-})
-
-type FormValues = z.infer<typeof schema>
-
-const OPTIONS = [
-  // { key: "", label: "Seleccione" },
-  { key: "1", label: "Admin" },
-  { key: "2", label: "User" },
-]
 
 export const HomeView = () => {
   const [progress, setProgress] = useState(0)
-  const [fileKey, setFileKey] = useState("asd")
 
   const queryClient = useQueryClient()
   const {
@@ -45,7 +17,14 @@ export const HomeView = () => {
     isRefetching,
   } = useQuery({
     queryKey: ["todos"],
-    queryFn: () => getTodos(),
+    queryFn: async () => {
+      const resp = await apiTest("/posts", {
+        fileName: "x",
+      })
+      const posts = await resp.json()
+
+      return posts
+    },
     refetchInterval: 30_000,
     refetchIntervalInBackground: false,
   })
@@ -75,12 +54,10 @@ export const HomeView = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] })
       setProgress(0)
-      setFileKey((Math.random() * 1000).toString())
     },
     onError: (e) => {
       alert(e)
       setProgress(0)
-      setFileKey((Math.random() * 1000).toString())
     },
   })
 
@@ -94,65 +71,14 @@ export const HomeView = () => {
         <span className="bg-red-500">
           {isRefetching && "Obteniendo nuevos datos..."}
         </span>
-        <Files
-          key={fileKey}
-          onChange={(e) => fileMutation.mutate(e.target.files?.[0] ?? null)}
-        />
-        {/* <span>{watchQueryParam("es_mayor", false) ? "SI" : "NO"}</span> */}
-      </section>
-
-      <form
-        onSubmit={handleSubmit(onRegister)}
-        className="w-96 mx-auto flex flex-col gap-2">
-        <Input {...field("nombre", { label: "Nombre" })} />
-        <AutoComplete {...field("cargo", { label: "Cargo" })} options={OPTIONS} />
-        <Checkbox {...field("es_mayor")}>Es mayor</Checkbox>
-        <Button type="submit" isLoading={isLoading}>
-          Registrar
-        </Button>
-      </form>
-
-      <section>
-        <UserTable />
-      </section>
+        <span>Progreso: {progress}</span>
+        <Button onClick={() => fileMutation.mutate(null)}>Mutacion</Button>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
 
       <Helmet>
         <title>Inicio</title>
       </Helmet>
     </div>
   )
-}
-
-const ButtonNew = ({ progress }: { progress: number }) => {
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: createTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] })
-    },
-    onError: (e) => {
-      alert(e)
-    },
-  })
-
-  return (
-    <Button
-      onClick={() =>
-        mutation.mutate({
-          body: "test de iongrso post",
-          title: "nuevo post",
-          userId: 1,
-        })
-      }>
-      Nuevo {progress}%
-    </Button>
-  )
-}
-
-const Files = ({
-  onChange,
-}: {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-}) => {
-  return <input type="file" onChange={onChange} />
 }
