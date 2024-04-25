@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "license": "",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --emptyOutDir",
@@ -17,6 +17,7 @@
     "@types/react-helmet": "^6.1.11",
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5",
     "framer-motion": "^10.16.5",
     "million": "^3.0.6",
     "path": "^0.12.7",

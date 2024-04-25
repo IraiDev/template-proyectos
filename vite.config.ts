@@ -2,12 +2,17 @@ import { defineConfig } from "vite"
 import million from "million/compiler"
 import react from "@vitejs/plugin-react-swc"
 import path from "path"
+import dotenv from "dotenv"
+
+dotenv.config()
+
+const OUTDIR = process.env.VITE_OUTDIR ?? "../../front-end/output"
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [million.vite({ auto: true }), react()],
   build: {
-    outDir: "../../front-end/output",
+    outDir: OUTDIR,
   },
   resolve: {
     alias: {
