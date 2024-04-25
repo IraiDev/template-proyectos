@@ -2,10 +2,8 @@ import { InputProps } from "@nextui-org/react"
 
 export const {
   VITE_API_BASE_URL: API_BASE_URL = "",
-  VITE_TOKEN_KEY: TOKEN_KEY = "token-provisorio",
-  VITE_VERSION_WEB: VERSION_WEB = "",
+  VITE_TOKEN_KEY: TOKEN_KEY = "",
   VITE_LAST_VISITED_URL: LAST_VISITED_URL = "",
-  VITE_TIPO: TIPO = "",
 } = import.meta.env
 
 export const LOCAL_STORAGE_KEYS = {
@@ -31,7 +29,10 @@ export const ICON_SIZE = {
   XS: 10,
 }
 
-export const NEXT_UI_DEFAULT_STYLES_PROPS: Pick<InputProps, "size" | "radius" | "variant"> = {
+export const NEXT_UI_DEFAULT_STYLES_PROPS: Pick<
+  InputProps,
+  "size" | "radius" | "variant"
+> = {
   size: "sm",
   radius: "sm",
   variant: "flat",
