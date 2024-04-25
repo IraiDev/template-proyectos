@@ -7,6 +7,7 @@ import { AuthRepository } from "../repositories"
 import { authStore } from "../stores"
 
 const token = new LocalStorage("TOKEN_KEY")
+const authRepository = new AuthRepository()
 
 export function useRenew() {
   const isSignIn = authStore((state) => state.isSignIn)
@@ -18,8 +19,6 @@ export function useRenew() {
   const hasSession = useMemo(() => token.exists(), [])
   const { errorToast } = useToast()
   const navigate = useNavigate()
-
-  const authRepository = useMemo(() => new AuthRepository(), [])
 
   useEffect(() => {
     if (!hasSession) return
@@ -38,7 +37,7 @@ export function useRenew() {
     }
 
     onRenew()
-  }, [navigate, setSignIn, setUser, hasSession, authRepository, errorToast])
+  }, [navigate, setSignIn, setUser, hasSession, errorToast])
 
   return {
     isSignIn,

@@ -15,13 +15,13 @@ interface Repository {
   logout(): void
 }
 
-export class AuthRepository implements Repository {
-  private localStorage = new LocalStorage("TOKEN_KEY")
+const token = new LocalStorage("TOKEN_KEY")
 
+export class AuthRepository implements Repository {
   async login(payload: AuthPayload): AuthResponse {
     await sleep(0.5)
     console.log({ payload })
-    this.localStorage.save("")
+    token.save("")
 
     return {
       user: null,
@@ -32,7 +32,7 @@ export class AuthRepository implements Repository {
 
   async renew(): AuthResponse {
     await sleep()
-    this.localStorage.save("")
+    token.save("")
 
     return {
       user: null,
@@ -42,6 +42,6 @@ export class AuthRepository implements Repository {
   }
 
   logout(): void {
-    this.localStorage.remove()
+    token.remove()
   }
 }
