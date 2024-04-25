@@ -1,5 +1,5 @@
 import { LocalStorageKeys } from "@config/types"
-import { toString } from "./utils"
+import { toString } from "./helpers"
 import { LOCAL_STORAGE_KEYS } from "@config/constants"
 
 export function saveInLocalStorage(key: LocalStorageKeys, value: any) {
@@ -12,13 +12,18 @@ export function removeFromLocalStorage(key: LocalStorageKeys) {
   window.localStorage.removeItem(LOCAL_STORAGE_KEYS[key])
 }
 
-export function getFromLocalStorage(key: LocalStorageKeys) {
-  const result = window.localStorage.getItem(LOCAL_STORAGE_KEYS[key]) ?? ""
+export function getFromLocalStorage<T = any>(
+  key: LocalStorageKeys,
+  defaultValue?: T,
+) {
+  const result =
+    window.localStorage.getItem(LOCAL_STORAGE_KEYS[key]) ??
+    toString(defaultValue ?? "")
 
   try {
-    return JSON.parse(result)
+    return JSON.parse(result) as T
   } catch (e) {
-    return result
+    return result as T
   }
 }
 

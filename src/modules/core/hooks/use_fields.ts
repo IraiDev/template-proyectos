@@ -11,7 +11,7 @@ interface Props<T extends object> extends Omit<UseFormProps<T>, "resolver"> {
 export function useFields<T extends object>(props?: Props<T>) {
   const form = useForm({
     ...props,
-    resolver: props?.validation ? zodResolver(props?.validation) : undefined,
+    resolver: props?.validation ? zodResolver(props.validation) : undefined,
   })
 
   const { control: formControl } = form

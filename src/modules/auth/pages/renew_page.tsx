@@ -3,13 +3,15 @@ import { routes } from "@router/routes"
 import { Helmet } from "react-helmet"
 import { Navigate } from "react-router-dom"
 import { useRenew } from "../hooks"
+import { getFromLocalStorage } from "@utils/local_storage"
 
-export const RenewPage = () => {
+const RenewPage = () => {
   const { isSignIn, hasSession } = useRenew()
+  const currentPath = getFromLocalStorage("LAST_VISITED_URL", routes.private.home)
 
   if (!hasSession) return <Navigate to={routes.public.login} replace />
 
-  if (isSignIn) return <Navigate to={routes.private.home} replace />
+  if (isSignIn) return <Navigate to={currentPath} replace />
 
   return (
     <>
@@ -25,3 +27,5 @@ export const RenewPage = () => {
     </>
   )
 }
+
+export default RenewPage

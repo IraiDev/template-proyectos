@@ -9,11 +9,12 @@ export function Pagination({ ref, ...props }: Props) {
   return (
     <NextPagination
       ref={ref}
-      size="sm"
       isCompact
-      showShadow
+      size="sm"
+      radius="sm"
       showControls
       color="primary"
+      variant="light"
       {...props}
     />
   )

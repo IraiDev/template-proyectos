@@ -5,8 +5,8 @@ export interface HttpResponse {
   message: string
 }
 
-export interface HttpResponseWithData extends HttpResponse {
-  data: any
+export interface HttpResponseWithData<T = any> extends HttpResponse {
+  data: T
 }
 
 export interface TableColumn {

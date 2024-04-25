@@ -39,6 +39,7 @@ export function useToast() {
 
   const errorToast = useCallback(
     (message: string, seconds: number | undefined = DEFAULT_SECONDS) => {
+      if (!message) return
       toast.error(message, { autoClose: seconds * 1000 })
     },
     [],

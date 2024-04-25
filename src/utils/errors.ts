@@ -9,15 +9,25 @@ export function logError(error: unknown, where: string) {
 export function getErrorMessage(error: unknown) {
   const { message } = error as { message: string; stack: string }
 
+  if (error instanceof DOMException) {
+    return ""
+  }
+
   return message ?? UNEXPECTED_ERROR
 }
 
 export function apiErrorHandler(status: number, message: string) {
   if (status >= 500) {
-    throw new Error(message || SERVER_ERROR)
+    throw new MyError(message || SERVER_ERROR)
   }
 
   if (status < 200 || status > 299) {
-    throw new Error(message || UNEXPECTED_ERROR)
+    throw new MyError(message || UNEXPECTED_ERROR)
+  }
+}
+
+export class MyError extends Error {
+  constructor(public message: string) {
+    super(message)
   }
 }

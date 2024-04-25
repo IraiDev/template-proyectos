@@ -72,6 +72,5 @@ type ExtendsProps = DateInputProps & FieldProps
 type KeyboardEvent = KeyboardEventHandler<HTMLInputElement>
 
 const defaultProps: DateInputProps = {
-  placeholder: " ",
   ...NEXT_UI_DEFAULT_STYLES_PROPS,
 }

@@ -1,7 +1,8 @@
 import { create } from "zustand"
+import { UserModel } from "../models"
 
 type State = {
-  user: string | null
+  user: UserModel | null
   isSignIn: boolean
 }
 

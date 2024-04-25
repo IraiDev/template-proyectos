@@ -72,6 +72,5 @@ type ExtendsProps = DatePickerProps & FieldProps
 type KeyboardEvent = KeyboardEventHandler<HTMLInputElement>
 
 const defaultProps: DatePickerProps = {
-  placeholder: " ",
   ...NEXT_UI_DEFAULT_STYLES_PROPS,
 }

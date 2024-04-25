@@ -7,7 +7,7 @@ import { Control, Controller, Path } from "react-hook-form"
 type Props<T extends object> = {
   control: Control<T>
   name: string | Path<T>
-  ref: React.RefObject<HTMLLabelElement>
+  ref: React.RefObject<HTMLInputElement>
 } & ExtendsProps
 
 export function Checkbox<T extends object>({

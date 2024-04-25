@@ -17,13 +17,11 @@ export function PasswordToggler({ children }: Props) {
         Toggler: (
           <button
             type="button"
+            tabIndex={-1}
             onClick={handleToggle}
-            className="text-default-500 !outline-none hover:bg-default-300 transition-colors">
-            {show ? (
-              <IconEyeOff size={ICON_SIZE.DEFAULT} />
-            ) : (
-              <IconEye size={ICON_SIZE.DEFAULT} />
-            )}
+            className="text-default-500 !outline-none hover:text-primary transition-colors"
+          >
+            {show ? <IconEyeOff size={ICON_SIZE.LG} /> : <IconEye size={ICON_SIZE.LG} />}
           </button>
         ),
       })}

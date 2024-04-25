@@ -1,9 +1,12 @@
 import { ButtonProps, Button as NextButton } from "@nextui-org/react"
 import { twclx } from "@utils/tailwind"
 import React from "react"
+import { To } from "react-router-dom"
 
 type Props = {
   ref?: React.RefObject<HTMLButtonElement>
+  replace?: boolean
+  to?: To
 } & Omit<ButtonProps, "ref">
 
 export function Button({ ref, className, ...props }: Props) {
@@ -14,7 +17,7 @@ export function Button({ ref, className, ...props }: Props) {
       type="button"
       variant="solid"
       color="primary"
-      className={twclx("font-semibold", className)}
+      className={twclx("font-bold", className)}
       {...props}
     />
   )

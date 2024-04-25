@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom"
-import { AuthGuard, NotAuthGuard } from "./guards"
 import { routes } from "./routes"
-import { LoginPage, RenewPage } from "@modules/auth/pages"
 import HomeView from "@modules/home/home_view"
+import NotAuthGuard from "./guards/not_auth_guard"
+import AuthGuard from "./guards/auth_guard"
+import LoginPage from "@modules/auth/pages/login_page"
+import RenewPage from "@modules/auth/pages/renew_page"
 
 export const AppRouter = createBrowserRouter([
   {

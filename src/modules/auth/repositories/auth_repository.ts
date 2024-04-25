@@ -1,42 +1,45 @@
-import { sleep } from "@utils/utils"
-import { AuthPayload, UserModel } from "../models"
-import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
-  saveInLocalStorage,
-} from "@utils/local_storage"
 import { routes } from "@router/routes"
+import { sleep } from "@utils/helpers"
+import { removeFromLocalStorage, saveInLocalStorage } from "@utils/local_storage"
+import { AuthPayload, UserModel } from "../models"
 
-type Response = Promise<{ user: UserModel; isSignIn: boolean; redirecUrl: string }>
+type AuthResponse = Promise<{
+  user: UserModel | null
+  isSignIn: boolean
+  redirecUrl: string
+}>
 
 interface Repository {
-  login(payload: AuthPayload): Response
-  renew(): Response
+  login(payload: AuthPayload): AuthResponse
+  renew(): AuthResponse
   logout(): void
 }
 
 export class AuthRepository implements Repository {
-  async login(payload: AuthPayload): Response {
-    const result = await sleep(1)
-
-    saveInLocalStorage("TOKEN_KEY", payload.usuario)
-
-    return {
-      isSignIn: result,
-      user: payload.usuario,
-      redirecUrl: result ? `/${routes.private.home}` : "",
-    }
-  }
-  async renew(): Response {
-    const result = await sleep(1)
-    const user = getFromLocalStorage("TOKEN_KEY")
+  async login(payload: AuthPayload): AuthResponse {
+    await sleep(0.5)
+    console.log({ payload })
+    saveInLocalStorage("TOKEN_KEY", "")
 
     return {
-      user,
-      isSignIn: result,
-      redirecUrl: result ? `/${routes.private.home}` : `/${routes.public.login}`,
+      user: null,
+      isSignIn: true,
+      redirecUrl: `/${routes.private.home}`,
     }
   }
+
+  async renew(): AuthResponse {
+    await sleep()
+
+    saveInLocalStorage("TOKEN_KEY", "")
+
+    return {
+      user: null,
+      isSignIn: true,
+      redirecUrl: `/${routes.private.home}`,
+    }
+  }
+
   logout(): void {
     removeFromLocalStorage("TOKEN_KEY")
   }

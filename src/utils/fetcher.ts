@@ -1,5 +1,6 @@
-import { TOKEN_KEY } from "@config/constants"
+import { TIPO, VERSION_WEB } from "@config/constants"
 import { getErrorMessage, logError } from "./errors"
+import { getFromLocalStorage } from "./local_storage"
 
 type RequestOptions = {
   withToken?: boolean
@@ -12,8 +13,12 @@ export function fetcher(baseUrl: string) {
       const adaptedEndpoint = endpoint.at(0) === "/" ? endpoint : `/${endpoint}`
       const headers = new Headers(requestOptions?.headers)
 
+      headers.append("tipo", TIPO)
+      headers.append("version", VERSION_WEB)
+
       if (requestOptions.withToken) {
-        headers.append("x-token", TOKEN_KEY)
+        const token = getFromLocalStorage("TOKEN_KEY")
+        headers.append("x-token", token)
       }
 
       return fetch(`${baseUrl}${adaptedEndpoint}`, {

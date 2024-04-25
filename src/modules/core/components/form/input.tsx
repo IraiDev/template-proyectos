@@ -56,6 +56,7 @@ export function Input<T extends object>({
               {...field}
               onKeyDown={handleKeyDown}
               onChange={handleChange(onChange)}
+              isInvalid={!!fieldState.error?.message}
               errorMessage={fieldState.error?.message}
               value={setValueAs ? setValueAs(value) : value}
             />

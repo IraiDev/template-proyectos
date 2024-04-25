@@ -42,7 +42,7 @@ export function Table<T extends object>({
             <tr className="bg-transparent">{renderFilter(columns)}</tr>
           )}
 
-          <tr className="bg-default-300">
+          <tr className="bg-default-200">
             {columns.map(({ content, ...column }) => (
               <TableColumn {...column}>{content}</TableColumn>
             ))}
@@ -73,8 +73,8 @@ export const TableColumn = ({ width, children, ...props }: TableColumnProps) => 
       {...props}
       style={{ width }}
       className={twclx(
-        "uppercase whitespace-nowrap font-bold text-tiny",
-        "odd:bg-default-200 outline-none group p-2 first:rounded-l-lg last:rounded-r-lg",
+        "capitalize whitespace-nowrap font-bold text-tiny",
+        "outline-none group p-2 first:rounded-l-lg last:rounded-r-lg",
       )}>
       {children}
     </th>
@@ -92,7 +92,7 @@ export const TableCell = ({
       valign="middle"
       {...props}
       className={twclx(
-        "bg-transparent even:bg-default-100",
+        "bg-transparent",
         "p-2 whitespace-normal text-small border-b border-default-300",
         clickeable && "cursor-pointer",
         className,

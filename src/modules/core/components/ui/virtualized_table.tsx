@@ -29,7 +29,7 @@ export function VirtualizedTable<T extends object>({
   return (
     <div
       className={twclx(
-        "relative overflow-auto h-auto mx-auto max-w-max",
+        "relative !overflow-auto h-auto mx-auto max-w-max",
         wrapperClassName,
       )}>
       {isLoading && <Loader />}
@@ -42,11 +42,9 @@ export function VirtualizedTable<T extends object>({
         data={dataset}
         fixedHeaderContent={() => (
           <>
-            {renderFilter !== undefined && (
-              <tr className="bg-white">{renderFilter()}</tr>
-            )}
+            {renderFilter !== undefined && <tr className="bg-white">{renderFilter()}</tr>}
 
-            <tr className="bg-default-300">
+            <tr className="bg-default-200">
               {columns.map(({ content, ...column }) => (
                 <TableColumn {...column}>{content}</TableColumn>
               ))}

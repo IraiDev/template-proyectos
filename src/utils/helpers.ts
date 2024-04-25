@@ -1,3 +1,4 @@
+import { HttpResponse } from "../config/interfaces"
 export function sleep(seconds?: number): Promise<boolean> {
   return new Promise((resolve) => {
     setTimeout(
@@ -30,4 +31,23 @@ export function trimEntries<T extends object>(entry: T) {
 export function toString(input: any): string {
   const output = typeof input === "string" ? input : JSON.stringify(input)
   return output
+}
+
+export function genericResponseAdapter(response: any): HttpResponse {
+  return {
+    ok: response?.ok ?? false,
+    message: response?.message ?? "Error Generico",
+  }
+}
+
+export function searchParamsToObject(searchParams: URLSearchParams) {
+  const obj: any = {}
+
+  for (const [key, value] of searchParams.entries()) {
+    if (obj) {
+      obj[key] = value
+    }
+  }
+
+  return obj
 }

@@ -1,1 +1,3 @@
-export type UserModel = string
+export type UserModel = {
+  correo: string
+}

@@ -1,11 +1,11 @@
 import { useState } from "react"
 
 export function useToggle(initialValue?: boolean) {
-  const [showPassword, tooglePassword] = useState(initialValue ?? false)
+  const [isOpen, toggler] = useState(initialValue ?? false)
 
   const handleToggle = () => {
-    tooglePassword((prev) => !prev)
+    toggler((prev) => !prev)
   }
 
-  return [showPassword, handleToggle] as const
+  return [isOpen, handleToggle] as const
 }

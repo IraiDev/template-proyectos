@@ -15,8 +15,8 @@ export const ToastProvider = () => {
     <ToastContainer
       toastClassName={(props) =>
         twclx(
-          "relative flex !p-0 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer my-2",
-          "transition-colors shadow-xl font-semibold text-white",
+          "relative flex !p-0 min-h-10 rounded-medium justify-between overflow-hidden my-2",
+          "transition-colors shadow-large font-semibold text-white bg-gradient-to-br",
           TOAST_STYLES[props?.type ?? "default"],
         )
       }
@@ -34,10 +34,11 @@ export const ToastCloseButton = () => {
   return (
     <button
       className={twclx(
-        "text-white h-6 w-6 rounded-full grid place-content-center",
+        "text-white h-6 w-6 rounded-full grid justify-center items-center",
         "top-1.5 right-2 absolute hover:bg-white/10",
         "transition-colors",
-      )}>
+      )}
+    >
       <IconX size={17} />
     </button>
   )
@@ -52,9 +53,9 @@ const ICONS: Record<TypeOptions, React.ReactNode> = {
 }
 
 const TOAST_STYLES: Record<TypeOptions, string> = {
-  default: "bg-neutral-200 text-neutral-700",
-  error: "bg-danger-600",
-  info: "bg-info-600",
-  success: "bg-success-600",
-  warning: "bg-warning-600",
+  default: "from-default-200 to-default-100 text-neutral-700",
+  error: "from-red-600 to-red-500",
+  info: "from-blue-600 to-blue-500",
+  success: "from-green-600 to-green-500",
+  warning: "from-yellow-600 to-yellow-500",
 }

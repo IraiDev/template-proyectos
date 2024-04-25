@@ -1,23 +1,30 @@
-import { Button, Input } from "@modules/core/components"
+import { Button, Form, Input, PasswordToggler } from "@modules/core/components"
 import { useAuth } from "../hooks"
-import { Helmet } from "react-helmet"
+import AuthLayout from "../layouts/auth_layout"
 
-export const LoginPage = () => {
-  const { handleLogin, isLoginLoading } = useAuth()
+const LoginPage = () => {
+  const { field, handleLogin, isLoginLoading } = useAuth()
   return (
-    <>
-      <Helmet>
-        <title>{isLoginLoading ? "Iniciando Sesión..." : "Iniciar Sesión"}</title>
-      </Helmet>
+    <AuthLayout
+      title="Iniciar Sesión"
+      tabTitle={isLoginLoading ? "Iniciando Sesión..." : "Iniciar Sesión"}>
+      <Form onSubmit={handleLogin} className="w-64">
+        <Input fullWidth {...field("correo", { label: "Correo" })} />
+        <PasswordToggler>
+          {({ Toggler, type }) => (
+            <Input
+              {...field("contrasena", { label: "Contraseña", type })}
+              endContent={Toggler}
+            />
+          )}
+        </PasswordToggler>
 
-      <form
-        onSubmit={handleLogin}
-        className="h-screen grid place-content-center gap-2">
-        <Input required label="Nombre" name="user" />
-        <Button type="submit" isLoading={isLoginLoading}>
-          Login
+        <Button type="submit" isLoading={isLoginLoading} className="mt-3">
+          Iniciar Sesión
         </Button>
-      </form>
-    </>
+      </Form>
+    </AuthLayout>
   )
 }
+
+export default LoginPage
