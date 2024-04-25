@@ -1,5 +1,5 @@
 import { useAuth } from "@modules/auth/hooks"
-import { saveInLocalStorage } from "@utils/local_storage"
+import { LocalStorage } from "@utils/local_storage"
 import { Navigate } from "react-router-dom"
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
@@ -7,10 +7,11 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 
   if (!isSignIn) return <Navigate to="/" replace />
 
-  const { pathname } = window.location
-  saveInLocalStorage("LAST_VISITED_URL", pathname)
+  new LocalStorage("LAST_VISITED_URL").save(window.location.pathname)
 
-  return <main className="h-screen overflow-y-hidden flex bg-white">{children}</main>
+  return (
+    <main className="h-screen overflow-y-hidden flex bg-white">{children}</main>
+  )
 }
 
 export default AuthGuard

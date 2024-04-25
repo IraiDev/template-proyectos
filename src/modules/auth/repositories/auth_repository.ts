@@ -1,6 +1,6 @@
 import { routes } from "@router/routes"
 import { sleep } from "@utils/helpers"
-import { removeFromLocalStorage, saveInLocalStorage } from "@utils/local_storage"
+import { LocalStorage } from "@utils/local_storage"
 import { AuthPayload, UserModel } from "../models"
 
 type AuthResponse = Promise<{
@@ -16,10 +16,12 @@ interface Repository {
 }
 
 export class AuthRepository implements Repository {
+  private localStorage = new LocalStorage("TOKEN_KEY")
+
   async login(payload: AuthPayload): AuthResponse {
     await sleep(0.5)
     console.log({ payload })
-    saveInLocalStorage("TOKEN_KEY", "")
+    this.localStorage.save("")
 
     return {
       user: null,
@@ -30,8 +32,7 @@ export class AuthRepository implements Repository {
 
   async renew(): AuthResponse {
     await sleep()
-
-    saveInLocalStorage("TOKEN_KEY", "")
+    this.localStorage.save("")
 
     return {
       user: null,
@@ -41,6 +42,6 @@ export class AuthRepository implements Repository {
   }
 
   logout(): void {
-    removeFromLocalStorage("TOKEN_KEY")
+    this.localStorage.remove()
   }
 }

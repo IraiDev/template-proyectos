@@ -1,34 +1,53 @@
 import { LocalStorageKeys } from "@config/types"
 import { toString } from "./helpers"
-import { LOCAL_STORAGE_KEYS } from "@config/constants"
+import { LOCAL_STORAGE_KEYS as KEYS } from "@config/constants"
 
-export function saveInLocalStorage(key: LocalStorageKeys, value: any) {
-  if (value) {
-    window.localStorage.setItem(LOCAL_STORAGE_KEYS[key], toString(value))
+type LocalStorageImplements<T = any> = {
+  get(props?: { key?: LocalStorageKeys; defaultValue?: T }): T
+  save(value: T, key?: LocalStorageKeys): void
+  exists(key?: LocalStorageKeys): boolean
+  remove(key?: LocalStorageKeys): void
+}
+
+const ls = window.localStorage
+
+export class LocalStorage<T> implements LocalStorageImplements<T> {
+  constructor(private readonly defaultkey?: LocalStorageKeys) {}
+
+  private generateKey(key?: LocalStorageKeys) {
+    const resultKey = key ?? this.defaultkey
+
+    if (key === undefined) {
+      throw new Error("undefined key")
+    }
+
+    return resultKey as LocalStorageKeys
   }
-}
 
-export function removeFromLocalStorage(key: LocalStorageKeys) {
-  window.localStorage.removeItem(LOCAL_STORAGE_KEYS[key])
-}
+  get(props?: { key?: LocalStorageKeys; defaultValue?: T }) {
+    const key = this.generateKey(props?.key)
+    const result = ls.getItem(KEYS[key]) ?? toString(props?.defaultValue ?? "")
 
-export function getFromLocalStorage<T = any>(
-  key: LocalStorageKeys,
-  defaultValue?: T,
-) {
-  const result =
-    window.localStorage.getItem(LOCAL_STORAGE_KEYS[key]) ??
-    toString(defaultValue ?? "")
-
-  try {
-    return JSON.parse(result) as T
-  } catch (e) {
-    return result as T
+    try {
+      return JSON.parse(result) as T
+    } catch (e) {
+      return result as T
+    }
   }
-}
 
-export function isInLocalStorage(key: LocalStorageKeys): boolean {
-  const token = window.localStorage.getItem(LOCAL_STORAGE_KEYS[key])
+  save(value: T, key?: LocalStorageKeys): void {
+    if (value) {
+      ls.setItem(KEYS[this.generateKey(key)], toString(value))
+    }
+  }
 
-  return Boolean(token)
+  remove(key?: LocalStorageKeys): void {
+    ls.removeItem(KEYS[this.generateKey(key)])
+  }
+
+  exists(key?: LocalStorageKeys): boolean {
+    const token = ls.getItem(KEYS[this.generateKey(key)])
+
+    return Boolean(token)
+  }
 }

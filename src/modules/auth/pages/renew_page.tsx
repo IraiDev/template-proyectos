@@ -1,13 +1,14 @@
 import { Spinner } from "@nextui-org/react"
 import { routes } from "@router/routes"
+import { LocalStorage } from "@utils/local_storage"
 import { Helmet } from "react-helmet"
 import { Navigate } from "react-router-dom"
 import { useRenew } from "../hooks"
-import { getFromLocalStorage } from "@utils/local_storage"
 
 const RenewPage = () => {
   const { isSignIn, hasSession } = useRenew()
-  const currentPath = getFromLocalStorage("LAST_VISITED_URL", routes.private.home)
+  const ls = new LocalStorage<string>("LAST_VISITED_URL")
+  const currentPath = ls.get({ defaultValue: routes.private.home })
 
   if (!hasSession) return <Navigate to={routes.public.login} replace />
 

@@ -1,8 +1,8 @@
-import { isInLocalStorage } from "@utils/index"
+import { LocalStorage } from "@utils/index"
 import { Navigate } from "react-router-dom"
 
 const NotAuthGuard = ({ children }: { children: React.ReactNode }) => {
-  const hasSession = isInLocalStorage("TOKEN_KEY")
+  const hasSession = new LocalStorage("TOKEN_KEY").exists()
 
   if (hasSession) return <Navigate to="/" replace />
 
