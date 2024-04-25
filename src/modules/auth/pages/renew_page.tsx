@@ -5,10 +5,11 @@ import { Helmet } from "react-helmet"
 import { Navigate } from "react-router-dom"
 import { useRenew } from "../hooks"
 
+const path = new LocalStorage<string>("LAST_VISITED_URL")
+
 const RenewPage = () => {
   const { isSignIn, hasSession } = useRenew()
-  const ls = new LocalStorage<string>("LAST_VISITED_URL")
-  const currentPath = ls.get({ defaultValue: routes.private.home })
+  const currentPath = path.get({ defaultValue: routes.private.home })
 
   if (!hasSession) return <Navigate to={routes.public.login} replace />
 

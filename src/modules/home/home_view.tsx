@@ -1,4 +1,7 @@
+import { MyDate } from "@utils/date"
+
 const HomeView = () => {
-  return <div>HomeView</div>
+  const date = new MyDate()
+  return <div>{date.isValid(undefined) ? "SI" : "No"}</div>
 }
 export default HomeView

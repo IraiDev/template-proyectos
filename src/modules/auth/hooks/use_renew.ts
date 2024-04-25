@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom"
 import { AuthRepository } from "../repositories"
 import { authStore } from "../stores"
 
+const token = new LocalStorage("TOKEN_KEY")
+
 export function useRenew() {
   const isSignIn = authStore((state) => state.isSignIn)
   const [setUser, setSignIn] = authStore((state) => [
@@ -13,7 +15,7 @@ export function useRenew() {
     state.setSignIn,
   ])
 
-  const hasSession = useMemo(() => new LocalStorage("TOKEN_KEY").exists(), [])
+  const hasSession = useMemo(() => token.exists(), [])
   const { errorToast } = useToast()
   const navigate = useNavigate()
 

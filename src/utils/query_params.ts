@@ -1,19 +1,13 @@
 import { toString } from "./helpers"
 
-type QueryParamsImplements<T extends object> = {
-  toObject(): T
-  toString(): string
-  getAll(whitDefaultParams?: boolean): URLSearchParams
-}
-
 type Contructor<T extends object> = {
   searchParams?: URLSearchParams
   schema?: T
 }
 
-export class QueryParams<T extends object> implements QueryParamsImplements<T> {
-  private searchParams?: URLSearchParams
-  private schema?: T
+export class QueryParams<T extends object> {
+  private readonly searchParams?: URLSearchParams
+  private readonly schema?: T
 
   constructor(props?: Contructor<T>) {
     this.schema = props?.schema

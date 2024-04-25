@@ -2,22 +2,15 @@ import { LocalStorageKeys } from "@config/types"
 import { toString } from "./helpers"
 import { LOCAL_STORAGE_KEYS as KEYS } from "@config/constants"
 
-type LocalStorageImplements<T = any> = {
-  get(props?: { key?: LocalStorageKeys; defaultValue?: T }): T
-  save(value: T, key?: LocalStorageKeys): void
-  exists(key?: LocalStorageKeys): boolean
-  remove(key?: LocalStorageKeys): void
-}
-
 const ls = window.localStorage
 
-export class LocalStorage<T> implements LocalStorageImplements<T> {
+export class LocalStorage<T> {
   constructor(private readonly defaultkey?: LocalStorageKeys) {}
 
   private generateKey(key?: LocalStorageKeys) {
     const resultKey = key ?? this.defaultkey
 
-    if (key === undefined) {
+    if (resultKey === undefined) {
       throw new Error("undefined key")
     }
 
