@@ -3,6 +3,7 @@ import { FieldEventHandler, InputOnlyNumberEntryType } from "@config/types"
 import { InputProps, Input as NextInput } from "@nextui-org/react"
 import { KeyboardEventHandler } from "react"
 import { Control, Controller, Path } from "react-hook-form"
+import { NEXT_UI_DEFAULT_STYLES_PROPS } from "@config/constants"
 
 type Props<T extends object> = {
   control: Control<T>
@@ -79,11 +80,9 @@ type ExtendsProps = InputProps & FieldProps
 type KeyboardEvent = KeyboardEventHandler<HTMLInputElement>
 
 const defaultProps: InputProps = {
-  size: "sm",
-  radius: "sm",
-  variant: "flat",
   placeholder: " ",
   autoComplete: "off",
+  ...NEXT_UI_DEFAULT_STYLES_PROPS,
 }
 
 function inputOnlyNumber(

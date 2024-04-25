@@ -1,3 +1,5 @@
+import { InputProps } from "@nextui-org/react"
+
 export const {
   VITE_API_BASE_URL: API_BASE_URL = "",
   VITE_TOKEN_KEY: TOKEN_KEY = "",
@@ -24,4 +26,13 @@ export const ICON_SIZE = {
   MD: 18,
   SM: 14,
   XS: 10,
+}
+
+export const NEXT_UI_DEFAULT_STYLES_PROPS: Pick<
+  InputProps,
+  "size" | "radius" | "variant"
+> = {
+  size: "sm",
+  radius: "sm",
+  variant: "flat",
 }
