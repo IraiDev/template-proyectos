@@ -39,15 +39,3 @@ export function genericResponseAdapter(response: any): HttpResponse {
     message: response?.message ?? "Error Generico",
   }
 }
-
-export function searchParamsToObject(searchParams: URLSearchParams) {
-  const obj: any = {}
-
-  for (const [key, value] of searchParams.entries()) {
-    if (obj) {
-      obj[key] = value
-    }
-  }
-
-  return obj
-}
