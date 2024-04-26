@@ -7,7 +7,7 @@ import { AuthRepository } from "../repositories"
 import { authStore } from "../stores"
 import { getErrorMessage } from "@utils/errors"
 
-const authRepository = new AuthRepository()
+const auth = new AuthRepository()
 
 export function useAuth() {
   const [user, isSignIn] = authStore((state) => [state.user, state.isSignIn])
@@ -32,11 +32,7 @@ export function useAuth() {
     try {
       setIsLoadingLogin(true)
 
-      const {
-        isSignIn,
-        redirecUrl,
-        user: logedUser,
-      } = await authRepository.login(values)
+      const { isSignIn, redirecUrl, user: logedUser } = await auth.login(values)
 
       console.log({ isSignIn, redirecUrl, logedUser })
       navigate(redirecUrl, { replace: isSignIn })
@@ -54,7 +50,7 @@ export function useAuth() {
   const handleLogin = handleSubmit(onLogin)
 
   const handleLogout = () => {
-    authRepository.logout()
+    auth.logout()
     setSignIn(false)
     setUser(null)
   }

@@ -7,7 +7,7 @@ import { AuthRepository } from "../repositories"
 import { authStore } from "../stores"
 
 const token = new LocalStorage("TOKEN_KEY")
-const authRepository = new AuthRepository()
+const auth = new AuthRepository()
 
 export function useRenew() {
   const isSignIn = authStore((state) => state.isSignIn)
@@ -25,7 +25,7 @@ export function useRenew() {
 
     const onRenew = async () => {
       try {
-        const { isSignIn, redirecUrl, user } = await authRepository.renew()
+        const { isSignIn, redirecUrl, user } = await auth.renew()
         navigate(redirecUrl, { replace: true })
         setSignIn(isSignIn)
         setUser(user)
