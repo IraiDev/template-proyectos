@@ -10,17 +10,18 @@ type Props<T extends object> = {
   ref: React.RefObject<HTMLInputElement>
 } & ExtendsProps
 
-export function Checkbox<T extends object>({
+const Checkbox = <T extends object>({
   ref,
   name,
   hidden,
   control,
   ...props
-}: Partial<Props<T>>) {
-  const handleChange: FieldEventHandler<HTMLInputElement> = (onChange) => (e) => {
-    onChange?.(e) ?? props.onChange?.(e)
-    props.onSideEffect?.(e.target.checked)
-  }
+}: Partial<Props<T>>) => {
+  const handleChange: FieldEventHandler<HTMLInputElement> =
+    (onChange) => (e) => {
+      onChange?.(e) ?? props.onChange?.(e)
+      props.onSideEffect?.(e.target.checked)
+    }
 
   if (hidden) return null
 
@@ -52,5 +53,7 @@ export function Checkbox<T extends object>({
     />
   )
 }
+
+export default Checkbox
 
 type ExtendsProps = Omit<CheckboxProps, "ref" | "name"> & FieldProps

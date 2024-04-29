@@ -15,7 +15,7 @@ type Props<T extends object> = {
   renderCells(item: T, index: number): JSX.Element
 }
 
-export function VirtualizedTable<T extends object>({
+const VirtualizedTable = <T extends object>({
   isLoading,
   tableHeight,
   renderCells,
@@ -25,13 +25,14 @@ export function VirtualizedTable<T extends object>({
   renderFooter,
   wrapperClassName,
   emptyContent = "No hay datos...",
-}: Props<T>) {
+}: Props<T>) => {
   return (
     <div
       className={twclx(
         "relative !overflow-auto h-auto mx-auto max-w-max",
         wrapperClassName,
-      )}>
+      )}
+    >
       {isLoading && <Loader />}
 
       <TableVirtuoso
@@ -42,7 +43,9 @@ export function VirtualizedTable<T extends object>({
         data={dataset}
         fixedHeaderContent={() => (
           <>
-            {renderFilter !== undefined && <tr className="bg-white">{renderFilter()}</tr>}
+            {renderFilter !== undefined && (
+              <tr className="bg-white">{renderFilter()}</tr>
+            )}
 
             <tr className="bg-default-200">
               {columns.map(({ content, ...column }) => (
@@ -58,6 +61,8 @@ export function VirtualizedTable<T extends object>({
     </div>
   )
 }
+
+export default VirtualizedTable
 
 function EmptyContent({ content }: EmptyContentProps) {
   return (

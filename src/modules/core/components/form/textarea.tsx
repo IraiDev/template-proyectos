@@ -12,17 +12,18 @@ type Props<T extends object> = {
   onChange(e: ChangeEvent<HTMLInputElement>): void
 } & ExtendsProps
 
-export function Textarea<T extends object>({
+const Textarea = <T extends object>({
   ref,
   name,
   hidden,
   control,
   ...props
-}: Partial<Props<T>>) {
-  const handleChange: FieldEventHandler<HTMLInputElement> = (onChange) => (e) => {
-    onChange?.(e) ?? props.onChange?.(e)
-    props.onSideEffect?.(e.target.value)
-  }
+}: Partial<Props<T>>) => {
+  const handleChange: FieldEventHandler<HTMLInputElement> =
+    (onChange) => (e) => {
+      onChange?.(e) ?? props.onChange?.(e)
+      props.onSideEffect?.(e.target.value)
+    }
 
   if (hidden) return null
 
@@ -54,6 +55,8 @@ export function Textarea<T extends object>({
     />
   )
 }
+
+export default Textarea
 
 type ExtendsProps = Omit<TextAreaProps, "onChange"> & FieldProps
 

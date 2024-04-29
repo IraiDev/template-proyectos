@@ -2,7 +2,7 @@ import { twclx } from "@utils/tailwind"
 
 type Props = JSX.IntrinsicElements["a"]
 
-export const Anchor = ({ className, ...props }: Props) => {
+const Anchor = ({ className, ...props }: Props) => {
   return (
     <a
       target="_blank"
@@ -14,3 +14,5 @@ export const Anchor = ({ className, ...props }: Props) => {
     />
   )
 }
+
+export default Anchor

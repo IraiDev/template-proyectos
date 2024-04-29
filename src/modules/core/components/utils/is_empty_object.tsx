@@ -5,8 +5,10 @@ type Props<T extends object> = {
   children(value: T): React.ReactNode
 }
 
-export function IsEmptyObject<T extends object>({ evaluate, children }: Props<T>) {
+const IsEmptyObject = <T extends object>({ evaluate, children }: Props<T>) => {
   if (isEmptyObject(evaluate)) return null
 
   return <>{children(evaluate)}</>
 }
+
+export default IsEmptyObject

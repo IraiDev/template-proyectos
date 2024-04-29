@@ -9,7 +9,7 @@ type Props = {
   to?: To
 } & Omit<ButtonProps, "ref">
 
-export function Button({ ref, className, ...props }: Props) {
+const Button = ({ ref, className, ...props }: Props) => {
   return (
     <NextButton
       ref={ref}
@@ -22,3 +22,5 @@ export function Button({ ref, className, ...props }: Props) {
     />
   )
 }
+
+export default Button

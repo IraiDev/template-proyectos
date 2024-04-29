@@ -8,10 +8,12 @@ type Props = {
   as: HtmlElements
 } & React.HTMLAttributes<HTMLElement>
 
-export function CreateJsxElement({
+const CreateJsxElement = ({
   as = "div",
   children,
   ...props
-}: Partial<Props>) {
+}: Partial<Props>) => {
   return createElement(as, props, children)
 }
+
+export default CreateJsxElement

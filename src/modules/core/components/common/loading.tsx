@@ -4,7 +4,7 @@ type Props = {
   label?: string
 }
 
-export const Loading = ({ label }: Props) => {
+const Loading = ({ label }: Props) => {
   return (
     <div className="flex flex-col gap-2 items-center">
       <Spinner />
@@ -12,3 +12,5 @@ export const Loading = ({ label }: Props) => {
     </div>
   )
 }
+
+export default Loading

@@ -5,7 +5,7 @@ type Props = {
   ref?: React.RefObject<HTMLDivElement>
 } & Omit<PopoverProps, "ref">
 
-export function Popover({ ref, ...props }: Props) {
+const Popover = ({ ref, ...props }: Props) => {
   return (
     <NextPopover
       ref={ref}
@@ -17,3 +17,5 @@ export function Popover({ ref, ...props }: Props) {
     />
   )
 }
+
+export default Popover

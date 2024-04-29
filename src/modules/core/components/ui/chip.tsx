@@ -5,7 +5,7 @@ type Props = {
   ref?: React.RefObject<HTMLDivElement>
 } & Omit<ChipProps, "ref">
 
-export function Chip({ ref, ...props }: Props) {
+const Chip = ({ ref, ...props }: Props) => {
   return (
     <NextChip
       ref={ref}
@@ -18,3 +18,5 @@ export function Chip({ ref, ...props }: Props) {
     />
   )
 }
+
+export default Chip

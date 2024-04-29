@@ -1,9 +1,9 @@
 import { InputType } from "@config/types"
-import { Input } from ".."
 import { twclx } from "@utils/index"
 import { useCallback, useRef } from "react"
 import { useQueryParams } from "@modules/core/hooks"
 import { SEARCH_PARAMS } from "@config/constants"
+import Input from "../form/input"
 
 type Props<T extends string> = {
   name: T
@@ -17,7 +17,7 @@ type Props<T extends string> = {
   sideFilters?: Partial<Record<T, string>>
 }
 
-export function InputFilter<T extends string>({
+const InputFilter = <T extends string>({
   name,
   label,
   autoFocus,
@@ -27,11 +27,13 @@ export function InputFilter<T extends string>({
   filterOnBlur,
   type = "text",
   placeholder = "Filtrar...",
-}: Props<T>) {
+}: Props<T>) => {
   const { queryParams, setQueryParams, watchQueryParam } = useQueryParams()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const onFilter = (e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent) => {
+  const onFilter = (
+    e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent,
+  ) => {
     if (e.key === "Enter") {
       e.preventDefault()
       setFilters()
@@ -92,3 +94,5 @@ export function InputFilter<T extends string>({
     </div>
   )
 }
+
+export default InputFilter

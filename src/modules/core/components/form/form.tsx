@@ -1,5 +1,5 @@
 import { twclx } from "@utils/index"
-import { CreateJsxElement } from "../utils/create_jsx_element"
+import CreateJsxElement from "../utils/create_jsx_element"
 
 interface Props {
   className: string
@@ -11,7 +11,7 @@ interface Props {
   onSubmit(e: React.FormEvent<HTMLFormElement>): void
 }
 
-export function Form({
+const Form = ({
   ref,
   title,
   children,
@@ -19,17 +19,19 @@ export function Form({
   className,
   classNames,
   titleAs = "h2",
-}: Partial<Props>) {
+}: Partial<Props>) => {
   return (
     <form
       ref={ref}
       onSubmit={onSubmit}
-      className={twclx("flex flex-col gap-3 w-full", className)}>
+      className={twclx("flex flex-col gap-3 w-full", className)}
+    >
       {title && (
         <header>
           <CreateJsxElement
             as={titleAs}
-            className={twclx("font-2xl font-bold", classNames?.title)}>
+            className={twclx("font-2xl font-bold", classNames?.title)}
+          >
             {title}
           </CreateJsxElement>
         </header>
@@ -38,3 +40,5 @@ export function Form({
     </form>
   )
 }
+
+export default Form

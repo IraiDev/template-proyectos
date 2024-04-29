@@ -10,7 +10,7 @@ import { twclx } from "@utils/index"
 import { ToastContainer, TypeOptions } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
-export const ToastProvider = () => {
+const ToastProvider = () => {
   return (
     <ToastContainer
       toastClassName={(props) =>
@@ -30,7 +30,9 @@ export const ToastProvider = () => {
   )
 }
 
-export const ToastCloseButton = () => {
+export default ToastProvider
+
+const ToastCloseButton = () => {
   return (
     <button
       className={twclx(

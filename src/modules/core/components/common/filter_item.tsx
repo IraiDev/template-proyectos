@@ -7,10 +7,13 @@ type Props = {
   onClear?(): void
 }
 
-export const FilterItem = ({ content, onClear }: Props) => {
+const FilterItem = ({ content, onClear }: Props) => {
   return (
     <div className="bg-default-200 rounded-md flex items-center gap-1.5 px-2 py-1">
-      <strong className="text-tiny max-w-40 truncate" title={content.toString()}>
+      <strong
+        className="text-tiny max-w-40 truncate"
+        title={content.toString()}
+      >
         {content}
       </strong>
       <button
@@ -31,7 +34,7 @@ type FiltersListProps = {
   title?: string
 }
 
-export const FiltersList = ({
+const FiltersList = ({
   onClear,
   elements,
   title = "Filtros:",
@@ -47,7 +50,11 @@ export const FiltersList = ({
         className="max-w-[calc(100vw-200px)] flex gap-1.5"
       >
         {elements.map(({ key, name, value }) => (
-          <FilterItem key={key} onClear={() => onClear(key)} content={`${name}: ${value}`} />
+          <FilterItem
+            key={key}
+            onClear={() => onClear(key)}
+            content={`${name}: ${value}`}
+          />
         ))}
       </ScrollShadow>
       {elements.length === 0 && (
@@ -56,3 +63,5 @@ export const FiltersList = ({
     </section>
   )
 }
+
+export default FiltersList

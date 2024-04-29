@@ -1,5 +1,5 @@
 import { ICON_SIZE } from "@config/constants"
-import { Button } from "@modules/core/components"
+import Button from "@modules/core/components/ui/button"
 import { alertStore } from "@modules/core/stores"
 import { IconLogout } from "@tabler/icons-react"
 
@@ -30,7 +30,8 @@ export const Logout = ({ onLogout }: Props) => {
         color="default"
         onClick={handleLogout}
         className="justify-start"
-        startContent={<IconLogout size={ICON_SIZE.DEFAULT} />}>
+        startContent={<IconLogout size={ICON_SIZE.DEFAULT} />}
+      >
         Salir
       </Button>
     </>

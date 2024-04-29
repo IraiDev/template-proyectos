@@ -7,7 +7,7 @@ type Props = {
   children(props: { type: "password" | "text"; Toggler: ReactNode }): ReactNode
 }
 
-export function PasswordToggler({ children }: Props) {
+const PasswordToggler = ({ children }: Props) => {
   const [show, handleToggle] = useToggle()
 
   return (
@@ -21,10 +21,16 @@ export function PasswordToggler({ children }: Props) {
             onClick={handleToggle}
             className="text-default-500 !outline-none hover:text-primary transition-colors"
           >
-            {show ? <IconEyeOff size={ICON_SIZE.LG} /> : <IconEye size={ICON_SIZE.LG} />}
+            {show ? (
+              <IconEyeOff size={ICON_SIZE.LG} />
+            ) : (
+              <IconEye size={ICON_SIZE.LG} />
+            )}
           </button>
         ),
       })}
     </>
   )
 }
+
+export default PasswordToggler

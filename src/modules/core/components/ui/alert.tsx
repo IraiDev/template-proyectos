@@ -1,11 +1,11 @@
 import { alertStore } from "@modules/core/stores"
-import { Modal } from "./modal"
 import { ModalBody, ModalFooter } from "@nextui-org/react"
-import { Button } from "./button"
+import Modal from "./modal"
+import Button from "./button"
 
-export const Alert = () => {
-  const { title, isOpen, hideActions, children, confirm, cancel, size } = alertStore(
-    (s) => ({
+const Alert = () => {
+  const { title, isOpen, hideActions, children, confirm, cancel, size } =
+    alertStore((s) => ({
       size: s.size,
       title: s.title,
       isOpen: s.isOpen,
@@ -13,8 +13,7 @@ export const Alert = () => {
       children: s.children,
       confirm: s.confirm,
       cancel: s.cancel,
-    }),
-  )
+    }))
   const [onConfirm, onCancel] = alertStore((s) => [s.onConfirm, s.onCancel])
 
   return (
@@ -28,7 +27,8 @@ export const Alert = () => {
           body: "p-2 pt-1",
           header: "pt-2 px-3 pb-0 !text-lg",
           footer: "p-2",
-        }}>
+        }}
+      >
         <ModalBody>{children}</ModalBody>
         {!hideActions && (
           <ModalFooter>
@@ -48,3 +48,5 @@ export const Alert = () => {
     </>
   )
 }
+
+export default Alert

@@ -11,7 +11,7 @@ type Props = {
   classNames?: { label?: string; value?: string }
 }
 
-export function TextItem({
+const TextItem = ({
   label,
   value,
   tooltip,
@@ -19,10 +19,12 @@ export function TextItem({
   classNames,
   size = "sm",
   defaultValue = "sin dato...",
-}: Props) {
+}: Props) => {
   return (
     <p className={twclx("whitespace-pre-wrap w-full", sizes[size], className)}>
-      <strong className={twclx("font-semibold mr-1.5", classNames?.label)}>{label}:</strong>
+      <strong className={twclx("font-semibold mr-1.5", classNames?.label)}>
+        {label}:
+      </strong>
       <span
         title={tooltip}
         data-has-value={Boolean(value)}
@@ -36,6 +38,8 @@ export function TextItem({
     </p>
   )
 }
+
+export default TextItem
 
 const sizes: Record<Size, string> = {
   lg: "text-lg",

@@ -16,7 +16,7 @@ type Props<T extends object> = {
   renderCells?(item: T, index: number): JSX.Element
 }
 
-export function Table<T extends object>({
+const Table = <T extends object>({
   isLoading,
   className,
   dataset = [],
@@ -27,13 +27,14 @@ export function Table<T extends object>({
   wrapperClassName,
   alignEmptyContent = "left",
   emptyContent = "No hay datos...",
-}: Props<T>) {
+}: Props<T>) => {
   return (
     <div
       className={twclx(
         "relative w-full overflow-auto h-auto min-h-unit-20",
         wrapperClassName,
-      )}>
+      )}
+    >
       {isLoading && <Loader />}
 
       <table className={twclx("min-w-full w-full", className)}>
@@ -67,7 +68,13 @@ export function Table<T extends object>({
   )
 }
 
-export const TableColumn = ({ width, children, ...props }: TableColumnProps) => {
+export default Table
+
+export const TableColumn = ({
+  width,
+  children,
+  ...props
+}: TableColumnProps) => {
   return (
     <th
       {...props}
@@ -75,7 +82,8 @@ export const TableColumn = ({ width, children, ...props }: TableColumnProps) => 
       className={twclx(
         "capitalize whitespace-nowrap font-bold text-tiny",
         "outline-none group p-2 first:rounded-l-lg last:rounded-r-lg",
-      )}>
+      )}
+    >
       {children}
     </th>
   )
@@ -96,7 +104,8 @@ export const TableCell = ({
         "p-2 whitespace-normal text-small border-b border-default-300",
         clickeable && "cursor-pointer",
         className,
-      )}>
+      )}
+    >
       {children}
     </td>
   )
@@ -109,7 +118,8 @@ export const Loader = () => {
         "w-12 h-12 grid place-content-center p-2 rounded-full",
         "absolute top-1/2 left-1/2 -translate-x-1/2 z-50",
         "bg-white border border-default-300 shadow-lg",
-      )}>
+      )}
+    >
       <Spinner />
     </div>
   )

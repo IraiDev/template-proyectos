@@ -14,7 +14,7 @@ type Props<T extends object> = {
   ref: React.RefObject<HTMLInputElement>
 } & ExtendsProps
 
-export function Input<T extends object>({
+const Input = <T extends object>({
   ref,
   name,
   hidden,
@@ -25,7 +25,7 @@ export function Input<T extends object>({
   onSideEffect,
   isPreventDefaultEnter,
   ...props
-}: Partial<Props<T>>) {
+}: Partial<Props<T>>) => {
   const handleKeyDown: KeyboardEvent = (e) => {
     if (isPreventDefaultEnter && e.key === "Enter") {
       e.preventDefault()
@@ -36,10 +36,11 @@ export function Input<T extends object>({
     props.onKeyDown?.(e)
   }
 
-  const handleChange: FieldEventHandler<HTMLInputElement> = (onChange) => (e) => {
-    onChange?.(e) ?? props.onChange?.(e)
-    onSideEffect?.(e.target.value)
-  }
+  const handleChange: FieldEventHandler<HTMLInputElement> =
+    (onChange) => (e) => {
+      onChange?.(e) ?? props.onChange?.(e)
+      onSideEffect?.(e.target.value)
+    }
 
   if (hidden) return null
 
@@ -77,6 +78,8 @@ export function Input<T extends object>({
   )
 }
 
+export default Input
+
 type ExtendsProps = InputProps & FieldProps
 type KeyboardEvent = KeyboardEventHandler<HTMLInputElement>
 
@@ -93,7 +96,8 @@ function inputOnlyNumber(
   const char = e.key
 
   const value: string = (e.target as HTMLInputElement).value
-  const cursorPosition: number = (e.target as HTMLInputElement).selectionStart || 0
+  const cursorPosition: number =
+    (e.target as HTMLInputElement).selectionStart || 0
 
   if (entryType === "positive" && char === "-") {
     e.preventDefault()

@@ -20,7 +20,7 @@ type Props<T extends object> = {
   ref: React.RefObject<HTMLSelectElement>
 } & ExtendsProps
 
-export function Select<T extends object>({
+const Select = <T extends object>({
   ref,
   name,
   hidden,
@@ -31,11 +31,12 @@ export function Select<T extends object>({
   defaultValue = "",
   itemClassNames = {},
   ...props
-}: Partial<Props<T>>) {
-  const handleChange: FieldEventHandler<HTMLSelectElement> = (onChange) => (e) => {
-    onChange?.(e) ?? props.onChange?.(e)
-    props.onSideEffect?.(e.target.value)
-  }
+}: Partial<Props<T>>) => {
+  const handleChange: FieldEventHandler<HTMLSelectElement> =
+    (onChange) => (e) => {
+      onChange?.(e) ?? props.onChange?.(e)
+      props.onSideEffect?.(e.target.value)
+    }
 
   const defaultProps = useCallback(
     (currentValue: string) => ({
@@ -72,7 +73,8 @@ export function Select<T extends object>({
             {...props}
             {...field}
             onChange={handleChange(onChange)}
-            errorMessage={fieldState.error?.message}>
+            errorMessage={fieldState.error?.message}
+          >
             {options.map((option) => (
               <SelectItem {...optionsDefaultProps(option)}>
                 {option.label}
@@ -91,13 +93,16 @@ export function Select<T extends object>({
       {...defaultProps(value)}
       {...props}
       name={name}
-      onChange={handleChange()}>
+      onChange={handleChange()}
+    >
       {options.map((option) => (
         <SelectItem {...optionsDefaultProps(option)}>{option.label}</SelectItem>
       ))}
     </NextSelect>
   )
 }
+
+export default Select
 
 type ExtendsProps = Omit<SelectProps, OmitedProps> & FieldProps
 type OmitedProps =
