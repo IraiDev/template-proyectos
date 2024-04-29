@@ -13,6 +13,7 @@ export default defineConfig({
   plugins: [million.vite({ auto: true }), react()],
   build: {
     outDir: OUTDIR,
+    chunkSizeWarningLimit: 1500,
   },
   resolve: {
     alias: {
