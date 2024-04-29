@@ -1,9 +1,9 @@
 import { InputType } from "@config/types"
-import { twclx } from "@utils/index"
+import { twclx } from "@utils/tailwind"
 import { useCallback, useRef } from "react"
-import { useQueryParams } from "@modules/core/hooks"
 import { SEARCH_PARAMS } from "@config/constants"
 import Input from "../form/input"
+import { useQueryParams } from "@modules/core/hooks/use_query_params"
 
 type Props<T extends string> = {
   name: T

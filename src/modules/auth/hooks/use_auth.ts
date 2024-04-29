@@ -1,11 +1,12 @@
-import { useFields, useToast } from "@modules/core/hooks"
 import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { AuthPayload, authSchema } from "../models"
-import { AuthRepository } from "../repositories"
-import { authStore } from "../stores"
+import { AuthRepository } from "../repositories/auth_repository"
+import { authStore } from "../stores/auth_store"
 import { getErrorMessage } from "@utils/errors"
+import { useToast } from "@modules/core/hooks/use_toast"
+import { useFields } from "@modules/core/hooks/use_fields"
+import { AuthPayload, authSchema } from "../models/auth"
 
 const auth = new AuthRepository()
 

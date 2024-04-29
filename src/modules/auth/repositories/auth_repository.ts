@@ -1,7 +1,8 @@
 import { routes } from "@router/routes"
 import { sleep } from "@utils/helpers"
 import { LocalStorage } from "@utils/local_storage"
-import { AuthPayload, UserModel } from "../models"
+import { UserModel } from "../models/user"
+import { AuthPayload } from "../models/auth"
 
 type AuthResponse = Promise<{
   user: UserModel | null

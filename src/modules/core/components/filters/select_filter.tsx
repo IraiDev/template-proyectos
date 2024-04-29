@@ -1,7 +1,7 @@
-import { twclx } from "@utils/index"
+import { twclx } from "@utils/tailwind"
 import { ChangeEvent } from "react"
 import { Option } from "@config/interfaces"
-import { useQueryParams } from "@modules/core/hooks"
+import { useQueryParams } from "@modules/core/hooks/use_query_params"
 import { SEARCH_PARAMS } from "@config/constants"
 import Select from "../form/select"
 

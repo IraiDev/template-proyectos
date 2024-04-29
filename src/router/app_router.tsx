@@ -5,10 +5,12 @@ import NotAuthGuard from "./guards/not_auth_guard"
 import AuthGuard from "./guards/auth_guard"
 import LoginPage from "@modules/auth/pages/login_page"
 import RenewPage from "@modules/auth/pages/renew_page"
+import AppLayout from "@modules/core/layouts/app_layout"
 
 export const AppRouter = createBrowserRouter([
   {
     path: "/",
+    element: <AppLayout />,
     children: [
       {
         index: true,

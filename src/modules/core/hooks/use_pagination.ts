@@ -1,6 +1,6 @@
 import { SEARCH_PARAMS } from "@config/constants"
-import { useQueryParams } from "."
 import { useCallback } from "react"
+import { useQueryParams } from "./use_query_params"
 
 const { LIMIT, PAGE } = SEARCH_PARAMS
 
@@ -15,10 +15,14 @@ export function usePagination({
   onChangePage,
   defaultLimit = +LIMIT.DEFAULT_VALUE,
 }: Props) {
-  const { setQueryParams, watchQueryParam } = useQueryParams<"pagina" | "limite">()
+  const { setQueryParams, watchQueryParam } = useQueryParams<
+    "pagina" | "limite"
+  >()
 
   const page = +watchQueryParam("pagina", PAGE.DEFAULT_VALUE)
-  const totalPages = Math.ceil((total || 1) / +watchQueryParam("limite", defaultLimit))
+  const totalPages = Math.ceil(
+    (total || 1) / +watchQueryParam("limite", defaultLimit),
+  )
 
   const handleChangePage = useCallback(
     (value: number) => {

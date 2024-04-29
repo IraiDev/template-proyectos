@@ -3,7 +3,7 @@ import { ERROR_MESSAGE } from "@config/messages"
 const { UNEXPECTED_ERROR, SERVER_ERROR } = ERROR_MESSAGE
 
 export function logError(error: unknown, where: string) {
-  console.error(`ERROR EN ${where.toLocaleUpperCase()} (CATCH): `, error)
+  console.error(`ERROR EN ARCHIVO: ${where.toLocaleUpperCase()}:\n `, error)
 }
 
 export function getErrorMessage(error: unknown) {
@@ -16,18 +16,15 @@ export function getErrorMessage(error: unknown) {
   return message ?? UNEXPECTED_ERROR
 }
 
-export function apiErrorHandler(status: number, message: string) {
+export function apiErrorHandler(
+  status: number,
+  message: string | null | undefined,
+) {
   if (status >= 500) {
-    throw new MyError(message || SERVER_ERROR)
+    throw new Error(message || SERVER_ERROR)
   }
 
   if (status < 200 || status > 299) {
-    throw new MyError(message || UNEXPECTED_ERROR)
-  }
-}
-
-export class MyError extends Error {
-  constructor(public message: string) {
-    super(message)
+    throw new Error(message || UNEXPECTED_ERROR)
   }
 }

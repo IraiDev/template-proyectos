@@ -1,4 +1,4 @@
-import { alertStore } from "@modules/core/stores"
+import { alertStore } from "@modules/core/stores/alert_store"
 import { ModalBody, ModalFooter } from "@nextui-org/react"
 import Modal from "./modal"
 import Button from "./button"

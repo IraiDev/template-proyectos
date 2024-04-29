@@ -3,7 +3,7 @@ import { routes } from "@router/routes"
 import { LocalStorage } from "@utils/local_storage"
 import { Helmet } from "react-helmet"
 import { Navigate } from "react-router-dom"
-import { useRenew } from "../hooks"
+import { useRenew } from "../hooks/use_renew"
 
 const path = new LocalStorage<string>("LAST_VISITED_URL")
 

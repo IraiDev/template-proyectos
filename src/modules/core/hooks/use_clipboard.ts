@@ -1,4 +1,4 @@
-import { useToast } from "."
+import { useToast } from "./use_toast"
 
 export function useClipboard() {
   const { infoToast, warningToast } = useToast()

@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { UserModel } from "../models"
+import { UserModel } from "../models/user"
 
 type State = {
   user: UserModel | null

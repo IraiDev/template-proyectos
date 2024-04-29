@@ -1,4 +1,4 @@
-import { useAuth } from "@modules/auth/hooks"
+import { useAuth } from "@modules/auth/hooks/use_auth"
 import { LocalStorage } from "@utils/local_storage"
 import { Navigate } from "react-router-dom"
 

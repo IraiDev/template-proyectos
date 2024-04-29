@@ -1,6 +1,6 @@
 import { ICON_SIZE } from "@config/constants"
 import Button from "@modules/core/components/ui/button"
-import { alertStore } from "@modules/core/stores"
+import { alertStore } from "@modules/core/stores/alert_store"
 import { IconLogout } from "@tabler/icons-react"
 
 type Props = {

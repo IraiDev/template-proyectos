@@ -1,7 +1,7 @@
 import { TableColumn as TableColumnType } from "@config/interfaces"
 import { Align, Valign } from "@config/types"
 import { Spinner } from "@nextui-org/react"
-import { twclx } from "@utils/index"
+import { twclx } from "@utils/tailwind"
 
 type Props<T extends object> = {
   dataset: T[]

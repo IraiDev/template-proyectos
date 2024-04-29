@@ -1,5 +1,5 @@
 import Form from "@modules/core/components/form/form"
-import { useAuth } from "../hooks"
+import { useAuth } from "../hooks/use_auth"
 import AuthLayout from "../layouts/auth_layout"
 import Input from "@modules/core/components/form/input"
 import PasswordToggler from "@modules/core/components/ui/password_toggler"
