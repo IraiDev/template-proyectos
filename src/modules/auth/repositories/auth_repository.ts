@@ -1,6 +1,6 @@
 import { routes } from "@router/routes"
-import { sleep } from "@utils/helpers"
-import { LocalStorage } from "@utils/local_storage"
+import { sleep } from "src/helpers/helpers"
+import { LocalStorage } from "src/helpers/local_storage"
 import { UserModel } from "../models/user"
 import { AuthPayload } from "../models/auth"
 
@@ -19,6 +19,10 @@ interface Repository {
 const token = new LocalStorage("TOKEN_KEY")
 
 export class AuthRepository implements Repository {
+  hasSession() {
+    return token.exists()
+  }
+
   async login(payload: AuthPayload): AuthResponse {
     await sleep(0.5)
     console.log({ payload })

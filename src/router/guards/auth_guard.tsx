@@ -1,5 +1,5 @@
 import { useAuth } from "@modules/auth/hooks/use_auth"
-import { LocalStorage } from "@utils/local_storage"
+import { LocalStorage } from "src/helpers/local_storage"
 import { Navigate } from "react-router-dom"
 
 const path = new LocalStorage("LAST_VISITED_URL")

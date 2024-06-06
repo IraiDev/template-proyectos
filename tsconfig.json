@@ -19,7 +19,7 @@
       "@components/*": ["src/components/*"],
       "@config/*": ["src/config/*"],
       "@router/*": ["src/router/*"],
-      "@utils/*": ["src/utils/*"],
+      "@utils/*": ["src/helpers/*"],
       "@mocks/*": ["src/mocks/*"]
     },
 

@@ -33,7 +33,7 @@ export class MyDate {
     }
   }
 
-  format(props?: FormatDate) {
+  parse(props?: FormatDate) {
     if (props === undefined) {
       return dayjs(this.init).format(DATE_FORMATS.amd)
     }
@@ -64,7 +64,7 @@ export class MyDate {
     this.invalidDateError(value, compare)
 
     return dayjs(
-      this.format({ date: value ?? this.init, format: "amdh" }),
+      this.parse({ date: value ?? this.init, format: "amdh" }),
     ).isAfter(compare)
   }
 
@@ -72,12 +72,12 @@ export class MyDate {
     this.invalidDateError(value, compare)
 
     return dayjs(
-      this.format({ date: value ?? this.init, format: "amdh" }),
+      this.parse({ date: value ?? this.init, format: "amdh" }),
     ).isBefore(compare)
   }
 
   now(format?: DateFormats) {
-    return this.format({ format })
+    return this.parse({ format })
   }
 
   asDate(date: string) {

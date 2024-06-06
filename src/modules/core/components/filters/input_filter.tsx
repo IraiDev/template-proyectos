@@ -1,5 +1,5 @@
 import { InputType } from "@config/types"
-import { twclx } from "@utils/tailwind"
+import { twclx } from "src/helpers/tailwind"
 import { useCallback, useRef } from "react"
 import { SEARCH_PARAMS } from "@config/constants"
 import Input from "../form/input"

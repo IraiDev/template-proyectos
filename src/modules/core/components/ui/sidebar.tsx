@@ -1,4 +1,4 @@
-import { twclx } from "@utils/tailwind"
+import { twclx } from "src/helpers/tailwind"
 import { ReactNode } from "react"
 
 type Props = {

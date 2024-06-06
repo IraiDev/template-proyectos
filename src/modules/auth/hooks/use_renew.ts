@@ -1,13 +1,11 @@
+import { useToast } from "@modules/core/hooks/use_toast"
 import { routes } from "@router/routes"
-import { useEffect, useMemo } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { getErrorMessage } from "src/helpers/errors"
 import { AuthRepository } from "../repositories/auth_repository"
 import { authStore } from "../stores/auth_store"
-import { useToast } from "@modules/core/hooks/use_toast"
-import { LocalStorage } from "@utils/local_storage"
-import { getErrorMessage } from "@utils/errors"
 
-const token = new LocalStorage("TOKEN_KEY")
 const auth = new AuthRepository()
 
 export function useRenew() {
@@ -17,7 +15,7 @@ export function useRenew() {
     state.setSignIn,
   ])
 
-  const hasSession = useMemo(() => token.exists(), [])
+  const hasSession = auth.hasSession()
   const { errorToast } = useToast()
   const navigate = useNavigate()
 

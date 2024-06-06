@@ -1,23 +1,27 @@
+import { useFields } from "@modules/core/hooks/use_fields"
+import { useToast } from "@modules/core/hooks/use_toast"
 import { useState } from "react"
 import { SubmitHandler } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { AuthRepository } from "../repositories/auth_repository"
-import { authStore } from "../stores/auth_store"
-import { getErrorMessage } from "@utils/errors"
-import { useToast } from "@modules/core/hooks/use_toast"
-import { useFields } from "@modules/core/hooks/use_fields"
+import { getErrorMessage } from "src/helpers/errors"
+import { create } from "zustand"
 import { AuthPayload, authSchema } from "../models/auth"
+import { AuthActionStore, AuthStateStore } from "../models/auth_store"
+import { AuthRepository } from "../repositories/auth_repository"
 
 const auth = new AuthRepository()
 
 export function useAuth() {
-  const [user, isSignIn] = authStore((state) => [state.user, state.isSignIn])
+  const [user, isAuthenticated] = authStore((state) => [
+    state.user,
+    state.isAuthenticated,
+  ])
   const [setUser, setSignIn] = authStore((state) => [
     state.setUser,
     state.setSignIn,
   ])
 
-  const [isLoginLoading, setIsLoadingLogin] = useState(false)
+  const [isSigningIn, setIsSigningIn] = useState(false)
   const { errorToast } = useToast()
   const navigate = useNavigate()
 
@@ -29,13 +33,12 @@ export function useAuth() {
     },
   })
 
-  const onLogin: SubmitHandler<AuthPayload> = async (values) => {
+  const onSignIn: SubmitHandler<AuthPayload> = async (values) => {
     try {
-      setIsLoadingLogin(true)
+      setIsSigningIn(true)
 
       const { isSignIn, redirecUrl, user: logedUser } = await auth.login(values)
 
-      console.log({ isSignIn, redirecUrl, logedUser })
       navigate(redirecUrl, { replace: isSignIn })
       setSignIn(isSignIn)
       setUser(logedUser)
@@ -44,11 +47,11 @@ export function useAuth() {
       const errorMessage = getErrorMessage(e)
       errorToast(errorMessage)
     } finally {
-      setIsLoadingLogin(false)
+      setIsSigningIn(false)
     }
   }
 
-  const handleLogin = handleSubmit(onLogin)
+  const handleLogin = handleSubmit(onSignIn)
 
   const handleLogout = () => {
     auth.logout()
@@ -59,9 +62,16 @@ export function useAuth() {
   return {
     user,
     field,
-    isSignIn,
     handleLogin,
+    isSigningIn,
     handleLogout,
-    isLoginLoading,
+    isAuthenticated,
   }
 }
+
+const authStore = create<AuthStateStore & AuthActionStore>((set) => ({
+  isAuthenticated: false,
+  user: null,
+  setSignIn: (value) => set({ isAuthenticated: value }),
+  setUser: (user) => set({ user }),
+}))

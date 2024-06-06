@@ -1,5 +1,5 @@
 import { ButtonProps, Button as NextButton } from "@nextui-org/react"
-import { twclx } from "@utils/tailwind"
+import { twclx } from "src/helpers/tailwind"
 import React from "react"
 import { To } from "react-router-dom"
 

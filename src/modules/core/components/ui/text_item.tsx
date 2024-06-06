@@ -1,5 +1,5 @@
 import { Size } from "@config/types"
-import { twclx } from "@utils/tailwind"
+import { twclx } from "src/helpers/tailwind"
 
 type Props = {
   size?: Size

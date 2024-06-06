@@ -1,4 +1,4 @@
-import { isEmptyObject } from "@utils/helpers"
+import { isEmptyObject } from "src/helpers/helpers"
 
 type Props<T extends object> = {
   evaluate: T
