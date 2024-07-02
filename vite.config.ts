@@ -6,7 +6,7 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-const OUTDIR = process.env.VITE_OUTDIR ?? "../../front-end/output"
+const OUTDIR = process.env.VITE_OUTDIR || "../../front-end/output"
 
 // https://vitejs.dev/config/
 export default defineConfig({
