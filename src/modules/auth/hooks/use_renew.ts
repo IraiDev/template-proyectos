@@ -2,7 +2,7 @@ import { useToast } from "@modules/core/hooks/use_toast"
 import { routes } from "@router/routes"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { getErrorMessage } from "src/helpers/errors"
+import { getErrorMessage } from "@helpers/errors"
 import { AuthRepository } from "../repositories/auth_repository"
 import { authStore } from "../stores/auth_store"
 

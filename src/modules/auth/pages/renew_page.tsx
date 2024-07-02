@@ -1,6 +1,6 @@
 import { Spinner } from "@nextui-org/react"
 import { routes } from "@router/routes"
-import { LocalStorage } from "src/helpers/local_storage"
+import { LocalStorage } from "@helpers/local_storage"
 import { Helmet } from "react-helmet"
 import { Navigate } from "react-router-dom"
 import { useRenew } from "../hooks/use_renew"

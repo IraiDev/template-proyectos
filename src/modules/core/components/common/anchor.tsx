@@ -1,4 +1,4 @@
-import { twclx } from "src/helpers/tailwind"
+import { twclx } from "@helpers/tailwind"
 
 type Props = JSX.IntrinsicElements["a"]
 

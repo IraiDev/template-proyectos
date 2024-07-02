@@ -1,6 +1,6 @@
 import { routes } from "@router/routes"
-import { sleep } from "src/helpers/helpers"
-import { LocalStorage } from "src/helpers/local_storage"
+import { sleep } from "@helpers/helpers"
+import { LocalStorage } from "@helpers/local_storage"
 import { UserModel } from "../models/user"
 import { AuthPayload } from "../models/auth"
 

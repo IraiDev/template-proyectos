@@ -1,5 +1,5 @@
 import { TableColumn as TableColumnType } from "@config/interfaces"
-import { twclx } from "src/helpers/tailwind"
+import { twclx } from "@helpers/tailwind"
 import { TableVirtuoso } from "react-virtuoso"
 import { Loader, TableColumn } from "./table"
 

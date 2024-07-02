@@ -1,5 +1,5 @@
 import { HtmlElements } from "@config/types"
-import { twclx } from "src/helpers/tailwind"
+import { twclx } from "@helpers/tailwind"
 import CreateJsxElement from "../utils/create_jsx_element"
 
 type Props = {

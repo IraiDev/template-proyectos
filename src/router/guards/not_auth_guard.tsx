@@ -1,4 +1,4 @@
-import { LocalStorage } from "src/helpers/local_storage"
+import { LocalStorage } from "@helpers/local_storage"
 import { Navigate } from "react-router-dom"
 
 const token = new LocalStorage("TOKEN_KEY")

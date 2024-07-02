@@ -21,7 +21,7 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "src/components"),
       "@config": path.resolve(__dirname, "src/config"),
       "@router": path.resolve(__dirname, "src/router"),
-      "@utils": path.resolve(__dirname, "src/utils"),
+      "@helpers": path.resolve(__dirname, "src/helpers"),
       "@mocks": path.resolve(__dirname, "src/mocks"),
     },
   },

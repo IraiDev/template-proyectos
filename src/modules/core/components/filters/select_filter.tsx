@@ -1,4 +1,4 @@
-import { twclx } from "src/helpers/tailwind"
+import { twclx } from "@helpers/tailwind"
 import { ChangeEvent } from "react"
 import { Option } from "@config/interfaces"
 import { useQueryParams } from "@modules/core/hooks/use_query_params"
